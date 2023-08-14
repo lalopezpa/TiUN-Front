@@ -1,0 +1,45 @@
+// context/ProductContext.tsx
+import React, { createContext, useContext, useState } from 'react';
+
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  // Add more product-related properties if needed
+}
+
+interface ProductContextType {
+  products: Product[];
+  addToCart: (product: Product) => void;
+}
+
+const ProductContext = createContext<ProductContextType | undefined>(undefined);
+
+export const useProduct = () => {
+  const context = useContext(ProductContext);
+  if (!context) {
+    throw new Error('useProduct must be used within a ProductProvider');
+  }
+  return context;
+};
+
+interface ProductProviderProps {
+  children: React.ReactNode; // Properly type the children prop
+}
+
+export const ProductProvider: React.FC<ProductProviderProps> = ({ children }) => {
+  const [products, setProducts] = useState<Product[]>([]);
+
+  // You can fetch and set the products here
+
+  const addToCart = (product: Product) => {
+    // Implement logic to add product to cart
+  };
+
+  const contextValue: ProductContextType = {
+    products,
+    addToCart,
+  };
+
+  return <ProductContext.Provider value={contextValue}>{children}</ProductContext.Provider>;
+};
