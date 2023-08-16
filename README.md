@@ -1,27 +1,29 @@
-# React + TypeScript + Vite
+# TiUN Ecommerce - Front-End
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+¡Bienvenido al repositorio del Front-End para la aplicación web de Tienda Universitaria (TiUN)!
 
-Currently, two official plugins are available:
+## Tecnologías Utilizadas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Vite
+- React
+- Tailwind CSS
+- TypeScript
 
-## Expanding the ESLint configuration
+## Descripción
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Este repositorio contiene el código fuente y los recursos para la interfaz de usuario de la aplicación web de Tienda Universitaria. Utilizamos Vite como herramienta de desarrollo rápida y React como librería de componentes. Además, Tailwind CSS nos ayuda a estilizar la aplicación de manera eficiente. TypeScript se utiliza para agregar tipado estático y mejorar la calidad del código.
 
-- Configure the top-level `parserOptions` property like this:
+## Instrucciones de Desarrollo
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+1. Clona este repositorio en tu máquina local.
+2. Instala las dependencias utilizando el comando: `npm install`.
+3. Inicia el servidor de desarrollo con: `npm run dev`.
+4. Abre tu navegador en [http://localhost:3000](http://localhost:3000) para ver la aplicación en acción.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Licencia
+
+Este proyecto está bajo la Licencia [MIT](LICENSE).
+
+---
+
+© Tienda Universitaria (TiUN) | Equipo de Desarrollo de Front-End
