@@ -4,14 +4,14 @@
 
 ## Tecnologías Utilizadas
 
-- Vite
-- React
-- Tailwind CSS
-- TypeScript
+- [Vite](https://vitejs.dev/)
+- [React](https://react.dev/learn)
+- [Tailwind CSS](https://tailwindcss.com/docs)
+- [TypeScript](https://www.typescriptlang.org/docs/)
 
 ## Descripción
 
-Este repositorio contiene el código fuente y los recursos para la interfaz de usuario de la aplicación web de Tienda Universitaria. Utilizamos Vite como herramienta de desarrollo rápida y React como librería de componentes. Además, Tailwind CSS nos ayuda a estilizar la aplicación de manera eficiente. TypeScript se utiliza para agregar tipado estático y mejorar la calidad del código.
+Este repositorio contiene el código fuente y los recursos para la interfaz de usuario de la aplicación web de Tienda Universitaria. Utilizamos Vite para un desarrollo rápido, React como librería de componentes, Tailwind CSS para un estilizado eficiente y TypeScript para tipado estático que mejora la calidad del código.
 
 ## Instrucciones de Desarrollo
 
@@ -22,7 +22,7 @@ Este repositorio contiene el código fuente y los recursos para la interfaz de u
 
 ## Licencia
 
-Este proyecto está bajo la Licencia [MIT](LICENSE).
+Este proyecto está bajo la [Licencia MIT](LICENSE).
 
 ---
 
