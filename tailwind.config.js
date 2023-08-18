@@ -14,6 +14,10 @@ export default {
 				gris: '#58595B',
 				amarillo: '#F3A434',
 			},
+			fontFamily: {
+				poppins: ['Poppins', 'sans-serif'],
+				urbanist: ['Urbanist', 'sans-serif'],
+			},
 		},
 	},
 	plugins: [],
