@@ -7,6 +7,7 @@ import Cart from './pages/cart';
 import Login from './pages/Auth/login';
 import Register from './pages/Auth/register';
 import ForgotPassword from './pages/Auth/forgotPassword';
+import Payment from './pages/payment';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/payment" element={<Payment />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
         </Routes> {/* Cambiar 'Switch' por 'Routes' */}
         {/* Common footer or navigation component can go here */}
