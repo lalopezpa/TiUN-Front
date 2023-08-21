@@ -21,8 +21,4 @@ export default {
 		},
 	},
 	plugins: [],
-<<<<<<< HEAD
 };
-=======
-};
->>>>>>> origin/Cami
