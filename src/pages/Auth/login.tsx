@@ -23,15 +23,13 @@ const Login = () => {
 				<div className='w-1/2 p-10 bg-verdeClaro flex flex-col justify-center items-center'>
 					<h2 className='text-5xl mb-4 font-poppins font-bold text-white'>INICIO DE SESIÓN</h2>
 					<form onSubmit={handleLogin} className='w-full text-xl flex flex-col justify-center items-center'>
-						<div>
-							<label className='font-poppins  text-white'>Correo/Usuario</label>
-							<input type='email' value={email} onChange={e => {
+						<div className='relative'>
+							<input className= 'w-full m-1 p-4 bg-white bg-opacity-20 rounded-lg placeholder-white placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro' placeholder='Correo/Usuario' value={email} onChange={e => {
 								setEmail(e.target.value);
 							}} />
 						</div>
-						<div>
-							<label className='font-poppins  text-white'>Contraseña</label>
-							<input type='password' value={password} onChange={e => {
+						<div className='relative'>
+							<input className= 'w-full m-1 p-4 bg-white bg-opacity-20 rounded-lg placeholder-white placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro' placeholder='Contraseña' type='password' value={password} onChange={e => {
 								setPassword(e.target.value);
 							}} />
 						</div>
