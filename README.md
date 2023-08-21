@@ -26,4 +26,8 @@ Este proyecto está bajo la [Licencia MIT](LICENSE).
 
 ---
 
+<<<<<<< HEAD
 © Tienda Universitaria (TiUN) | Equipo de Desarrollo de Front-End
+=======
+© Tienda Universitaria (TiUN) | Equipo de Desarrollo de Front-End
+>>>>>>> origin/Cami

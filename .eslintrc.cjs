@@ -60,4 +60,8 @@ module.exports = {
 		'no-sequences': 'warn', // Asegurarse de que no se use , expresiones de secuencia
 		'no-unmodified-loop-condition': 'warn', // Asegurarse de que no se use un bucle infinito
 	},
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> origin/Cami

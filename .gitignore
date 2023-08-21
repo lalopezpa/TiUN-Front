@@ -131,4 +131,8 @@ node_modules
 /out
 .eslintcache
 .build
+<<<<<<< HEAD
 .next
+=======
+.next
+>>>>>>> origin/Cami
