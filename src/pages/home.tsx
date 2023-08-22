@@ -2,6 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Carrusel from '../components/common/Carrusel';
+import Header from '../components/common/Header';
 
 const Container = styled.div`
   display: flex;
@@ -17,10 +18,12 @@ const Title = styled.h1`
 `;
 
 const Home: React.FC = () => (
-	<Container>
-		<Title>Welcome to My E-Commerce Store</Title>
-		<Carrusel /> {/* Display your carousel component */}
-	</Container>
+	<><Header />
+		<Container>
+			<Title>Welcome to TiUN</Title>
+			<Carrusel /> {/* Display your carousel component */}
+		</Container>
+	</>
 );
 
 export default Home;
