@@ -8,14 +8,14 @@ import Login from './pages/Auth/login';
 import Register from './pages/Auth/register';
 import ForgotPassword from './pages/Auth/forgotPassword';
 import Payment from './pages/payment';
+import Header from './components/common/Header';
 
 function App() {
 	return (
 		<Router>
 			<div>
 				{/* Common header or navigation component can go here */}
-				<Routes> {/* Cambiar 'Switch' por 'Routes' */}
-					{/* Route definitions */}
+				<Routes>
 					<Route path='/' element={<Home />} />
 					<Route path='/product/:productId' element={<ProductDetail />} />
 					<Route path='/cart' element={<Cart />} />
@@ -23,7 +23,7 @@ function App() {
 					<Route path='/register' element={<Register />} />
 					<Route path='/payment' element={<Payment />} />
 					<Route path='/forgot-password' element={<ForgotPassword />} />
-				</Routes> {/* Cambiar 'Switch' por 'Routes' */}
+				</Routes>
 				{/* Common footer or navigation component can go here */}
 			</div>
 		</Router>
