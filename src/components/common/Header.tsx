@@ -1,5 +1,6 @@
 /* eslint-disable no-warning-comments */
 import React, {useState} from 'react';
+import logoMini from '../../assets/logomini.png';
 
 const Header = () => {
 	// TODO Para implementar
@@ -57,8 +58,8 @@ const Header = () => {
 				<button className=''>
 				Carrito
 				</button>
-				<button className=''>
-					<div><img alt='Logo' />
+				<button className='' >
+					<div><img src= {logoMini} alt='Logo' className='w-28' />
 					</div>
 				</button>
 			</div>
