@@ -4,16 +4,48 @@ import {Link} from 'react-router-dom';
 import fondo from '../../assets/fondo.jpg';
 import logo from '../../assets/Logotipo..png';
 import {useForm} from 'react-hook-form';
-import axios from 'axios'; // Importa la librería axios
+import axios from 'axios';
 import Cookies from 'js-cookie';
+import bcrypt from 'bcryptjs';
+type ApiResponse = {
+	accessToken: string;
+	refreshToken: string;
+};
+type RequestData = {
+	correo: string;
+	contraseña: string;
+};
 
-const Login = () => {
+const Login = (): JSX.Element => {
 	const	{register, handleSubmit, formState: {errors}, watch} = useForm();
 
-	const onSubmit = (data: any) => {
-		// Acá va el método post para enviar los datos al backend
-		// eslint-disable-next-line no-console
-		console.log(data);
+	const onSubmit = async (data: RequestData) => {
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+		const hashedPassword: string = await bcrypt.hash(data.contraseña, 10);
+		console.log(data.contraseña);
+		console.log(data.correo);
+		console.log(hashedPassword);
+		const requestData: RequestData = {
+			correo: data.correo,
+			contraseña: hashedPassword,
+		};
+		// 1console.log(requestData);
+
+		try {
+			// Realiza una solicitud POST a la API con los datos del formulario
+			const response = await axios.post<ApiResponse>('URL_DE_TU_API', requestData);
+			// Maneja la respuesta si es necesario
+			// console.log(response.data);
+			// Guarda los tokens en las cookies
+			Cookies.set('accessToken', response.data.accessToken);
+			Cookies.set('refreshToken', response.data.refreshToken);
+
+			// Redirige al usuario al home
+			window.location.href = '/Home';
+		} catch (error) {
+			// Maneja los errores si ocurren
+			// console.error('Error al enviar los datos:', error);
+		}
 	};
 
 	return (
