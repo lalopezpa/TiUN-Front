@@ -5,6 +5,7 @@ import fondo from '../../assets/fondo.jpg';
 import logo from '../../assets/Logotipo..png';
 import {useForm} from 'react-hook-form';
 import axios from 'axios'; // Importa la librería axios
+import Cookies from 'js-cookie';
 
 const Login = () => {
 	const	{register, handleSubmit, formState: {errors}, watch} = useForm();
