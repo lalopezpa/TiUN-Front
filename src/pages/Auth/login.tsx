@@ -32,12 +32,12 @@ const Login = () => {
 						<h2 className='text-5xl mb-4 font-poppins font-bold text-white'>INICIO DE SESIÓN</h2>
 						<form onSubmit={handleLogin} className='w-full text-xl flex flex-col justify-center items-center'>
 							<div className='relative'>
-								<input className='w-full m-1 p-4 bg-white bg-opacity-20 rounded-lg placeholder-white placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro' placeholder='Correo/Usuario' value={email} onChange={e => {
+								<input className='w-[27rem] m-1 p-4 bg-white bg-opacity-20 rounded-lg placeholder-white placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro' placeholder='Correo/Usuario' value={email} onChange={e => {
 									setEmail(e.target.value);
 								} } />
 							</div>
 							<div className='relative'>
-								<input className='w-full m-1 p-4 bg-white bg-opacity-20 rounded-lg placeholder-white placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro' placeholder='Contraseña' type='password' value={password} onChange={e => {
+								<input className='w-[27rem] m-1 p-4 bg-white bg-opacity-20 rounded-lg placeholder-white placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro' placeholder='Contraseña' type='password' value={password} onChange={e => {
 									setPassword(e.target.value);
 								} } />
 							</div>
