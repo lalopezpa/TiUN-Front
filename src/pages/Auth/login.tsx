@@ -18,7 +18,7 @@ const Login = () => {
 			<div className='bg-white'>
 				<div className='flex h-screen bg-verdeClaro bg-opacity-75'>
 					{/* División izquierda */}
-					<div className='w-1/2 flex flex-col justify-center items-center max-h-min overflow-hidden min-h-max relative hidden md:flex'>
+					<div className='w-1/2 flex flex-col justify-center items-center  overflow-hidden min-h-max relative hidden md:flex sm:w-100%'>
 						<div className='w-full h-full absolute top-0 left-0 z-10'>
 							<img src={fondo} alt='fondobolsas' className='w-full h-full opacity-5 bg-cover' />
 						</div>
