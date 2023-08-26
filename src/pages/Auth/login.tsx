@@ -80,6 +80,7 @@ const Login = (): JSX.Element => {
 							<button type='submit' className='mt-4 bg-vinotinto text-white text-bold px-4 py-2 rounded border-solid hover:brightness-75 border-gris'>
 								INGRESA
 							</button>
+							{/* La etiqueta pre es únicamente para visualizar al captura de datos, debe eliminarse antes de la primera versión de muestra */}
 							<pre>
 								{JSON.stringify(watch(), null, 2)}
 							</pre>
