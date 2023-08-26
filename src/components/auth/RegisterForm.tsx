@@ -41,7 +41,7 @@ const RegisterForm: React.FC = () => {
 					setConfirmPassword(e.target.value);
 				}}
 			/>
-			<button type='submit'>Register</button>
+			<button type='submit'>Registrar</button>
 		</form>
 	);
 };

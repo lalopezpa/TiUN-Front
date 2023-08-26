@@ -8,8 +8,9 @@ export default {
 	theme: {
 		extend: {
 			colors: {
-				verdeClaro: '#6FA655',
+				verdeClaro: '#85CF62',
 				verdeOscuro: '#063500',
+				verdeSeccionLogin: '#658854',
 				vinotinto: '#A30D24',
 				gris: '#58595B',
 				amarillo: '#F3A434',
