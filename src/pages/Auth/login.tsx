@@ -6,6 +6,7 @@ import logo from '../../assets/Logotipo..png';
 import {useForm} from 'react-hook-form';
 import axios from 'axios'; // Importa la librería axios
 import Cookies from 'js-cookie';
+import Footer from '../../components/common/Footer';
 
 const Login = () => {
 	const	{register, handleSubmit, formState: {errors}, watch} = useForm();
@@ -64,9 +65,13 @@ const Login = () => {
 							<p className='font-poppins text-xl text-white'>
 								<button>Google</button>
 							</p>
+							<div >
+								<Footer></Footer>
+							</div>
 						</div>
 					</div>
 				</div>
+
 			</div>
 		</>
 	);
