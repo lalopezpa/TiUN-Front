@@ -1,25 +1,25 @@
 // Footer.tsx
 import React from 'react';
-import {GithubIcon, InstagramIcon, FacebookIcon} from '../icons/icons';
+import {GithubIconB, InstagramIconB, FacebookIconB} from '../icons/icons';
 
 const Footer = () => (
-	<footer className='bg-black bg-opacity-70 text-white py-5 flex items-center justify-end '>
-		<div className='flex items-center'>
-			<button className='mr-2'>
-				<GithubIcon />
-			</button>
-			<button className='mr-2'>
-				<FacebookIcon />
-			</button>
-			<button className='mr-2'>
-				<InstagramIcon />
-			</button>
+	<footer className='bg-black bg-opacity-60 text-white py-5 sm:flex-row flex items-center justify-end fixed bottom-0 w-full '>
+		<section className='flex items-center'>
+			<a className='mr-2'>
+				<GithubIconB />
+			</a>
+			<a className='mr-2'>
+				<FacebookIconB />
+			</a>
+			<a className='mr-2'>
+				<InstagramIconB />
+			</a>
 			<div className='border-r-2 border-amarillo h-9 mr-2'></div> {/* Línea vertical */}
-			<div className='mr-2'>
+			<section className='mr-2'>
 				<p className='text-white'>Términos y condiciones</p>
 				<p className='text-white'>TiUN® 2023-2023 Todos los derechos reservados</p>
-			</div>
-		</div>
+			</section>
+		</section>
 	</footer>
 );
 
