@@ -4,7 +4,7 @@ import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'; // Camb
 import Home from './pages/home';
 import ProductDetail from './pages/productDetail';
 import Cart from './pages/cart';
-import Login from './pages/Auth/login';
+// Import Login from './pages/Auth/login';
 import Register from './pages/Auth/register';
 import ForgotPassword from './pages/Auth/forgotPassword';
 import Payment from './pages/payment';
@@ -18,7 +18,7 @@ function App(): JSX.Element {
 					{/* Rutas generales */}
 					<Route path='/' element={<Home />} />
 					<Route path='/Home' element={<Home />} />
-					<Route path='/Login' element={<Login />} />
+					{/* <Route path='/Login' element={<Login />} /> */}
 					<Route path='/SignUp' element={<Register />} />
 					<Route path='/RecoverPassword' element={<ForgotPassword />} />
 
