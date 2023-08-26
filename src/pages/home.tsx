@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Carrusel from '../components/common/Carrusel';
 import Header from '../components/common/Header';
+import Footer from '../components/common/Footer';
 
 const Container = styled.div`
   display: flex;
@@ -23,6 +24,7 @@ const Home: React.FC = () => (
 			<Title>Welcome to TiUN</Title>
 			<Carrusel /> {/* Display your carousel component */}
 		</Container>
+		<Footer/>
 	</>
 );
 
