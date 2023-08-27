@@ -51,21 +51,21 @@ const Header = () => {
 			</div>
 			<section className='flex items-center space-x-5 text-verdeOscuro'>
 				<a href='Favorites'>
-					<button className=''>
+					<button >
 						<FavoritesIcon/>
 					</button>
 				</a>
 				<a href='Profile'>
-					<button className=''>
+					<button >
 						<UserIcon/>
 					</button>
 				</a>
 				<a href='Cart'>
-					<button className=''>
+					<button >
 						<ShoppingCartIcon/>
 					</button>
 				</a>
-				<button className='' >
+				<button >
 					<div><img src= {logoMini} alt='Logo' className='w-28' />
 					</div>
 				</button>
