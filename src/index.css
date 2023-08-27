@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* Configuración global */
+html {
+  font-size: 16px; /* Tamaño base de fuente */
+}
+
+body {
+  background-color: #f8f8f8; /* Cambia por el color de fondo deseado */
+}
+
+/* Asegura que todos los elementos utilicen el box-sizing border-box */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Ajustes de los elementos principales */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: bold;
+}
+
+a {
+  text-decoration: none;
+
+}
+
+/* Añade más estilos según tus necesidades */
