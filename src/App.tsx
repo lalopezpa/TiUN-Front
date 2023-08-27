@@ -8,6 +8,8 @@ import Cart from './pages/cart';
 import Register from './pages/Auth/register';
 import ForgotPassword from './pages/Auth/forgotPassword';
 import Payment from './pages/payment';
+import Favorites from './pages/favorites';
+import ProfilePage from './pages/profilePage';
 
 function App(): JSX.Element {
 	return (
@@ -21,22 +23,18 @@ function App(): JSX.Element {
 					{/* <Route path='/Login' element={<Login />} /> */}
 					<Route path='/SignUp' element={<Register />} />
 					<Route path='/RecoverPassword' element={<ForgotPassword />} />
-
+					<Route path='/Favorites' element={<Favorites />} />
 					{/* Rutas de productos */}
 					<Route path='/product/:productId' element={<ProductDetail />} />
-
+					<Route path='/Profile' element ={<ProfilePage/>} />
 					{/* Rutas protegidas DESPUES */}
 					<Route path='/Cart' element={<Cart />} />
 					<Route path='/payment' element={<Payment />} />
 
 					{/* <Route element={<PrivateRoutesShopper/>}>
 						<Route path="/DashShopper" element ={<DashboardShopper/>} />
-						<Route path='/Profile' element ={<ProfilePage/>} />
-						<Route path='/WishList' element ={<WishListPage/>} />
 						<Route path='/MyPurchases' element ={<MyPurchasesPage/>} />
 						<Route path='/PaymentMethods' element ={<PaymentMethodsPage/>} />
-						<Route path='/Addresses' element ={<AddressesPage/>} />
-						<Route path='/Notification' element ={<NotificationPage/>} />
 						<Route path='/Checkout' element ={<CheckoutPage/>} />
 						<Route path="/SellerProducts" element ={<SellerProductsPage/>} />
             <Route path="/Sales" element ={<SalesPage/>} />
