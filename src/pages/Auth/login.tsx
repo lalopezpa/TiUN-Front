@@ -6,7 +6,7 @@ import logo from '../../assets/Logotipo..png';
 import {useForm} from 'react-hook-form';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import Footer from '../../components/common/Footer';
+import FooterLogin from '../../components/common/FooterLogin';
 import bcrypt from 'bcryptjs';
 type ApiResponse = {
 	accessToken: string;
@@ -21,7 +21,6 @@ const Login = (): JSX.Element => {
 	const	{register, handleSubmit, formState: {errors}, watch} = useForm();
 
 	const onSubmit = async (data: RequestData) => {
-		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
 		const hashedPassword: string = await bcrypt.hash(data.contraseña, 10);
 		console.log(data.contraseña);
 		console.log(data.correo);
@@ -98,7 +97,7 @@ const Login = (): JSX.Element => {
 						</p>
 					</div>
 					<div className=''>
-						<Footer/>
+						<FooterLogin/>
 					</div>
 				</section>{/* fin de la sección derecha */}
 			</main>
