@@ -9,29 +9,31 @@ import Register from './pages/Auth/register';
 import ForgotPassword from './pages/Auth/forgotPassword';
 import Payment from './pages/payment';
 import {DarkModeProvider} from './context/DarkModeContext';
+import {AuthProvider} from './context/authContext';
 
 function App(): JSX.Element {
 	return (
-		<DarkModeProvider>
-			<Router>
-				<div>
-					{/* Common header or navigation component can go here */}
-					<Routes>
-						{/* Rutas generales */}
-						<Route path='/' element={<Home />} />
-						<Route path='/Home' element={<Home />} />
-						<Route path='/Login' element={<Login />} />
-						<Route path='/SignUp' element={<Register />} />
-						<Route path='/RecoverPassword' element={<ForgotPassword />} />
+		<AuthProvider>
+			<DarkModeProvider>
+				<Router>
+					<div>
+						{/* Common header or navigation component can go here */}
+						<Routes>
+							{/* Rutas generales */}
+							<Route path='/' element={<Home />} />
+							<Route path='/Home' element={<Home />} />
+							<Route path='/Login' element={<Login />} />
+							<Route path='/SignUp' element={<Register />} />
+							<Route path='/RecoverPassword' element={<ForgotPassword />} />
 
-						{/* Rutas de productos */}
-						<Route path='/product/:productId' element={<ProductDetail />} />
+							{/* Rutas de productos */}
+							<Route path='/product/:productId' element={<ProductDetail />} />
 
-						{/* Rutas protegidas DESPUES */}
-						<Route path='/Cart' element={<Cart />} />
-						<Route path='/payment' element={<Payment />} />
+							{/* Rutas protegidas DESPUES */}
+							<Route path='/Cart' element={<Cart />} />
+							<Route path='/payment' element={<Payment />} />
 
-						{/* <Route element={<PrivateRoutesShopper/>}>
+							{/* <Route element={<PrivateRoutesShopper/>}>
 						<Route path="/DashShopper" element ={<DashboardShopper/>} />
 						<Route path='/Profile' element ={<ProfilePage/>} />
 						<Route path='/WishList' element ={<WishListPage/>} />
@@ -45,11 +47,12 @@ function App(): JSX.Element {
             <Route path="/Payments" element ={<PaymentsPage/>} />
 					</Route> */}
 
-					</Routes>
-					{/* Common footer or navigation component can go here */}
-				</div>
-			</Router>
-		</DarkModeProvider>
+						</Routes>
+						{/* Common footer or navigation component can go here */}
+					</div>
+				</Router>
+			</DarkModeProvider>
+		</AuthProvider>
 	);
 }
 

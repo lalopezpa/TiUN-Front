@@ -4,44 +4,23 @@ import {Link} from 'react-router-dom';
 import fondo from '../../assets/fondo.jpg';
 import logo from '../../assets/Logotipo..png';
 import {useForm} from 'react-hook-form';
-import axios from 'axios';
-import Cookies from 'js-cookie';
-import FooterLogin from '../../components/common/FooterLogin';
-import bcrypt from 'bcryptjs';
-import type ApiResponse from '../../types/ApiResponse';
 import type RequestData from '../../types/RequestData';
+import FooterLogin from '../../components/common/FooterLogin';
 import DarkModeToggle from '../../components/common/DarkModeToggle';
 import useDarkMode from '../../hooks/useDarkMode';
+import {useAuth} from '../../context/authContext';
+// Import axios from 'axios';
+// import Cookies from 'js-cookie';
+// import bcrypt from 'bcryptjs';
+// import type ApiResponse from '../../types/ApiResponse';
 const Login = (): JSX.Element => {
 	const	{register, handleSubmit, formState: {errors}, watch} = useForm();
 	const {modoOscuro, toggleModoOscuro} = useDarkMode();
+	const {login} = useAuth();
 
 	const onSubmit = async (data: RequestData) => {
-		const hashedPassword: string = await bcrypt.hash(data.contraseña, 10);
-		console.log(data.contraseña);
-		console.log(data.correo);
-		console.log(hashedPassword);
-		const requestData: RequestData = {
-			correo: data.correo,
-			contraseña: hashedPassword,
-		};
-		// 1console.log(requestData);
-
-		try {
-			// Realiza una solicitud POST a la API con los datos del formulario
-			const response = await axios.post<ApiResponse>('URL_DE_TU_API', requestData);
-			// Maneja la respuesta si es necesario
-			// console.log(response.data);
-			// Guarda los tokens en las cookies
-			Cookies.set('accessToken', response.data.accessToken);
-			Cookies.set('refreshToken', response.data.refreshToken);
-
-			// Redirige al usuario al home
-			window.location.href = '/Home';
-		} catch (error) {
-			// Maneja los errores si ocurren
-			// console.error('Error al enviar los datos:', error);
-		}
+		login(data);
+		console.log(data);
 	};
 
 	return (
