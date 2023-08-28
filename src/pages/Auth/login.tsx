@@ -17,6 +17,7 @@ const Login = (): JSX.Element => {
 	const	{register, handleSubmit, formState: {errors}, watch} = useForm();
 	const {modoOscuro, toggleModoOscuro} = useDarkMode();
 	const {login} = useAuth();
+	console.log(modoOscuro);
 
 	const onSubmit = async (data: RequestData) => {
 		login(data);

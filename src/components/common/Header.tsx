@@ -4,9 +4,10 @@ import logoMini from '../../assets/logomini.png';
 import {ShoppingCartIcon, UserIcon, FavoritesIcon} from '../icons/icons';
 import DarkModeToggle from './DarkModeToggle';
 import useDarkMode from '../../hooks/useDarkMode';
-
+import {Link} from 'react-router-dom';
 const Header = () => {
 	const {modoOscuro, toggleModoOscuro} = useDarkMode();
+	console.log(modoOscuro);
 	// TODO Para implementar
 	// const [selectedCategory, setSelectedCategory] = useState('');
 	// const [searchQuery, setSearchQuery] = useState('');
@@ -50,27 +51,12 @@ const Header = () => {
 					</form>
 				</div>
 			</div>
-			<section className='flex items-center space-x-5 text-verdeOscuro'>
-				<a href='Favorites'>
-					<button >
-						<FavoritesIcon/>
-					</button>
-				</a>
-				<a href='Profile'>
-					<button >
-						<UserIcon/>
-					</button>
-				</a>
-				<a href='Cart'>
-					<button >
-						<ShoppingCartIcon/>
-					</button>
-				</a>
-				<button >
-					<div><img src= {logoMini} alt='Logo' className='w-28' />
-					</div>
-				</button>
-			</section>
+			<nav className='flex items-center space-x-5 text-verdeOscuro'>
+				<Link to='/Favorites'>	<FavoritesIcon/></Link>
+				<Link to='/Profile'><UserIcon/> </Link>
+				<Link to='/Cart'><ShoppingCartIcon/> </Link>
+				<Link to='/home'><img src= {logoMini} alt='Logo' className='w-28' /> </Link>
+			</nav>
 		</header>
 	);
 };

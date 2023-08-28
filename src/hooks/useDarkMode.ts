@@ -1,14 +1,12 @@
 import {useState, useEffect} from 'react';
 
 const useDarkMode = () => {
-	const [modoOscuro, setModoOscuro] = useState(false);
+	// Obtén el valor almacenado en el localStorage
+	const storedMode = localStorage.getItem('modoOscuro');
+	const [modoOscuro, setModoOscuro] = useState(storedMode ? JSON.parse(storedMode) : false);
 
 	useEffect(() => {
-		const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-		setModoOscuro(prefersDark);
-	}, []);
-
-	useEffect(() => {
+		// Agrega o elimina la clase 'dark' del body según el modo oscuro
 		if (modoOscuro) {
 			document.body.classList.add('dark');
 		} else {
@@ -17,7 +15,11 @@ const useDarkMode = () => {
 	}, [modoOscuro]);
 
 	const toggleModoOscuro = () => {
-		setModoOscuro(!modoOscuro);
+		const newModoOscuro = !modoOscuro;
+		setModoOscuro(newModoOscuro);
+
+		// Actualiza el valor en el localStorage
+		localStorage.setItem('modoOscuro', JSON.stringify(newModoOscuro));
 	};
 
 	return {modoOscuro, toggleModoOscuro};
