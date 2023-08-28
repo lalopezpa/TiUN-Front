@@ -25,9 +25,9 @@ const Login = (): JSX.Element => {
 
 	return (
 		<>
-			<header className='fixed top-0 left-0 w-full p-4 bg-transparent'>
+			<header className='fixed top-0 left-0 w-full p-4 bg-transparent z-50'>
 				<div className='flex justify-between'>
-					<Link to='/Home' className='text-white '>Inicio</Link>
+					<Link to='/home' className='text-white  '>Inicio</Link>
 					<DarkModeToggle modoOscuro={modoOscuro} toggleModoOscuro={toggleModoOscuro} />
 				</div>
 			</header>

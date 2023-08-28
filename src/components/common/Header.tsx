@@ -2,8 +2,11 @@
 import React, {useState} from 'react';
 import logoMini from '../../assets/logomini.png';
 import {ShoppingCartIcon, UserIcon, FavoritesIcon} from '../icons/icons';
+import DarkModeToggle from './DarkModeToggle';
+import useDarkMode from '../../hooks/useDarkMode';
 
 const Header = () => {
+	const {modoOscuro, toggleModoOscuro} = useDarkMode();
 	// TODO Para implementar
 	// const [selectedCategory, setSelectedCategory] = useState('');
 	// const [searchQuery, setSearchQuery] = useState('');
@@ -22,11 +25,9 @@ const Header = () => {
 	};
 
 	return (
-		<header className=' fixed top-0 left-0 right-0 flex justify-between items-center p-4 bg-verdeClaro text-poppins '>
+		<header className=' fixed top-0 left-0 right-0 flex justify-between items-center p-4 bg-verdeClaro text-poppins dark:bg-verdeOscuro'>
 			<div className='flex items-center space-x-4'>
-				<button className='mr-5 text-verdeOscuro '>
-				Modo Oscuro
-				</button>
+				<DarkModeToggle modoOscuro={modoOscuro} toggleModoOscuro={toggleModoOscuro} />
 				<div className='flex-grow-0 bg-white p-2 rounded-lg shadow-md  text-verdeOscuro '>
 					<form className='flex items-center space-x-5 '>
 						<select className='bg-white rounded-lg' // TODO por implementar
