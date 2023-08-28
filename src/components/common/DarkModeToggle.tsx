@@ -1,5 +1,5 @@
 import React from 'react';
-import {GithubIcon, InstagramIcon} from '../icons/icons';
+import {DarkModeIcon, LightModeIcon} from '../icons/icons';
 
 type DarkModeToggleProps = {
 	modoOscuro: boolean;
@@ -9,7 +9,7 @@ type DarkModeToggleProps = {
 const DarkModeToggle: React.FC<DarkModeToggleProps> = ({modoOscuro, toggleModoOscuro}) => (
 	<div className='flex items-center'>
 		<span className='mr-2'>
-			{modoOscuro ? <GithubIcon /> : <InstagramIcon />}
+			{modoOscuro ? <DarkModeIcon /> : <LightModeIcon />}
 		</span>
 		<label
 			id='switch'
