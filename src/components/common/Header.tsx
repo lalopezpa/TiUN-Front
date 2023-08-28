@@ -1,6 +1,7 @@
 /* eslint-disable no-warning-comments */
 import React, {useState} from 'react';
 import logoMini from '../../assets/logomini.png';
+import {ShoppingCartIcon, UserIcon, FavoritesIcon} from '../icons/icons';
 
 const Header = () => {
 	// TODO Para implementar
@@ -48,21 +49,27 @@ const Header = () => {
 					</form>
 				</div>
 			</div>
-			<div className='flex items-center space-x-5 text-verdeOscuro'>
-				<button className=''>
-				Favoritos
-				</button>
-				<button className=''>
-				Usuario
-				</button>
-				<button className=''>
-				Carrito
-				</button>
-				<button className='' >
+			<section className='flex items-center space-x-5 text-verdeOscuro'>
+				<a href='Favorites'>
+					<button >
+						<FavoritesIcon/>
+					</button>
+				</a>
+				<a href='Profile'>
+					<button >
+						<UserIcon/>
+					</button>
+				</a>
+				<a href='Cart'>
+					<button >
+						<ShoppingCartIcon/>
+					</button>
+				</a>
+				<button >
 					<div><img src= {logoMini} alt='Logo' className='w-28' />
 					</div>
 				</button>
-			</div>
+			</section>
 		</header>
 	);
 };
