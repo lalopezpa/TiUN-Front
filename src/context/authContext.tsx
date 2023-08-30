@@ -14,10 +14,15 @@ export const useAuth = () => {
 
 export const AuthProvider = ({children}) => {
 	const [user, setUser] = useState(null);
+
 	const login = async (user: any) => {
-		const res = await loginRequest(user);
-		console.log(res);
-		setUser(res.user);
+		try {
+			const res = await loginRequest(user);
+			console.log(res);
+			setUser(res.user);
+		} catch (error) {
+			console.error('NO ESTA REGISTRADO:', error);
+		}
 	};
 
 	return (

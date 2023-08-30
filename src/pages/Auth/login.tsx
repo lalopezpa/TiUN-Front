@@ -9,10 +9,7 @@ import FooterLogin from '../../components/common/FooterLogin';
 import DarkModeToggle from '../../components/common/DarkModeToggle';
 import useDarkMode from '../../hooks/useDarkMode';
 import {useAuth} from '../../context/authContext';
-// Import axios from 'axios';
-// import Cookies from 'js-cookie';
-// import bcrypt from 'bcryptjs';
-// import type ApiResponse from '../../types/ApiResponse';
+
 const Login = (): JSX.Element => {
 	const	{register, handleSubmit, formState: {errors}, watch} = useForm();
 	const {modoOscuro, toggleModoOscuro} = useDarkMode();
@@ -22,6 +19,7 @@ const Login = (): JSX.Element => {
 	const onSubmit = async (data: RequestData) => {
 		login(data);
 		console.log(data);
+		console.log(errors);
 	};
 
 	return (
