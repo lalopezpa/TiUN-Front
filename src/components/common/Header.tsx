@@ -2,8 +2,12 @@
 import React, {useState} from 'react';
 import logoMini from '../../assets/logomini.png';
 import {ShoppingCartIcon, UserIcon, FavoritesIcon} from '../icons/icons';
-
+import DarkModeToggle from './DarkModeToggle';
+import useDarkMode from '../../hooks/useDarkMode';
+import {Link} from 'react-router-dom';
 const Header = () => {
+	const {modoOscuro, toggleModoOscuro} = useDarkMode();
+	console.log(modoOscuro);
 	// TODO Para implementar
 	// const [selectedCategory, setSelectedCategory] = useState('');
 	// const [searchQuery, setSearchQuery] = useState('');
@@ -22,11 +26,9 @@ const Header = () => {
 	};
 
 	return (
-		<header className=' fixed top-0 left-0 right-0 flex justify-between items-center p-4 bg-verdeClaro text-poppins '>
+		<header className=' fixed top-0 left-0 right-0 flex justify-between items-center p-4 bg-verdeClaro text-poppins dark:bg-verdeOscuro'>
 			<div className='flex items-center space-x-4'>
-				<button className='mr-5 text-verdeOscuro '>
-				Modo Oscuro
-				</button>
+				<DarkModeToggle modoOscuro={modoOscuro} toggleModoOscuro={toggleModoOscuro} />
 				<div className='flex-grow-0 bg-white p-2 rounded-lg shadow-md  text-verdeOscuro '>
 					<form className='flex items-center space-x-5 '>
 						<select className='bg-white rounded-lg' // TODO por implementar
@@ -49,27 +51,12 @@ const Header = () => {
 					</form>
 				</div>
 			</div>
-			<section className='flex items-center space-x-5 text-verdeOscuro'>
-				<a href='Favorites'>
-					<button >
-						<FavoritesIcon/>
-					</button>
-				</a>
-				<a href='Profile'>
-					<button >
-						<UserIcon/>
-					</button>
-				</a>
-				<a href='Cart'>
-					<button >
-						<ShoppingCartIcon/>
-					</button>
-				</a>
-				<button >
-					<div><img src= {logoMini} alt='Logo' className='w-28' />
-					</div>
-				</button>
-			</section>
+			<nav className='flex items-center space-x-5 text-verdeOscuro'>
+				<Link to='/Favorites'>	<FavoritesIcon/></Link>
+				<Link to='/Profile'><UserIcon/> </Link>
+				<Link to='/Cart'><ShoppingCartIcon/> </Link>
+				<Link to='/home'><img src= {logoMini} alt='Logo' className='w-28' /> </Link>
+			</nav>
 		</header>
 	);
 };
