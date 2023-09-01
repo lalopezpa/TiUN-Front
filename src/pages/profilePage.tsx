@@ -18,7 +18,7 @@ margin-bottom: 1rem;
 const ProfilePage: React.FC = () => (
 	<><Header />
 		<Container>
-			<Title>Favorites</Title>
+			<Title>Profile</Title>
 		</Container>
 		<Footer/>
 	</>
