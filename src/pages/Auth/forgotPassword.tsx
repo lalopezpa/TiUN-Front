@@ -6,18 +6,16 @@ import {useForm} from 'react-hook-form';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import Footer from '../../components/common/Footer';
-import bcrypt from 'bcryptjs';
+
 
 
 
 
 type ApiResponse = {
 	accessToken: string;
-	refreshToken: string;
 };
 type RequestData = {
 	correo: string;
-	contraseña: string;
 };
 
 const forgotPassword = (): JSX.Element => {
@@ -26,13 +24,8 @@ const forgotPassword = (): JSX.Element => {
 
 	const onSubmit = async (data: RequestData) => {
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
-		const hashedPassword: string = await bcrypt.hash(data.contraseña, 10);
-		console.log(data.contraseña);
-		console.log(data.correo);
-		console.log(hashedPassword);
 		const requestData: RequestData = {
 			correo: data.correo,
-			contraseña: hashedPassword,
 		};
 		// 1console.log(requestData);
 
@@ -43,7 +36,6 @@ const forgotPassword = (): JSX.Element => {
 			// console.log(response.data);
 			// Guarda los tokens en las cookies
 			Cookies.set('accessToken', response.data.accessToken);
-			Cookies.set('refreshToken', response.data.refreshToken);
 
 			// Redirige al usuario al home
 			window.location.href = '/Home';
@@ -76,18 +68,27 @@ const forgotPassword = (): JSX.Element => {
 
 
 					<div className="flex justify-center items-center h-screen w-full h-full absolute top-0 left-0 z-30 ">
-						<div className="bg-gray p-8">
+						<div className="bg-gray p-8 rouded-full">
 							<h2 className='text-4xl mb-4 font-poppins font-bold text-white'>RECUPERAR LA CONTRASEÑA</h2>
 							<div className='bg-gray-300 p-8 rounded-lg shadow-md '>	
-								<form onSubmit={handleSubmit(onSubmit)} className='w-full text-xl flex flex-col justify-center items-center'>
-									<label className='flex flex-col text-black font-nunito text-xl ' htmlFor='correo'> Ingresa tu correo electronico para buscar tu cuenta
-										<input id='correo'{...register('correo', {required: true})}
-											className='w-[20rem] m-1 p-4 bg-white bg-opacity-20 rounded-lg placeholder-white placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro hover:bg-opacity-30 lg:w-[27rem]' placeholder='ejemplo@unal.edu.co' type='email' />
-										
-									</label>
-									<button type='submit' className='mt-4 bg-green-300 text-white text-bold px-4 py-2 rounded border-solid hover:brightness-125 border-gris'>
-											Buscar
-									</button>
+								<form onSubmit={handleSubmit(onSubmit)} className='w-full text-xl flex flex-col '>
+									<div className='flex justify-center items-center'>
+										<label className='flex flex-col text-black font-italic text-xl ' htmlFor='correo'> Ingresa tu correo electronico para buscar tu cuenta
+											<input id='correo'{...register('correo', {required: true})}
+												className='w-[20rem] m-1 p-4 bg-verdeSeccionLogin text-white  rounded-full placeholder-white placeholder-opacity-70  hover:bg-black placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro hover:bg-opacity-30 lg:w-[27rem]' placeholder='correo@unal.edu.co' type='email' />
+											
+										</label>
+									</div>		
+									<div className='flex justify-end items-end'>
+										<button type='submit' className='mt-4 bg-vinotinto text-white text-bold px-7 py-2 rounded-full border-solid hover:brightness-125 border-gris ml-2'>
+											CANCELAR
+										</button>
+
+										<button type='submit' className='mt-4 bg-verdeSeccionLogin text-white text-bold px-7 py-2 rounded-full border-solid hover:brightness-125 border-gris ml-2'>
+											BUSCAR
+										</button>
+									</div>
+									
 								</form>
 
 							</div>

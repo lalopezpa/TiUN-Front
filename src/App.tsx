@@ -7,6 +7,7 @@ import Cart from './pages/cart';
 import Login from './pages/Auth/login';
 import Register from './pages/Auth/register';
 import ForgotPassword from './pages/Auth/forgotPassword';
+import ForgotPasswordValidate from './pages/Auth/forgotPasswordValidate';
 import Payment from './pages/payment';
 
 function App(): JSX.Element {
@@ -21,6 +22,7 @@ function App(): JSX.Element {
 					<Route path='/Login' element={<Login />} />
 					<Route path='/SignUp' element={<Register />} />
 					<Route path='/RecoverPassword' element={<ForgotPassword />} />
+					<Route path='/RecoverPasswordValidate' element={<ForgotPasswordValidate />} />
 
 					{/* Rutas de productos */}
 					<Route path='/product/:productId' element={<ProductDetail />} />
