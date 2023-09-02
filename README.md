@@ -18,7 +18,7 @@ Este repositorio contiene el código fuente y los recursos para la interfaz de u
 1. Clona este repositorio en tu máquina local.
 2. Instala las dependencias utilizando el comando: `npm install`.
 3. Inicia el servidor de desarrollo con: `npm run dev`.
-4. Abre tu navegador en [http://localhost:3000](http://localhost:3000) para ver la aplicación en acción.
+4. Abre tu navegador en [http://localhost:3000](http://localhost:5173) para ver la aplicación en acción.
 
 ## Licencia
 
