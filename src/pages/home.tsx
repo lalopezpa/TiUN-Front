@@ -16,14 +16,14 @@ const Container = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 2rem;
+  font-size: 1.5rem;
   margin-bottom: 1rem;
 `;
 
 const Home: React.FC = () => (
 	<><Header/>
 		<Container>
-			<Title>Welcome to TiUN</Title>
+			<Title>Bienvenido a TiUN, tenemos unas sugerencias para ti:</Title>
 			<Carrusel /> {/* Display your carousel component */}
 		</Container>
 		<Footer/>
