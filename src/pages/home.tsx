@@ -4,12 +4,14 @@ import styled from 'styled-components';
 import Carrusel from '../components/common/Carrusel';
 import Header from '../components/common/Header';
 import Footer from '../components/common/Footer';
+import fondo from '../assets/fondo.jpg';
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-top: 50px;
   height: 100vh;
 `;
 
@@ -19,7 +21,7 @@ const Title = styled.h1`
 `;
 
 const Home: React.FC = () => (
-	<><Header />
+	<><Header/>
 		<Container>
 			<Title>Welcome to TiUN</Title>
 			<Carrusel /> {/* Display your carousel component */}
@@ -29,3 +31,4 @@ const Home: React.FC = () => (
 );
 
 export default Home;
+
