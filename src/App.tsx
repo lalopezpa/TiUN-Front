@@ -7,6 +7,7 @@ import Cart from './pages/cart';
 import Login from './pages/Auth/login';
 import Register from './pages/Auth/register';
 import ForgotPassword from './pages/Auth/forgotPassword';
+import ForgotPasswordValidate from './pages/Auth/forgotPasswordValidate';
 import Payment from './pages/payment';
 import {DarkModeProvider} from './context/DarkModeContext';
 import {AuthProvider} from './context/authContext';
