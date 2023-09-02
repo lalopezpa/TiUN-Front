@@ -26,7 +26,7 @@ const Header = () => {
 	};
 
 	return (
-		<header className=' fixed top-0 left-0 right-0 flex justify-between items-center p-4 bg-verdeClaro text-poppins dark:bg-verdeOscuro'>
+		<header className=' z-10 top-0 left-0 right-0 flex justify-between items-center p-4  fixed  bg-verdeClaro text-poppins dark:bg-verdeOscuro'>
 			<div className='flex items-center space-x-4'>
 				<DarkModeToggle modoOscuro={modoOscuro} toggleModoOscuro={toggleModoOscuro} />
 				<div className='flex-grow-0 bg-white p-2 rounded-lg shadow-md  text-verdeOscuro '>

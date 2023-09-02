@@ -5,26 +5,26 @@ import Carrusel from '../components/common/Carrusel';
 import Header from '../components/common/Header';
 import Footer from '../components/common/Footer';
 import fondo from '../assets/fondo.jpg';
+import Card from '../components/common/Card';
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding-top: 50px;
-  height: 100vh;
+  padding-top: 65px;
 `;
 
 const Title = styled.h1`
+  margin-top: 1rem;
+  text-align: center;
   font-size: 1.5rem;
   margin-bottom: 1rem;
 `;
 
 const Home: React.FC = () => (
-	<><Header/>
+	<>
+		<Header/>
 		<Container>
 			<Title>Bienvenido a TiUN, tenemos unas sugerencias para ti:</Title>
 			<Carrusel /> {/* Display your carousel component */}
+			<Card/>
 		</Container>
 		<Footer/>
 	</>
