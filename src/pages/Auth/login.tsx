@@ -25,13 +25,13 @@ const Login = (): JSX.Element => {
 
 	return (
 		<>
-			<header className='fixed top-0 left-0 w-full p-4 bg-transparent z-50'>
-				<div className='flex justify-between'>
-					<Link to='/home' className='text-white  '>Inicio</Link>
-					<DarkModeToggle modoOscuro={modoOscuro } toggleModoOscuro={toggleModoOscuro} />
-				</div>
-			</header>
 			<main className='flex min-h-screen bg-verdeClaro bg-opacity-75 dark:bg-verdeOscuro md:full'>
+				<header className='fixed top-0 left-0 w-full p-4 bg-transparent z-50'>
+					<div className='flex justify-between'>
+						<Link to='/home' className='text-white  '>Inicio</Link>
+						<DarkModeToggle modoOscuro={modoOscuro } toggleModoOscuro={toggleModoOscuro} />
+					</div>
+				</header>
 				{/* División izquierda */}
 				<section className='w-1/2 flex flex-col justify-center items-center overflow-hidden min-h-max relative hidden md:flex sm:w-100%'>
 					<div className='w-full h-full absolute top-0 left-0 z-10'>
@@ -53,7 +53,7 @@ const Login = (): JSX.Element => {
 							<input
 								id='correo'
 								{...register('correo', {required: true})}
-								className='w-[20rem] m-1 p-4 bg-white bg-opacity-20 rounded-lg placeholder-white placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro hover:bg-opacity-30 lg:w-[27rem]'
+								className='w-[20rem] m-1 p-4 bg-white bg-opacity-20 rounded-lg placeholder-white placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro hover:bg-opacity-30 lg:w-[27rem] dark:focus:ring-verdeClaro'
 								placeholder='ejemplo@unal.edu.co'
 								type='email'
 							/>
@@ -63,7 +63,7 @@ const Login = (): JSX.Element => {
         Contraseña
 							<input
 								{...register('contraseña', {required: true})}
-								className='w-[20rem] m-1 p-4 bg-white bg-opacity-20 rounded-lg placeholder-white placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro border-solid hover:bg-opacity-30 lg:w-[27rem]'
+								className='w-[20rem] m-1 p-4 bg-white bg-opacity-20 rounded-lg placeholder-white placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro border-solid hover:bg-opacity-30 lg:w-[27rem] dark:focus:ring-verdeClaro'
 								placeholder='**********************'
 								type='password'
 							/>
