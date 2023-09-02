@@ -41,13 +41,14 @@ const Login = (): JSX.Element => {
 					</figure>
 				</section>
 				{/* División derecha */}
-				<section className='bg-verdeSeccionLogin bg-opacity-90 w-full md:w-1/2 p-10 pb-0 flex flex-col justify-between items-center md:pt-48 dark:bg-verdeOscuro'>
+				<section className='bg-verdeSeccionLogin bg-opacity-90 w-full md:w-1/2 p-10 pb-0 flex flex-col justify-between items-center md:pt-40 dark:bg-verdeOscuro'>
 					<figure className='flex md:hidden'>
 						<img src={logo} alt='logo' className='w-48 h-48 pb-5' />
 					</figure>
 					<form onSubmit={handleSubmit(onSubmit)} className='w-full text-xl flex flex-col justify-center items-center'>
 						<h2 className='text-5xl mb-4 font-poppins font-bold text-white'>INICIO DE SESIÓN</h2>
 						<label className='flex flex-col text-white' htmlFor='correo'>
+							Correo
 							<input
 								id='correo'
 								{...register('correo', {required: true})}
