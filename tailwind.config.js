@@ -19,6 +19,9 @@ export default {
 				poppins: ['Poppins', 'sans-serif'],
 				urbanist: ['Urbanist', 'sans-serif'],
 			},
+			borderRadius: {
+				lg: '1.5rem',
+			},
 		},
 	},
 	plugins: [],
