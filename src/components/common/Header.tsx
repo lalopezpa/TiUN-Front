@@ -1,6 +1,6 @@
 /* eslint-disable no-warning-comments */
 import React, {useState} from 'react';
-import logoMini from '../../assets/logomini.png';
+import logoMini from '../../assets/logo_mini.png';
 import {ShoppingCartIcon, UserIcon, FavoritesIcon} from '../icons/icons';
 import DarkModeToggle from './DarkModeToggle';
 import useDarkMode from '../../hooks/useDarkMode';

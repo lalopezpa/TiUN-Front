@@ -26,3 +26,9 @@ a {
 }
 
 /* Añade más estilos según tus necesidades */
+.appearance-none::-webkit-inner-spin-button,
+.appearance-none::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0; /* Ajusta el margen según sea necesario */
+}
