@@ -5,7 +5,7 @@ import logomini from '../../assets/logo_mini.png';
 import {useForm} from 'react-hook-form';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import Footer from '../../components/common/Footer';
+import Footer from '../../../components/common/Footer';
 
 type ApiResponse = {
 	accessToken: string;

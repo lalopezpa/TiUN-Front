@@ -5,7 +5,7 @@ import logomini from '../../assets/logomini.png';
 import {useForm} from 'react-hook-form';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import Footer from '../../components/common/Footer';
+import Footer from '../../../components/common/Footer';
 import {Link} from 'react-router-dom';
 
 type ApiResponse = {

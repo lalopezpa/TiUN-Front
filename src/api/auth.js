@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import axios from 'axios';
 
 const API = 'http://localhost:3000/';

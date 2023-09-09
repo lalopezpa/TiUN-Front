@@ -4,12 +4,12 @@ import {Link} from 'react-router-dom';
 import logo from '../../assets/logo.png';
 import logooscuro from '../../assets/logo_oscuro.png';
 import {useForm} from 'react-hook-form';
-import type RequestData from '../../types/RequestData';
-import FooterLogin from '../../components/common/FooterLogin';
-import DarkModeToggle from '../../components/common/DarkModeToggle';
-import useDarkMode from '../../hooks/useDarkMode';
-import {useAuth} from '../../context/authContext';
-import Background from '../../components/common/Background';
+import type RequestData from '../../../types/RequestData';
+import FooterLogin from '../../../components/common/FooterLogin';
+import DarkModeToggle from '../../../components/common/DarkModeToggle';
+import useDarkMode from '../../../hooks/useDarkMode';
+import {useAuth} from '../../../context/authContext';
+import Background from '../../../components/common/Background';
 
 const Login = (): JSX.Element => {
 	const	{register, handleSubmit, formState: {errors}, watch} = useForm();

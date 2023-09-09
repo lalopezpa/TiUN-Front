@@ -1,3 +1,4 @@
+'use client';
 import {createContext, useState, useContext} from 'react';
 import {loginRequest, registerRequest} from '../api/auth';
 

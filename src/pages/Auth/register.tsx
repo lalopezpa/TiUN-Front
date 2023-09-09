@@ -1,11 +1,11 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {Link} from 'react-router-dom';
-import DarkModeToggle from '../../components/common/DarkModeToggle';
-import useDarkMode from '../../hooks/useDarkMode';
-import Footer from '../../components/common/Footer';
+import DarkModeToggle from '../../../components/common/DarkModeToggle';
+import useDarkMode from '../../../hooks/useDarkMode';
+import Footer from '../../../components/common/Footer';
 import {useForm} from 'react-hook-form';
-import Background from '../../components/common/Background';
-import {useAuth} from '../../context/authContext';
+import Background from '../../../components/common/Background';
+import {useAuth} from '../../../context/authContext';
 
 const Register = () => {
 	const {modoOscuro, toggleModoOscuro} = useDarkMode();
