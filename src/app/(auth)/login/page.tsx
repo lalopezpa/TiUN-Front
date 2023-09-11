@@ -3,15 +3,15 @@
 import React, {useState, useEffect} from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import logo from '../../assets/logo.png';
-import logooscuro from '../../assets/logo_oscuro.png';
+import logo from '../../../assets/logo.png';
+import logooscuro from '../../../assets/logo_oscuro.png';
 import {useForm} from 'react-hook-form';
-import type RequestData from '../../types/RequestData';
-import FooterLogin from '../../components/common/FooterLogin';
-import DarkModeToggle from '../../components/common/DarkModeToggle';
-import useDarkMode from '../../hooks/useDarkMode';
-import {useAuth} from '../../context/authContext';
-import Background from '../../components/common/Background';
+import type RequestData from '../../../types/RequestData';
+import FooterLogin from '../../../components/common/FooterLogin';
+import DarkModeToggle from '../../../components/common/DarkModeToggle';
+import useDarkMode from '../../../hooks/useDarkMode';
+import {useAuth} from '../../../context/authContext';
+import Background from '../../../components/common/Background';
 
 const Login = (): JSX.Element => {
 	const	{register, handleSubmit, formState: {errors}, watch} = useForm();
@@ -23,6 +23,7 @@ const Login = (): JSX.Element => {
 		login(data);
 		console.log(data);
 		console.log(errors);
+		
 	};
 
 	return (
@@ -86,7 +87,7 @@ const Login = (): JSX.Element => {
 						</button>
 						<div className='font-poppins text-xl flex flex-col justify-center items-center'>
 							<p className='text-white'>
-          ¿No tienes cuenta? <Link href='/SignUp' className='text-amarillo hover:invert'>Regístrate</Link>
+          ¿No tienes cuenta? <Link href='/signup' className='text-amarillo hover:invert'>Regístrate</Link>
 							</p>
 							<p className='text-white'>
           ------- O INGRESA CON --------
