@@ -22,7 +22,7 @@ export const AuthProvider = ({children}) => {
 			console.log(res);
 			setUser(res.user);
 		} catch (error) {
-			console.error('NO ESTA REGISTRADO:', error);
+			console.error('Error en el registro', error);
 		}
 	};
 

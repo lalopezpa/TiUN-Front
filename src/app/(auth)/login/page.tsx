@@ -23,7 +23,6 @@ const Login = (): JSX.Element => {
 		login(data);
 		console.log(data);
 		console.log(errors);
-		
 	};
 
 	return (
