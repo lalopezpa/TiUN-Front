@@ -1,4 +1,5 @@
 // Footer.tsx
+'use client';
 import React from 'react';
 import {GithubIconB, InstagramIconB, FacebookIconB} from '../icons/icons';
 
