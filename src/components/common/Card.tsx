@@ -10,18 +10,18 @@ const Card: React.FC<CardProps> = ({Descripcion, Precio}) => (
 	<div className='max-w-sm m-4 p-3 z-10 bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700'>
 		<div className='flex items-center justify-between p-2'>
 			<a
-				className='items-center px-3 py-2 text-sm font-medium text-center text-white bg-verdeClaro rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
+				className='items-center px-3 py-2 text-sm font-medium text-center text-white bg-verdeClaro rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800' href=''
 			>
-				Envío gratis
+				Añadir al carrito
 			</a>
-			<a className='text-vinotinto' href=''>
+			<a className='text-verdeOscuro' href=''>
 				<FavoritesIconN />
 			</a>
 		</div>
 		<div className=''>
 			<a href='#' className='flex items-center '>
 				<img
-					src='https://via.placeholder.com/280x150'
+					src='https://via.placeholder.com/290x150'
 					className='mx-auto rounded-lg'
 					alt=''
 				/>

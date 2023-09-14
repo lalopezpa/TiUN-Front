@@ -1,5 +1,4 @@
-// Src/pages/Home.tsx
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components';
 import Carrusel from '../components/common/Carrusel';
 import Header from '../components/common/Header';
@@ -10,17 +9,11 @@ import Card from '../components/common/Card';
 const Container = styled.div`
   padding-top: 65px;
   display:flex;
-  flex-wrap: wrap; /* Permite que las tarjetas fluyan hacia la siguiente línea cuando no haya suficiente espacio horizontal */
-  justify-content: center; /* Centra las tarjetas horizontalmente */
-  gap: 1rem; /* Espacio entre las tarjetas */
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
 `;
 
-const Title = styled.h1`
-  margin-top: 2rem;
-  text-align: center;
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-`;
 const BackgroundImage = styled.img`
   position: fixed; 
   top: 0;
@@ -42,29 +35,49 @@ const GrayOverlay = styled.div`
   background-color: rgba(128, 128, 128, 0.2); 
 `;
 
-const Home: React.FC = () => (
-	<>
-		<div className=''>
-			<BackgroundImage
-				src={fondo}
-				alt='fondobolsas'
-			/>
-			<GrayOverlay />
-			<Header/>
-			<Container>
-				<Title>Bienvenido a TiUN<br/> tenemos unas sugerencias para ti:</Title>
-				<Carrusel /> {/* Display your carousel component */}
-				<Card Descripcion={'Macbook pro'} Precio={'4000e'}/>
-				<Card Descripcion={'HP XXXX'} Precio={'283929e'}/>
-				<Card Descripcion={'HP XXXX'} Precio={'283929e'}/>
-				<Card Descripcion={'HP XXXX'} Precio={'283929e'}/>
-				<Card Descripcion={'HP XXXX'} Precio={'283929e'}/>
-				<Card Descripcion={'HP XXXX'} Precio={'283929e'}/>
-			</Container>
-			<Footer/>
-		</div>
-	</>
-);
+const Home: React.FC = () => {
+	useEffect(() => {
+		const script = document.createElement('script');
+		script.src = "https://web-chat.global.assistant.watson.appdomain.cloud/versions/latest/WatsonAssistantChatEntry.js";
+		script.async = true;
+		document.head.appendChild(script);
+
+		script.onload = () => {
+			window.watsonAssistantChatOptions = {
+				integrationID: '5b859bb1-bd6c-4d25-a730-9b425c08f717',
+				region: 'au-syd',
+				serviceInstanceID: '4d73066b-eef2-4338-9d83-a28d57b247ab',
+				onLoad: function(instance) { instance.render(); }
+			};
+		};
+
+		return () => {
+			document.head.removeChild(script);
+		};
+	}, []);
+
+	return (
+		<>
+			<div className=''>
+				<BackgroundImage
+					src={fondo}
+					alt='fondobolsas'
+				/>
+				<GrayOverlay />
+				<Header/>
+				<Container>
+					<Carrusel />
+					<Card Descripcion={'Macbook pro'} Precio={'4000e'}/>
+					<Card Descripcion={'HP XXXX'} Precio={'283929e'}/>
+					<Card Descripcion={'HP XXXX'} Precio={'283929e'}/>
+					<Card Descripcion={'HP XXXX'} Precio={'283929e'}/>
+					<Card Descripcion={'HP XXXX'} Precio={'283929e'}/>
+					<Card Descripcion={'HP XXXX'} Precio={'283929e'}/>
+				</Container>
+				<Footer/>
+			</div>
+		</>
+	);
+};
 
 export default Home;
-
