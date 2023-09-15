@@ -22,17 +22,7 @@ const BackgroundImage = styled.img`
   height: 100%;
   object-fit: fill; 
   z-index: 0; 
-  opacity: 0.1; 
-`;
-
-const GrayOverlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: fill; 
-  background-color: rgba(128, 128, 128, 0.2); 
+  opacity: 0.09; 
 `;
 
 const Home: React.FC = () => {
@@ -63,16 +53,15 @@ const Home: React.FC = () => {
 					src={fondo}
 					alt='fondobolsas'
 				/>
-				<GrayOverlay />
 				<Header/>
 				<Container>
 					<Carrusel />
-					<Card Descripcion={'Macbook pro'} Precio={'4000e'}/>
-					<Card Descripcion={'HP XXXX'} Precio={'283929e'}/>
-					<Card Descripcion={'HP XXXX'} Precio={'283929e'}/>
-					<Card Descripcion={'HP XXXX'} Precio={'283929e'}/>
-					<Card Descripcion={'HP XXXX'} Precio={'283929e'}/>
-					<Card Descripcion={'HP XXXX'} Precio={'283929e'}/>
+					<Card Descripcion={'Macbook pro'} Precio={'4000e'} Rating={4}/>
+					<Card Descripcion={'HP XXXX'} Precio={'283929e'} Rating={4}/>
+					<Card Descripcion={'HP XXXX'} Precio={'283929e'} Rating={3}/>
+					<Card Descripcion={'HP XXXX'} Precio={'283929e'} Rating={5}/>
+					<Card Descripcion={'HP XXXX'} Precio={'283929e'} Rating={2}/>
+					<Card Descripcion={'HP XXXX'} Precio={'283929e'} Rating={1}/>
 				</Container>
 				<Footer/>
 			</div>
