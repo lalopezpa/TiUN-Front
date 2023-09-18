@@ -22,13 +22,13 @@ const BackgroundImage = styled.img`
   height: 100%;
   object-fit: fill; 
   z-index: 0; 
-  opacity: 0.09; 
+  opacity: 0.05; 
 `;
 
 const Home: React.FC = () => {
 	useEffect(() => {
 		const script = document.createElement('script');
-		script.src = "https://web-chat.global.assistant.watson.appdomain.cloud/versions/latest/WatsonAssistantChatEntry.js";
+		script.src = 'https://web-chat.global.assistant.watson.appdomain.cloud/versions/latest/WatsonAssistantChatEntry.js';
 		script.async = true;
 		document.head.appendChild(script);
 
@@ -48,20 +48,16 @@ const Home: React.FC = () => {
 
 	return (
 		<>
-			<div className=''>
-				<BackgroundImage
-					src={fondo}
-					alt='fondobolsas'
-				/>
+			<div className='bg-gris dark:bg-grisOscuro'>
 				<Header/>
 				<Container>
 					<Carrusel />
-					<Card Descripcion={'Macbook pro'} Precio={'4000e'} Rating={4}/>
-					<Card Descripcion={'HP XXXX'} Precio={'283929e'} Rating={4}/>
-					<Card Descripcion={'HP XXXX'} Precio={'283929e'} Rating={3}/>
-					<Card Descripcion={'HP XXXX'} Precio={'283929e'} Rating={5}/>
-					<Card Descripcion={'HP XXXX'} Precio={'283929e'} Rating={2}/>
-					<Card Descripcion={'HP XXXX'} Precio={'283929e'} Rating={1}/>
+					<Card Nombre={'Macbook pro'} Precio={'4000e'} Rating={4}/>
+					<Card Nombre={'HP XXXX'} Precio={'283929e'} Rating={4}/>
+					<Card Nombre={'HP XXXX'} Precio={'283929e'} Rating={5}/>
+					<Card Nombre={'HP XXXX'} Precio={'283929e'} Rating={3}/>
+					<Card Nombre={'HP XXXX'} Precio={'283929e'} Rating={1}/>
+					<Card Nombre={'HP XXXX'} Precio={'283929e'} Rating={1}/>
 				</Container>
 				<Footer/>
 			</div>

@@ -8,12 +8,13 @@ export default {
 	theme: {
 		extend: {
 			colors: {
-				verdeClaro: '#85CF62',
-				verdeOscuro: '#063500',
+				verdeClaro: '#4b9957',
+				verdeOscuro: '#152e1b',
 				verdeSeccionLogin: '#658854',
 				vinotinto: '#A30D24',
-				gris: '#58595B',
+				gris: '#8ab288',
 				amarillo: '#F3A434',
+				grisOscuro: '#063831',
 			},
 			fontFamily: {
 				poppins: ['Poppins', 'sans-serif'],

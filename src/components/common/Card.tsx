@@ -3,20 +3,20 @@ import {FavoritesIconN} from '../icons/icons';
 import StarRating from './StarRating';
 
 type CardProps = {
-	Descripcion: string;
+	Nombre: string;
 	Precio: string;
 	Rating: number;
 };
 
-const Card: React.FC<CardProps> = ({Descripcion, Precio, Rating}) => (
-	<div className='max-w-sm m-4 p-3 z-10 bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700'>
+const Card: React.FC<CardProps> = ({Nombre, Precio, Rating}) => (
+	<div className='max-w-sm m-4 p-3 z-10 bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-verdeClaro dark:border-green-900 '>
 		<div className='flex items-center justify-between p-2'>
 			<a
-				className='items-center px-3 py-2 text-sm font-medium text-center text-white bg-verdeClaro rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800' href=''
+				className='items-center px-3 py-2 text-sm font-medium text-center text-white bg-verdeClaro rounded-lg focus:ring-4 focus:outline-none dark:bg-verdeOscuro dark:hover:bg-verdeOscuro ' href=''
 			>
 				Añadir al carrito
 			</a>
-			<a className='text-verdeOscuro' href=''>
+			<a className='text-verdeClaro dark:text-grisOscuro' href=''>
 				<FavoritesIconN />
 			</a>
 		</div>
@@ -28,14 +28,14 @@ const Card: React.FC<CardProps> = ({Descripcion, Precio, Rating}) => (
 					alt=''
 				/>
 			</a>
-			<p className='m-3 font-normal text-gray-700 dark:text-gray-400'>
-				{Descripcion}
+			<p className='m-3 font-normal text-gray-700 dark:text-white'>
+				{Nombre}
 			</p>
-			<p className='m-3 font-normal text-gray-700 dark:text-gray-400'>
+			<p className='m-3 font-normal text-gray-700 dark:text-white'>
 				{Precio}
 			</p>
 			<div className='m-3 font-normal flex justify-end'>
-				<StarRating rating={Rating} /> 
+				<StarRating rating={Rating} />
 			</div>
 		</div>
 	</div>
