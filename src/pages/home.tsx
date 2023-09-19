@@ -14,16 +14,16 @@ const Container = styled.div`
   gap: 1rem;
 `;
 
-const BackgroundImage = styled.img`
-  position: fixed; 
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: fill; 
-  z-index: 0; 
-  opacity: 0.05; 
-`;
+// Const BackgroundImage = styled.img`
+//   position: fixed; 
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   object-fit: fill; 
+//   z-index: 0; 
+//   opacity: 0.05; 
+// `;
 
 const Home: React.FC = () => {
 	useEffect(() => {

@@ -12,6 +12,7 @@ import {DarkModeProvider} from './context/DarkModeContext';
 import {AuthProvider} from './context/authContext';
 import Favorites from './pages/favorites';
 import ProfilePage from './pages/profilePage';
+import Politics from './pages/politics';
 
 function App(): JSX.Element {
 	return (
@@ -34,7 +35,7 @@ function App(): JSX.Element {
 							{/* Rutas protegidas DESPUES */}
 							<Route path='/Cart' element={<Cart />} />
 							<Route path='/payment' element={<Payment />} />
-
+							<Route path='/politics' element={<Politics />} />
 							{/* <Route element={<PrivateRoutesShopper/>}>
 						<Route path="/DashShopper" element ={<DashboardShopper/>} />
 						<Route path='/MyPurchases' element ={<MyPurchasesPage/>} />
@@ -46,7 +47,6 @@ function App(): JSX.Element {
 					</Route> */}
 
 						</Routes>
-						{/* Common footer or navigation component can go here */}
 					</div>
 				</Router>
 			</DarkModeProvider>
