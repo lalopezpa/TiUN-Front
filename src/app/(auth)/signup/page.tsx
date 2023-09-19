@@ -40,7 +40,7 @@ const Register = () => {
 									type='text'
 									placeholder='Nombres'
 									className='w-[20rem] m-2 p-4 bg-white bg-opacity-20 rounded-lg placeholder-white placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro hover:bg-opacity-30 lg:w-[27rem]'
-									{...register('nombre', {
+									{...register('username', {
 										required: {
 											value: true,
 											message: 'El Nombre es requerido',
@@ -49,11 +49,11 @@ const Register = () => {
 										minLength: 2,
 									})}
 								/>
-								{errors.nombre?.type === 'required' && <span className='text-red-600 font-poppins'>Nombre requerido</span>}
-								{errors.nombre?.type === 'maxLength' && (
+								{errors.username?.type === 'required' && <span className='text-red-600 font-poppins'>Nombre requerido</span>}
+								{errors.username?.type === 'maxLength' && (
 									<span className='text-red-600 font-poppins' >El nombre no debe ser mayor a 20 caracteres</span>
 								)}
-								{errors.nombre?.type === 'minLength' && (
+								{errors.username?.type === 'minLength' && (
 									<span className='text-red-600 font-poppins' >El nombre debe ser mayor a 2 caracteres</span>
 								)}
 							</label>
@@ -62,7 +62,7 @@ const Register = () => {
 									type='text'
 									placeholder='Apellidos'
 									className='w-[20rem] m-2 p-4 bg-white bg-opacity-20 rounded-lg placeholder-white placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro hover:bg-opacity-30 lg:w-[27rem]'
-									{...register('apellidos', {
+									{...register('lastname', {
 										required: {
 											value: true,
 											message: 'El Apellido es requerido',
@@ -71,11 +71,11 @@ const Register = () => {
 										minLength: 2,
 									})}
 								/>
-								{errors.apellidos?.type === 'required' && <span className='text-red-600 font-poppins'>Apellido requerido</span>}
-								{errors.apellidos?.type === 'maxLength' && (
+								{errors.lastname?.type === 'required' && <span className='text-red-600 font-poppins'>Apellido requerido</span>}
+								{errors.lastname?.type === 'maxLength' && (
 									<span className='text-red-600 font-poppins'>El apellido no debe ser mayor a 20 caracteres</span>
 								)}
-								{errors.apellidos?.type === 'minLength' && (
+								{errors.lastname?.type === 'minLength' && (
 									<span className='text-red-600 font-poppins' >El apellido debe ser mayor a 2 caracteres</span>
 								)}
 							</label>
@@ -84,7 +84,7 @@ const Register = () => {
 									type='number'
 									placeholder='Cédula'
 									className='w-[20rem] m-2 p-4 bg-white bg-opacity-20 rounded-lg placeholder-white placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro hover:bg-opacity-30 lg:w-[27rem] appearance-none'
-									{...register('cedula', {
+									{...register('id_cedula', {
 										required: {
 											value: true,
 											message: 'La cédula es requerida',
@@ -94,14 +94,14 @@ const Register = () => {
 											message: 'Cédula no válida',
 										},
 									})}/>
-								{errors.cedula && <span className='text-red-600 font-poppins'>{errors.cedula.message}</span>}
+								{errors.id_cedula && <span className='text-red-600 font-poppins'>{errors.id_cedula.message}</span>}
 							</label>
 							<label className='flex flex-col text-white'>
 								<input
 									type='tel'
 									placeholder='Teléfono'
 									className='w-[20rem] m-2 p-4 bg-white bg-opacity-20 rounded-lg placeholder-white placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro hover:bg-opacity-30 lg:w-[27rem]'
-									{...register('telefono', {
+									{...register('phoneNumber', {
 										required: {
 											value: true,
 											message: 'El teléfono es requerido',
@@ -112,7 +112,7 @@ const Register = () => {
 										},
 									})}
 								/>
-								{errors.telefono && <span className='text-red-600 font-poppins'>{errors.telefono.message}</span>}
+								{errors.phoneNumber && <span className='text-red-600 font-poppins'>{errors.phoneNumber.message}</span>}
 							</label>
 						</div>
 						<div className='flex flex-col' >
@@ -121,7 +121,7 @@ const Register = () => {
 									type='email'
 									placeholder='Correo'
 									className='w-auto m-2 p-4 bg-white bg-opacity-20 rounded-lg placeholder-white placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro hover:bg-opacity-30 lg:w-[27rem]'
-									{...register('correo', {
+									{...register('email', {
 										required: {
 											value: true,
 											message: 'Correo es requerido',
@@ -132,7 +132,7 @@ const Register = () => {
 										},
 									})}
 								/>
-								{errors.correo && <span className='text-red-600 font-poppins'>{errors.correo.message}</span>}
+								{errors.email && <span className='text-red-600 font-poppins'>{errors.email.message}</span>}
 							</label>
 							<label className='flex flex-col text-white'>
 								<input

@@ -16,13 +16,12 @@ import Background from '../../../components/common/Background';
 const Login = (): JSX.Element => {
 	const	{register, handleSubmit, formState: {errors}, watch} = useForm();
 	const {modoOscuro, toggleModoOscuro} = useDarkMode();
-	const {login} = useAuth();
-	console.log(modoOscuro);
+	const {login, user} = useAuth();
 
 	const onSubmit = async (data: RequestData) => {
 		login(data);
-		console.log(data);
-		console.log(errors);
+		console.log('usuario');
+		console.log(user);
 	};
 
 	return (
@@ -50,26 +49,26 @@ const Login = (): JSX.Element => {
 					</figure>
 					<form onSubmit={handleSubmit(onSubmit)} className='w-full text-xl flex flex-col justify-center items-center'>
 						<h2 className='text-5xl mb-4 font-poppins font-bold text-white'>INICIO DE SESIÓN</h2>
-						<label className='flex flex-col text-white' htmlFor='correo'>
+						<label className='flex flex-col text-white' htmlFor='email'>
 							Correo
 							<input
-								id='correo'
-								{...register('correo', {required: true})}
+								id='email'
+								{...register('email', {required: true})}
 								className='w-[20rem] m-1 p-4 bg-white bg-opacity-20 rounded-lg placeholder-white placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro hover:bg-opacity-30 lg:w-[27rem] dark:focus:ring-verdeClaro'
 								placeholder='ejemplo@unal.edu.co'
 								type='email'
 							/>
-							{errors.correo && <span className='text-red-600'>Este campo es requerido</span>}
+							{errors.email && <span className='text-red-600'>Este campo es requerido</span>}
 						</label>
 						<label className='flex flex-col text-white'>
         Contraseña
 							<input
-								{...register('contraseña', {required: true})}
+								{...register('password', {required: true})}
 								className='w-[20rem] m-1 p-4 bg-white bg-opacity-20 rounded-lg placeholder-white placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro border-solid hover:bg-opacity-30 lg:w-[27rem] dark:focus:ring-verdeClaro'
 								placeholder='**********************'
 								type='password'
 							/>
-							{errors.contraseña && <span className='text-red-600'>Este campo es requerido</span>}
+							{errors.password && <span className='text-red-600'>Este campo es requerido</span>}
 						</label>
 						<div className='flex text-left w-[20rem] lg:w-[27rem]'>
 							<p>

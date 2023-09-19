@@ -9,3 +9,5 @@ const API = 'http://localhost:3000/';
 export const registerRequest = user => axiosInstance.post(`${API}signup`, user);
 
 export const loginRequest = user => axiosInstance.post(`${API}signin`, user);
+
+export const verifyTokenRequest = async () => axiosInstance.get(`/auth/verify`);

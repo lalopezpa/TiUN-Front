@@ -18,7 +18,7 @@ const Header = () => {
 	// };
 
 	// const handleSearchInputChange = (event) => {
-	// 	setSearchQuery(event.target.value);
+	// 	setSearchQu	ery(event.target.value);
 	// };
 
 	const handleSearchSubmit = () => {
