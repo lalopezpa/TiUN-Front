@@ -32,3 +32,7 @@ a {
   appearance: none;
   margin: 0; /* Ajusta el margen según sea necesario */
 }
+.custom-gold-star {
+  color: rgba(243, 223, 111, 0.781);
+}
+
