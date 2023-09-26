@@ -1,4 +1,5 @@
-import type React, {useEffect} from 'react';
+// listo
+import React, {useEffect} from 'react';
 import styled from 'styled-components';
 import Carrusel from '../components/common/Carrusel';
 import Header from '../components/common/Header';
