@@ -2,6 +2,7 @@
 import {createContext, useState, useContext, useEffect} from 'react';
 import {loginRequest, registerRequest} from '../api/auth';
 import Cookies from 'js-cookie';
+import {toast} from 'sonner';
 
 export const AuthContext = createContext(null);
 
@@ -20,14 +21,17 @@ export const AuthProvider = ({children}) => {
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 	const [loading, setLoading] = useState(true);
 
-	const signup = async (user: any) => {
+	const signup = async user => {
 		try {
 			const res = await registerRequest(user);
-			console.log(res);
-			setUser(res.user);
-			setIsAuthenticated(true);
+			const userData = res.data.user;
+			// console.log(res);
+
+			return {success: true, user: userData};
 		} catch (error) {
-			console.error('Error en el registro', error);
+			// console.log(error.response.data);
+			const errorcito = error.response.data;
+			return {success: false, error: errorcito};
 		}
 	};
 

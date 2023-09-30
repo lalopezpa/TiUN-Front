@@ -1,12 +1,14 @@
 'use client';
 import React, {useState, useEffect, useRef} from 'react';
 import Link from 'next/link';
+import {useRouter} from 'next/navigation';
 import DarkModeToggle from '../../../components/common/DarkModeToggle';
 import useDarkMode from '../../../hooks/useDarkMode';
 import Footer from '../../../components/common/Footer';
 import {useForm} from 'react-hook-form';
 import Background from '../../../components/common/Background';
 import {useAuth} from '../../../context/authContext';
+import {Toaster, toast} from 'sonner';
 
 const Register = () => {
 	const {modoOscuro, toggleModoOscuro} = useDarkMode();
@@ -14,9 +16,39 @@ const Register = () => {
 	const password = useRef(null);
 	password.current = watch('password', '');
 	const {signup} = useAuth();
+	const router = useRouter();
+
 	const onSubmit = async data => {
-		console.log(data);
-		signup(data);
+		try {
+			const registrationResult = await signup(data);
+			const type_error = registrationResult.error;
+
+			if (registrationResult.success) {
+				// Registro exitoso, muestra un toast de éxito y redirige
+				toast.success('Registro exitoso');
+				setTimeout(() => {
+					router.push('/login');
+				}, 2000);
+			} else if (type_error.includes('id_cedula_1')) {
+				// Error de cedula duplicada, muestra un toast con el mensaje específico
+				toast.error('ERROR', {
+					description: 'La cédula ya están en uso',
+				});
+			} else if (type_error.includes('email_1')) {
+				// Error de correo duplicado, muestra un toast con el mensaje específico
+				toast.error('ERROR', {
+					description: 'El correo ya está en uso',
+				});
+			} else {
+				// Otros errores no reconocidos, muestra un toast genérico
+				toast.error('Error en el registro');
+				// console.log(type_error);
+			}
+		} catch (error) {
+			// Error en el registro, muestra un toast genérico
+			toast.error('Error desconocido en el registro');
+			// console.error('Error en el registro', error);
+		}
 	};
 
 	return (
@@ -39,7 +71,7 @@ const Register = () => {
 								<input
 									type='text'
 									placeholder='Nombres'
-									className='w-[20rem] m-2 p-4 bg-white bg-opacity-20 rounded-lg placeholder-white placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro hover:bg-opacity-30 lg:w-[27rem]'
+									className='w-[20rem] m-2 p-4 bg-white bg-opacity-20 rounded-lg placeholder-black  text-black placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro hover:bg-opacity-30 lg:w-[27rem]'
 									{...register('username', {
 										required: {
 											value: true,
@@ -61,7 +93,7 @@ const Register = () => {
 								<input
 									type='text'
 									placeholder='Apellidos'
-									className='w-[20rem] m-2 p-4 bg-white bg-opacity-20 rounded-lg placeholder-white placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro hover:bg-opacity-30 lg:w-[27rem]'
+									className='w-[20rem] m-2 p-4 bg-white bg-opacity-20 rounded-lg placeholder-black  text-black placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro hover:bg-opacity-30 lg:w-[27rem]'
 									{...register('lastname', {
 										required: {
 											value: true,
@@ -83,7 +115,7 @@ const Register = () => {
 								<input
 									type='number'
 									placeholder='Cédula'
-									className='w-[20rem] m-2 p-4 bg-white bg-opacity-20 rounded-lg placeholder-white placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro hover:bg-opacity-30 lg:w-[27rem] appearance-none'
+									className='w-[20rem] m-2 p-4 bg-white bg-opacity-20 rounded-lg placeholder-black  text-black placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro hover:bg-opacity-30 lg:w-[27rem] appearance-none'
 									{...register('id_cedula', {
 										required: {
 											value: true,
@@ -100,7 +132,7 @@ const Register = () => {
 								<input
 									type='tel'
 									placeholder='Teléfono'
-									className='w-[20rem] m-2 p-4 bg-white bg-opacity-20 rounded-lg placeholder-white placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro hover:bg-opacity-30 lg:w-[27rem]'
+									className='w-[20rem] m-2 p-4 bg-white bg-opacity-20 rounded-lg placeholder-black  text-black placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro hover:bg-opacity-30 lg:w-[27rem]'
 									{...register('phoneNumber', {
 										required: {
 											value: true,
@@ -120,15 +152,15 @@ const Register = () => {
 								<input
 									type='email'
 									placeholder='Correo'
-									className='w-auto m-2 p-4 bg-white bg-opacity-20 rounded-lg placeholder-white placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro hover:bg-opacity-30 lg:w-[27rem]'
+									className='w-auto m-2 p-4 bg-white bg-opacity-20 rounded-lg placeholder-black  text-black placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro hover:bg-opacity-30 lg:w-[27rem]'
 									{...register('email', {
 										required: {
 											value: true,
 											message: 'Correo es requerido',
 										},
 										pattern: {
-											value: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-											message: 'Correo no válido',
+											value: /^[a-zA-Z0-9_.+-]+@unal\.edu\.co$/,
+											message: 'Debes registrarte con un correo institucional',
 										},
 									})}
 								/>
@@ -138,7 +170,7 @@ const Register = () => {
 								<input
 									type='password'
 									placeholder='Contraseña'
-									className='w-auto m-2 p-4 bg-white bg-opacity-20 rounded-lg placeholder-white placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro hover:bg-opacity-30 lg:w-[27rem]'
+									className='w-auto m-2 p-4 bg-white bg-opacity-20 rounded-lg placeholder-black  text-black placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro hover:bg-opacity-30 lg:w-[27rem]'
 									{...register('password', {
 										required: {
 											value: true,
@@ -160,7 +192,7 @@ const Register = () => {
 								<input
 									type='password'
 									placeholder='Confirmar contraseña'
-									className='w-auto m-2 p-4 bg-white bg-opacity-20 rounded-lg placeholder-white placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro hover:bg-opacity-30 lg:w-[27rem]'
+									className='w-auto m-2 p-4 bg-white bg-opacity-20 rounded-lg placeholder-black  text-black placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro hover:bg-opacity-30 lg:w-[27rem]'
 									{...register('confirmarcontraseña', {
 										required: {
 											value: true,
@@ -204,7 +236,8 @@ const Register = () => {
 					</form>
 					<pre style={{width: '400px'}}>{JSON.stringify(watch(), null, 2)}</pre>
 				</main>
-				<Footer ></Footer>
+				<Footer></Footer>
+				<Toaster richColors visibleToasts={1} />
 			</div>
 		</>
 	);
