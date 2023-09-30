@@ -54,7 +54,7 @@ const Header = () => {
 			</div>
 			<nav className='flex items-center space-x-5 text-verdeOscuro'>
 				<Link href='/Favorites'>	<FavoritesIcon/></Link>
-				<Link href='/Profile'><UserIcon/> </Link>
+				<Link href='/profile'><UserIcon/> </Link>
 				<Link href='/Cart'><ShoppingCartIcon/> </Link>
 				<Link href='/home'><img src= {logoMini.src} alt='Logo' className='w-28' /> </Link>
 			</nav>
