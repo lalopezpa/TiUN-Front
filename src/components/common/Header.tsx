@@ -56,7 +56,7 @@ const Header = () => {
 				<Link href='/Favorites'>	<FavoritesIcon/></Link>
 				<Link href='/profile'><UserIcon/> </Link>
 				<Link href='/Cart'><ShoppingCartIcon/> </Link>
-				<Link href='/home'><img src= {logoMini.src} alt='Logo' className='w-28' /> </Link>
+				<Link href='/'><img src= {logoMini.src} alt='Logo' className='w-28' /> </Link>
 			</nav>
 		</header>
 	);

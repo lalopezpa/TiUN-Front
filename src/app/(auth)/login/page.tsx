@@ -12,16 +12,47 @@ import DarkModeToggle from '../../../components/common/DarkModeToggle';
 import useDarkMode from '../../../hooks/useDarkMode';
 import {useAuth} from '../../../context/authContext';
 import Background from '../../../components/common/Background';
+import {toast, Toaster} from 'sonner';
+import {useRouter} from 'next/navigation';
 
 const Login = (): JSX.Element => {
 	const	{register, handleSubmit, formState: {errors}, watch} = useForm();
 	const {modoOscuro, toggleModoOscuro} = useDarkMode();
 	const {login, user} = useAuth();
+	const router = useRouter();
 
 	const onSubmit = async (data: RequestData) => {
-		login(data);
-		console.log('usuario');
-		console.log(user);
+		try {
+			const loginResult = await login(data);
+			const type_error = loginResult.error;
+			console.log('usuario');
+			console.log(user);
+			if (loginResult.success) {
+			// Inicio de sesión exitoso, muestra un toast de éxito y redirige
+				toast.success('Inicio de sesión exitoso');
+				setTimeout(() => {
+					router.push('/');
+				}, 2000);
+			} else if (type_error.includes('Email is wrong')) {
+			// Error de correo no registrado
+				toast.error('ERROR', {
+					description: 'Este correo no está registrado',
+				});
+			} else if (type_error.includes('Password is wrong')) {
+			// Error de contraseña incorrecta
+				toast.error('ERROR', {
+					description: 'La contraseña es incorrecta',
+				});
+			} else {
+			// Otros errores no reconocidos, muestra un toast genérico
+				toast.error('Error en el registro');
+			// Console.log(type_error);
+			}
+		} catch (error) {
+		// Error en el registro, muestra un toast genérico
+			toast.error('Error desconocido en el registro');
+		// Console.error('Error en el registro', error);
+		}
 	};
 
 	return (
@@ -90,6 +121,7 @@ const Login = (): JSX.Element => {
 						</div>
 					</form>
 					<FooterLogin />
+					<Toaster richColors visibleToasts={1} closeButton/>
 				</section>
 			</main>
 		</>

@@ -2,7 +2,6 @@
 import {createContext, useState, useContext, useEffect} from 'react';
 import {loginRequest, registerRequest} from '../api/auth';
 import Cookies from 'js-cookie';
-import {toast} from 'sonner';
 
 export const AuthContext = createContext(null);
 
@@ -42,8 +41,12 @@ export const AuthProvider = ({children}) => {
 			console.log(res);
 			setUser(userData);
 			setIsAuthenticated(true);
+			return {success: true, user: userData};
 		} catch (error) {
 			console.error('Error en el registro', error);
+			const errorcito = error.response.data;
+			console.log(errorcito)
+			return {success: false, error: errorcito};
 		}
 	};
 
