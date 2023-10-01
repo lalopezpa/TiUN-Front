@@ -1,4 +1,5 @@
 // Cart.tsx
+'use client';
 import React from 'react';
 import {useCart} from '../../context/cartContext';
 import Header from '../../components/common/Header';

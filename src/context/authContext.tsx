@@ -24,11 +24,12 @@ export const AuthProvider = ({children}) => {
 		try {
 			const res = await registerRequest(user);
 			const userData = res.data.user;
-			// console.log(res);
+			// Console.log(res);
 
 			return {success: true, user: userData};
 		} catch (error) {
-			// console.log(error.response.data);
+			console.log(error.response.data);
+
 			const errorcito = error.response.data;
 			return {success: false, error: errorcito};
 		}
@@ -45,7 +46,7 @@ export const AuthProvider = ({children}) => {
 		} catch (error) {
 			console.error('Error en el registro', error);
 			const errorcito = error.response.data;
-			console.log(errorcito)
+			console.log(errorcito);
 			return {success: false, error: errorcito};
 		}
 	};
@@ -56,34 +57,36 @@ export const AuthProvider = ({children}) => {
 		setIsAuthenticated(false);
 	};
 
-	useEffect(() => {
-		const checkLogin = async () => {
-			const cookies = Cookies.get();
-			if (!cookies.token) {
-				setIsAuthenticated(false);
-				setLoading(false);
-				return;
-			}
+	// useEffect(() => {
+	// 	const checkLogin = async () => {
+	// 		const cookies = Cookies.get();
+	// 		console.log('cookies');
+	// 		console.log(cookies.authToken);
+	// 		if (!cookies.authToken) {
+	// 			setIsAuthenticated(false);
+	// 			setLoading(false);
+	// 			return;
+	// 		}
 
-			try {
-				const res = await verifyTokenRequest(cookies.token);
-				console.log(res);
-				if (!res.data) {
-					setIsAuthenticated(false);
-					return;
-				}
+	// 		try {
+	// 			const res = await verifyTokenRequest(cookies.token);
+	// 			console.log(res);
+	// 			if (!res.data) {
+	// 				setIsAuthenticated(false);
+	// 				return;
+	// 			}
 
-				setIsAuthenticated(true);
-				setUser(res.data);
-				setLoading(false);
-			} catch (error) {
-				setIsAuthenticated(false);
-				setLoading(false);
-			}
-		};
+	// 			setIsAuthenticated(true);
+	// 			setUser(res.data);
+	// 			setLoading(false);
+	// 		} catch (error) {
+	// 			setIsAuthenticated(false);
+	// 			setLoading(false);
+	// 		}
+	// 	};
 
-		checkLogin();
-	}, []);
+	// 	checkLogin();
+	// }, []);
 	return (
 		<AuthContext.Provider
 			value={{

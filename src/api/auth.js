@@ -10,4 +10,6 @@ export const registerRequest = user => axiosInstance.post(`${API}signup`, user);
 
 export const loginRequest = user => axiosInstance.post(`${API}signin`, user);
 
-export const verifyTokenRequest = async () => axiosInstance.get(`/auth/verify`);
+export const verifyToken  => axiosInstance.get(`${API}accesToken`);
+
+// export const verifyTokenRequest = async () => axiosInstance.get(`/auth/verify`);

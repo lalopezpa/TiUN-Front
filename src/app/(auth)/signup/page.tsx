@@ -27,7 +27,7 @@ const Register = () => {
 				// Registro exitoso, muestra un toast de éxito y redirige
 				toast.success('Registro exitoso');
 				setTimeout(() => {
-					router.push('/login');
+					router.push('/');
 				}, 2000);
 			} else if (type_error.includes('id_cedula_1')) {
 				// Error de cedula duplicada, muestra un toast con el mensaje específico
