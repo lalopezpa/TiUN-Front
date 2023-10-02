@@ -8,13 +8,12 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import Footer from '../../../components/common/Footer';
 import Link from 'next/link';
-import Background from '../../../components/common/Background';
 
 type ApiResponse = {
 	accessToken: string;
 };
 type RequestData = {
-	correo: string;
+	nueva_contraseña: string;
 };
 
 const forgotPasswordValidate = (): JSX.Element => {
@@ -27,7 +26,7 @@ const forgotPasswordValidate = (): JSX.Element => {
 
 	const onSubmit = async (data: RequestData) => {
 		const requestData: RequestData = {
-			correo: data.correo,
+			nueva_contraseña: data.nueva_contraseña,
 		};
 		// 1console.log(requestData);
 
@@ -52,7 +51,6 @@ const forgotPasswordValidate = (): JSX.Element => {
 
 	return (
 		<>
-
 			<header className='flex justify-end  items-end bg-verdeClaro bg-opacity-75 '>
 				<div className='flex justify-end'>
 					<img src={logomini.src} alt='Logo' className='w-400 h-400 mx-auto my-4' />
@@ -62,49 +60,45 @@ const forgotPasswordValidate = (): JSX.Element => {
 			<main>
 				<section className='flex h-screen bg-verdeClaro bg-opacity-75'>
 					<div className='w-full h-full absolute top-0 left-0 z-10'>
-						<img src={fondo.src} alt='fondobolsas' className='w-full h-full opacity-5 bg-cover' />
+						<img
+							src={fondo.src}
+							alt='fondobolsas'
+							className='w-full h-full opacity-5 bg-cover'
+						/>
 						<footer>
-							<Footer/>
+							<Footer />
 						</footer>
 					</div>
 
 					<div className='flex justify-center items-center h-screen w-full h-full absolute top-0 left-0 z-30 '>
-						<div className='bg-gray p-8 rouded-full'>
+						<div className='bg-gray p-8 rouded-full '>
 							<h2 className='flex justify-center items-center text-4xl mb-4 font-poppins font-bold text-white'>
 								RECUPERAR LA CONTRASEÑA
 							</h2>
-							<div className='bg-gray-300 p-8 rounded-lg shadow-md mx-0 '>
+							<div className='bg-gray-300 p-8 rounded-lg shadow-md '>
 								<form
 									onSubmit={handleSubmit(onSubmit)}
 									className='w-full text-xl flex flex-col '
 								>
-									<div className='flex justify-center items-center '>
+									<div className='flex justify-center items-center'>
 										<label
-											className='flex justify-center items-center flex-col text-black font-italic text-xl max-w-md'
-											htmlFor='correo'
+											className='flex justify-center items-center flex-col text-black font-italic text-xl max-w-lg'
+											htmlFor='nueva_contraseña'
 										>
-											Comprueba si recibiste en el telefono un mensaje de texto
-											con un código de 6 caracteres.
+											Crea una contraseña nueva de seis caracteres como minimo. 
 											<input
-												id='correo'
-												{...register('correo', {required: true})}
-												className=' flex justify-center items-center w-[20rem] m-1 p-4 bg-verdeSeccionLogin text-white  rounded-full placeholder-white placeholder-opacity-70  hover:bg-black placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro hover:bg-opacity-30 lg:w-[27rem]'
-												placeholder='Código'
-												type='email'
+												id='nueva_contraseña'
+												{...register('nueva_contraseña', {required: true})}
+												className=' flex justify-center items-center w-[20rem] m-1 p-4 bg-verdeSeccionLogin text-white  rounded-full placeholder-white placeholder-opacity-70  hover:brightness-125 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro lg:w-[27rem]'
+												placeholder='Nueva contraseña'
+												type='password'
 											/>
 										</label>
 									</div>
-									<div className='flex justify-end items-end max-w-lg '>
-										
-										<p>
-											<Link
-												className='text-amarillo hover:invert'
-												href='/RecoverPassword'
-											>
-												¿No recibiste el código?
-											</Link>
-										</p>
-										<Link href='/home'>
+									<div className='flex justify-end items-end'>
+
+
+										<Link href='/'>
 											<button
 												type='submit'
 												className='mt-4 bg-vinotinto text-white text-bold px-7 py-2 rounded-full border-solid hover:brightness-125 border-gris ml-2'
@@ -112,14 +106,11 @@ const forgotPasswordValidate = (): JSX.Element => {
 												CANCELAR
 											</button>
 										</Link>
-
-										<Link href='/reconfirm_password'>
-											<button
-												type='submit'
-												className='mt-4 bg-verdeSeccionLogin text-white text-bold px-7 py-2 rounded-full border-solid hover:brightness-125 border-gris ml-2'										>
-												CONTINUAR
-											</button>
-										</Link>
+										<button
+											type='submit'
+											className='mt-4 bg-verdeSeccionLogin text-white text-bold px-7 py-2 rounded-full border-solid hover:brightness-125 border-gris ml-2'										>
+											CONTINUAR
+										</button>
 									</div>
 								</form>
 							</div>

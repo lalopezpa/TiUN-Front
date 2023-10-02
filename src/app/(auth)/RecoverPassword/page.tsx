@@ -4,7 +4,7 @@ import React from 'react';
 import fondo from '../../../assets/fondo.jpg';
 import logomini	from '../../../assets/logo_mini.png';
 import {useForm} from 'react-hook-form';
-
+import Link from 'next/link';
 import Cookies from 'js-cookie';
 import Footer from '../../../components/common/Footer';
 
@@ -72,13 +72,18 @@ const forgotPassword = (): JSX.Element => {
 										</label>
 									</div>
 									<div className='flex justify-end items-end'>
-										<button type='submit' className='mt-4 bg-vinotinto text-white text-bold px-7 py-2 rounded-full border-solid hover:brightness-125 border-gris ml-2'>
-											CANCELAR
-										</button>
+										<Link href='/'>
+											<button type='submit' className='mt-4 bg-vinotinto text-white text-bold px-7 py-2 rounded-full border-solid hover:brightness-125 border-gris ml-2'>
+												CANCELAR
+											</button>	
+										</Link>
 
-										<button type='submit' className='mt-4 bg-verdeSeccionLogin text-white text-bold px-7 py-2 rounded-full border-solid hover:brightness-125 border-gris ml-2'>
-											BUSCAR
-										</button>
+
+										<Link href='/reset_password'>
+											<button type='submit' className='mt-4 bg-verdeSeccionLogin text-white text-bold px-7 py-2 rounded-full border-solid hover:brightness-125 border-gris ml-2'>
+												BUSCAR						
+											</button>	
+										</Link>
 									</div>
 
 								</form>
