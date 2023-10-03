@@ -10,6 +10,27 @@ export const registerRequest = user => axiosInstance.post(`${API}signup`, user);
 
 export const loginRequest = user => axiosInstance.post(`${API}signin`, user);
 
-export const verifyToken  => axiosInstance.get(`${API}accesToken`);
+export const verifyToken = async () => {
+	try {
+		const response = await fetch(`${API}profile`, {
+			method: 'GET',
+			credentials: 'include', // Esto establece las cookies de sesión
+		});
 
-// export const verifyTokenRequest = async () => axiosInstance.get(`/auth/verify`);
+		if (response.ok) {
+			const data = await response.json();
+			// Manejar la respuesta exitosa aquí, si es necesario
+			return data;
+		}
+
+		// Manejar el error aquí
+		console.error('Error de respuesta:', response.status, response.statusText);
+		throw new Error('Error en la solicitud.');
+	} catch (error) {
+		// Manejar otros tipos de errores, como problemas de red
+		console.error('Error en la solicitud:', error.message);
+		throw error; // Puedes re-lanzar el error si es necesario
+	}
+};
+
+// Export const verifyTokenRequest = async () => axiosInstance.get(`/auth/verify`);
