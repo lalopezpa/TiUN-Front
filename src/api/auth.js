@@ -10,11 +10,12 @@ export const registerRequest = user => axiosInstance.post(`${API}signup`, user);
 
 export const loginRequest = user => axiosInstance.post(`${API}signin`, user);
 
-export const verifyToken = async () => {
+export const verifyToken = async (options = {}) => {
 	try {
 		const response = await fetch(`${API}profile`, {
 			method: 'GET',
-			credentials: 'include', // Esto establece las cookies de sesión
+			credentials: 'include', // Esto establece las cookies de sesión por defecto
+			...options, // Combina las opciones pasadas con las opciones predeterminadas
 		});
 
 		if (response.ok) {

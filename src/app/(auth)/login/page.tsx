@@ -121,9 +121,9 @@ const Login = (): JSX.Element => {
 						</div>
 					</form>
 					<FooterLogin />
-					<Toaster richColors visibleToasts={1} closeButton/>
 				</section>
 			</main>
+			<Toaster richColors visibleToasts={1} closeButton/>
 		</>
 	);
 };
