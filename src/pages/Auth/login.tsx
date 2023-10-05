@@ -1,18 +1,16 @@
 // Login.tsx
 import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
-import fondo from '../../assets/fondo.jpg';
-import logo from '../../assets/Logotipo..png';
+import logo from '../../assets/logo.png';
+import logooscuro from '../../assets/logo_oscuro.png';
 import {useForm} from 'react-hook-form';
 import type RequestData from '../../types/RequestData';
 import FooterLogin from '../../components/common/FooterLogin';
 import DarkModeToggle from '../../components/common/DarkModeToggle';
 import useDarkMode from '../../hooks/useDarkMode';
 import {useAuth} from '../../context/authContext';
-// Import axios from 'axios';
-// import Cookies from 'js-cookie';
-// import bcrypt from 'bcryptjs';
-// import type ApiResponse from '../../types/ApiResponse';
+import Background from '../../components/common/Background';
+
 const Login = (): JSX.Element => {
 	const	{register, handleSubmit, formState: {errors}, watch} = useForm();
 	const {modoOscuro, toggleModoOscuro} = useDarkMode();
@@ -22,38 +20,40 @@ const Login = (): JSX.Element => {
 	const onSubmit = async (data: RequestData) => {
 		login(data);
 		console.log(data);
+		console.log(errors);
 	};
 
 	return (
 		<>
-			<header className='fixed top-0 left-0 w-full p-4 bg-transparent z-50'>
-				<div className='flex justify-between'>
-					<Link to='/home' className='text-white  '>Inicio</Link>
-					<DarkModeToggle modoOscuro={modoOscuro} toggleModoOscuro={toggleModoOscuro} />
-				</div>
-			</header>
 			<main className='flex min-h-screen bg-verdeClaro bg-opacity-75 dark:bg-verdeOscuro md:full'>
+				<header className='fixed top-0 left-0 w-full p-4 bg-transparent z-50'>
+					<div className='flex justify-between'>
+						<Link to='/home' className='text-white  '>Inicio</Link>
+						<DarkModeToggle modoOscuro={modoOscuro } toggleModoOscuro={toggleModoOscuro} />
+					</div>
+				</header>
 				{/* División izquierda */}
 				<section className='w-1/2 flex flex-col justify-center items-center overflow-hidden min-h-max relative hidden md:flex sm:w-100%'>
 					<div className='w-full h-full absolute top-0 left-0 z-10'>
-						<img src={fondo} alt='fondobolsas' className='w-full h-full opacity-5 bg-cover' />
+						<Background modoOscuro={modoOscuro} />
 					</div>
 					<figure className='z-20'>
-						<img src={logo} alt='logo' className='w-[24rem] h-[24rem] px-4 lg:w-[36rem] lg:h-[36rem] lg:px-0' />
+						<img src={modoOscuro ? logooscuro : logo} alt='logo'loading='lazy' className='w-[24rem] h-[24rem] px-4 lg:w-[36rem] lg:h-[36rem] lg:px-0' />
 					</figure>
 				</section>
 				{/* División derecha */}
-				<section className='bg-verdeSeccionLogin bg-opacity-90 w-full md:w-1/2 p-10 pb-0 flex flex-col justify-between items-center md:pt-48 dark:bg-verdeOscuro'>
+				<section className='bg-verdeSeccionLogin bg-opacity-90 w-full md:w-1/2 p-10 pb-0 flex flex-col justify-between items-center md:pt-40 dark:bg-verdeOscuro'>
 					<figure className='flex md:hidden'>
-						<img src={logo} alt='logo' className='w-48 h-48 pb-5' />
+						<img src={modoOscuro ? logooscuro : logo} alt='logo' loading='lazy' className='w-48 h-48 pb-5' />
 					</figure>
 					<form onSubmit={handleSubmit(onSubmit)} className='w-full text-xl flex flex-col justify-center items-center'>
 						<h2 className='text-5xl mb-4 font-poppins font-bold text-white'>INICIO DE SESIÓN</h2>
 						<label className='flex flex-col text-white' htmlFor='correo'>
+							Correo
 							<input
 								id='correo'
 								{...register('correo', {required: true})}
-								className='w-[20rem] m-1 p-4 bg-white bg-opacity-20 rounded-lg placeholder-white placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro hover:bg-opacity-30 lg:w-[27rem]'
+								className='w-[20rem] m-1 p-4 bg-white bg-opacity-20 rounded-lg placeholder-white placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro hover:bg-opacity-30 lg:w-[27rem] dark:focus:ring-verdeClaro'
 								placeholder='ejemplo@unal.edu.co'
 								type='email'
 							/>
@@ -63,7 +63,7 @@ const Login = (): JSX.Element => {
         Contraseña
 							<input
 								{...register('contraseña', {required: true})}
-								className='w-[20rem] m-1 p-4 bg-white bg-opacity-20 rounded-lg placeholder-white placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro border-solid hover:bg-opacity-30 lg:w-[27rem]'
+								className='w-[20rem] m-1 p-4 bg-white bg-opacity-20 rounded-lg placeholder-white placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro border-solid hover:bg-opacity-30 lg:w-[27rem] dark:focus:ring-verdeClaro'
 								placeholder='**********************'
 								type='password'
 							/>
