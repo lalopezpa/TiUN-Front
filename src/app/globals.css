@@ -25,12 +25,15 @@ a {
 
 }
 
+<<<<<<< HEAD:src/index.css
 <<<<<<< HEAD
 .custom-gold-star {
   color: rgba(243, 223, 111, 0.781); 
 }
 
 =======
+=======
+>>>>>>> master:src/app/globals.css
 /* Añade más estilos según tus necesidades */
 .appearance-none::-webkit-inner-spin-button,
 .appearance-none::-webkit-outer-spin-button {
@@ -38,4 +41,10 @@ a {
   appearance: none;
   margin: 0; /* Ajusta el margen según sea necesario */
 }
+<<<<<<< HEAD:src/index.css
 >>>>>>> master
+=======
+.custom-gold-star {
+  color: rgba(243, 223, 111, 0.781);
+}
+>>>>>>> master:src/app/globals.css

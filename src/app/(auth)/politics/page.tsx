@@ -1,7 +1,8 @@
-import React from 'react';
-import fondo from '../assets/fondo.jpg';
-import logo from '../assets/Logotipo..png';
-import FooterLogin from '../components/common/FooterLogin';
+'use client';
+import type React from 'react';
+import fondo from '../../../assets/fondo.jpg';
+import logo from '../../../assets/logo.png';
+import FooterLogin from '../../../components/common/FooterLogin';
 
 const Politics: React.FC = () => (
 	<>
@@ -10,10 +11,10 @@ const Politics: React.FC = () => (
 				{/* División izquierda */}
 				<section className='w-1/2 flex-col justify-center items-center overflow-hidden min-h-max relative hidden md:flex sm:w-100%'>
 					<div className='w-full h-full absolute top-0 left-0 z-10'>
-						<img src={fondo} alt='fondobolsas' className='w-full h-full opacity-5 bg-cover' />
+						<img src={fondo.src} alt='fondobolsas' className='w-full h-full opacity-5 bg-cover' />
 					</div>
 					<figure className='z-20'>
-						<img src={logo} alt='logo' className='w-[24rem] h-[24rem] px-4 lg:w-[36rem] lg:h-[36rem] lg:px-0' />
+						<img src={logo.src} alt='logo' className='w-[24rem] h-[24rem] px-4 lg:w-[36rem] lg:h-[36rem] lg:px-0' />
 					</figure>
 				</section>
 				{/* División derecha */}

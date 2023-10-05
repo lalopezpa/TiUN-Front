@@ -1,8 +1,13 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import axios from 'axios';
+const axiosInstance = axios.create({
+	baseURL: 'http://localhost:3000/',
+	withCredentials: true,
+});
 
 const API = 'http://localhost:3000/';
 
-export const registerRequest = user => axios.post(`${API}register`, user);
+export const registerRequest = user => axiosInstance.post(`${API}signup`, user);
 
-export const loginRequest = user => axios.post(`${API}signin`, user);
+export const loginRequest = user => axiosInstance.post(`${API}signin`, user);
+
+export const verifyTokenRequest = async () => axiosInstance.get(`/auth/verify`);

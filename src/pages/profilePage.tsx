@@ -1,6 +1,6 @@
 // Src/pages/Profile.tsx
-import Header from '../components/common/Header';
-import Footer from '../components/common/Footer';
+import Header from '../../components/common/Header';
+import Footer from '../../components/common/Footer';
 import styled from 'styled-components';
 
 const Container = styled.div`

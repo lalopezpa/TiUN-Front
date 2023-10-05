@@ -1,10 +1,11 @@
 /* eslint-disable no-warning-comments */
+'use client';
 import React, {useState} from 'react';
 import logoMini from '../../assets/logo_mini.png';
 import {ShoppingCartIcon, UserIcon, FavoritesIcon} from '../icons/icons';
 import DarkModeToggle from './DarkModeToggle';
 import useDarkMode from '../../hooks/useDarkMode';
-import {Link} from 'react-router-dom';
+import Link from 'next/link';
 const Header = () => {
 	const {modoOscuro, toggleModoOscuro} = useDarkMode();
 	console.log(modoOscuro);
@@ -17,7 +18,7 @@ const Header = () => {
 	// };
 
 	// const handleSearchInputChange = (event) => {
-	// 	setSearchQuery(event.target.value);
+	// 	setSearchQu	ery(event.target.value);
 	// };
 
 	const handleSearchSubmit = () => {
@@ -52,10 +53,10 @@ const Header = () => {
 				</div>
 			</div>
 			<nav className='flex items-center space-x-5 text-verdeOscuro'>
-				<Link to='/Favorites'>	<FavoritesIcon/></Link>
-				<Link to='/Profile'><UserIcon/> </Link>
-				<Link to='/Cart'><ShoppingCartIcon/> </Link>
-				<Link to='/home'><img src= {logoMini} alt='Logo' className='w-28' /> </Link>
+				<Link href='/Favorites'>	<FavoritesIcon/></Link>
+				<Link href='/Profile'><UserIcon/> </Link>
+				<Link href='/Cart'><ShoppingCartIcon/> </Link>
+				<Link href='/home'><img src= {logoMini.src} alt='Logo' className='w-28' /> </Link>
 			</nav>
 		</header>
 	);

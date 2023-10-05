@@ -1,12 +1,13 @@
+'use client';
 // ForgotPassword.tsx
 import React from 'react';
-import fondo from '../../assets/fondo.jpg';
-import logomini from '../../assets/logomini.png';
+import fondo from '../../../assets/fondo.jpg';
+import logomini from '../../../assets/logo_mini.png';
 import {useForm} from 'react-hook-form';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import Footer from '../../../components/common/Footer';
-import {Link} from 'react-router-dom';
+import Link from 'next/link';
 
 type ApiResponse = {
 	accessToken: string;
@@ -52,7 +53,7 @@ const forgotPasswordValidate = (): JSX.Element => {
 		<>
 			<header className='flex justify-end  items-end bg-verdeClaro bg-opacity-75 '>
 				<div className='flex justify-end'>
-					<img src={logomini} alt='Logo' className='w-400 h-400 mx-auto my-4' />
+					<img src={logomini.src} alt='Logo' className='w-400 h-400 mx-auto my-4' />
 				</div>
 			</header>
 
@@ -60,7 +61,7 @@ const forgotPasswordValidate = (): JSX.Element => {
 				<section className='flex h-screen bg-verdeClaro bg-opacity-75'>
 					<div className='w-full h-full absolute top-0 left-0 z-10'>
 						<img
-							src={fondo}
+							src={fondo.src}
 							alt='fondobolsas'
 							className='w-full h-full opacity-5 bg-cover'
 						/>
@@ -99,7 +100,7 @@ const forgotPasswordValidate = (): JSX.Element => {
 										<p>
 											<Link
 												className='text-amarillo hover:invert'
-												to='/RecoverPassword'
+												href='/RecoverPassword'
 											>
 												¿No recibiste el código?
 											</Link>

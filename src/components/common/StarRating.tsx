@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import type React from 'react';
+import {useEffect, useState} from 'react';
 import 'font-awesome/css/font-awesome.min.css';
-import '/home/laucami/TiUN/src/index.css';
+// Import '/home/laucami/TiUN/src/index.css';
 
 const StarRating: React.FC<{rating: number}> = ({rating}) => {
 	const [starClasses, setStarClasses] = useState<string[]>([]);

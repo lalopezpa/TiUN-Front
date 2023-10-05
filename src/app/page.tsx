@@ -1,5 +1,6 @@
-// listo
-import React, {useEffect} from 'react';
+'use client';
+import type React from 'react';
+import {useEffect} from 'react';
 import styled from 'styled-components';
 import Carrusel from '../components/common/Carrusel';
 import Header from '../components/common/Header';
@@ -38,7 +39,9 @@ const Home: React.FC = () => {
 				integrationID: '5b859bb1-bd6c-4d25-a730-9b425c08f717',
 				region: 'au-syd',
 				serviceInstanceID: '4d73066b-eef2-4338-9d83-a28d57b247ab',
-				onLoad: function(instance) { instance.render(); }
+				onLoad(instance) {
+					instance.render();
+				},
 			};
 		};
 
