@@ -2,6 +2,7 @@ import React from 'react';
 import {FavoritesIconN} from '../icons/icons';
 import StarRating from './StarRating';
 
+// TODO: pasar type
 type CardProps = {
 	Nombre: string;
 	Precio: string;

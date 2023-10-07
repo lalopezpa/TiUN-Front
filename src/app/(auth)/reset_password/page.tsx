@@ -9,6 +9,7 @@ import Cookies from 'js-cookie';
 import Footer from '../../../components/common/Footer';
 import Link from 'next/link';
 
+//TODO: Pasar type
 type ApiResponse = {
 	accessToken: string;
 };

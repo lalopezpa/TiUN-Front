@@ -7,6 +7,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import Footer from '../../../components/common/Footer';
 
+//TODO :pasar type
 type ApiResponse = {
 	accessToken: string;
 };

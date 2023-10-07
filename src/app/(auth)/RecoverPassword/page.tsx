@@ -8,6 +8,8 @@ import {useForm} from 'react-hook-form';
 import Cookies from 'js-cookie';
 import Footer from '../../../components/common/Footer';
 
+
+//TODO: Pasar type
 type ApiResponse = {
 	accessToken: string;
 };

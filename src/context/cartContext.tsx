@@ -1,6 +1,8 @@
 // Context/CartContext.tsx
 import React, {createContext, useContext, useState, type ReactNode} from 'react';
 
+
+//TODO: pasar types
 // Define the shape of a cart item
 type CartItem = {
 	id: number;

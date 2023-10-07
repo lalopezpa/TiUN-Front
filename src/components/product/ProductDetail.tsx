@@ -1,6 +1,7 @@
 // Components/product/ProductDetail.tsx
 import React from 'react';
 
+//TODO: pasar type
 type Product = {
 	id: number;
 	name: string;

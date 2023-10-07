@@ -8,6 +8,7 @@ import Cookies from 'js-cookie';
 import Footer from '../../../components/common/Footer';
 import {Link} from 'react-router-dom';
 
+//TODO: Pasar type
 type ApiResponse = {
 	accessToken: string;
 };

@@ -6,6 +6,7 @@ import {ShoppingCartIcon, UserIcon, FavoritesIcon} from '../icons/icons';
 import DarkModeToggle from './DarkModeToggle';
 import useDarkMode from '../../hooks/useDarkMode';
 import Link from 'next/link';
+
 const Header = () => {
 	const {modoOscuro, toggleModoOscuro} = useDarkMode();
 	console.log(modoOscuro);
