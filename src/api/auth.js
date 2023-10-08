@@ -35,3 +35,89 @@ export const verifyToken = async (options = {}) => {
 };
 
 // Export const verifyTokenRequest = async () => axiosInstance.get(`/auth/verify`);
+
+export const CRUD = {
+	async getProducts() {
+		try {
+			const response = await fetch(`${API}product`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+
+			if (!response.ok) {
+				throw new Error('Error al obtener productos');
+			}
+
+			return response.json();
+		} catch (error) {
+			console.error(error);
+			throw error;
+		}
+	},
+
+	async createProduct(productData) {
+		try {
+			const response = await fetch(`${API}product`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(productData),
+			});
+
+			if (!response.ok) {
+				console.log(response);
+				throw new Error('Error al crear el producto');
+			}
+
+			return response.json();
+		} catch (error) {
+			console.error(error);
+			throw error;
+		}
+	},
+
+	async updateProduct(productId, productData) {
+		try {
+			const response = await fetch(`${API}product/${productId}`, {
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(productData),
+			});
+
+			if (!response.ok) {
+				throw new Error('Error al actualizar el producto');
+			}
+
+			return response.json();
+		} catch (error) {
+			console.error(error);
+			throw error;
+		}
+	},
+
+	async deleteProduct(productId) {
+		try {
+			const response = await fetch(`${API}product/${productId}`, {
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+
+			if (!response.ok) {
+				console.log(response);
+				throw new Error('Error al eliminar el producto');
+			}
+
+			return response.json();
+		} catch (error) {
+			console.error(error);
+			throw error;
+		}
+	},
+};
