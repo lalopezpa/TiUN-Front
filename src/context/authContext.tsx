@@ -1,12 +1,16 @@
 'use client';
 import {createContext, useState, useContext, useEffect} from 'react';
 import {loginRequest, registerRequest} from '../api/auth';
+import {type UserType} from '../types/UserSchema';
+import {type AuthProviderProps} from '../types/AuthProviderProps';
+import {type AuthContextType} from '../types/AuthContextType';
+import type RequestData from '../types/RequestData';
 import Cookies from 'js-cookie';
 
 export const AuthContext = createContext(null);
 
 // Este hook es para usar el contexto sin necesidad de importar useContext, hace el uso del contexto por mi
-export const useAuth = () => {
+export const useAuth = (): AuthContextType => {
 	const context = useContext(AuthContext);
 	if (!context) {
 		throw new Error('useAuth debe estar dentro del proveedor AuthContext');
@@ -15,49 +19,53 @@ export const useAuth = () => {
 	return context;
 };
 
-export const AuthProvider = ({children}) => {
-	const [user, setUser] = useState(null);
-	const [isAuthenticated, setIsAuthenticated] = useState(false);
-	const [loading, setLoading] = useState(true);
+export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
+	const [user, setUser] = useState<UserType | undefined>(undefined);
+	const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+	const [loading, setLoading] = useState<boolean>(true);
 
-	const signup = async user => {
+	const signup = async (user: UserType) => {
 		try {
 			const res = await registerRequest(user);
-			const userData = res.data.user;
-			// Console.log(res);
+			const userData: UserType = (res.data as {user: UserType}).user; // Gracias Gpt
 
-			return {success: true, user: userData};
+			return {success: true, user: userData, error: undefined};
 		} catch (error) {
-			console.log(error.response.data);
+			if (error instanceof Error) {
+				console.log(error.response.data);
 
-			const errorcito = error.response.data;
-			return {success: false, error: errorcito};
+				const errorcito = error.response?.data;
+				return {success: false, user: undefined, error: errorcito};
+			}
 		}
 	};
 
-	const login = async (user: any) => {
+	const login = async (user: RequestData) => {
 		try {
 			const res = await loginRequest(user);
-			const userData = res.data.user;
-			console.log(res);
+			const userData: UserType = (res.data as {user: UserType}).user;
+			// Console.log(res);
+			// console.log('userData');
+			// console.log(userData);
 			setUser(userData);
 			setIsAuthenticated(true);
-			return {success: true, user: userData};
+			return {success: true, user: userData, error: undefined};
 		} catch (error) {
 			console.error('Error en el registro', error);
 			const errorcito = error.response.data;
 			console.log(errorcito);
-			return {success: false, error: errorcito};
+			return {success: false, user: undefined, error: errorcito};
 		}
 	};
 
 	const logout = () => {
-		Cookies.remove('accesToken');
-		setUser(null);
+		Cookies.remove('authToken');
+		Cookies.remove('refreshToken');
+		setUser(undefined);
 		setIsAuthenticated(false);
 	};
 
-	// useEffect(() => {
+	// UseEffect(() => {
 	// 	const checkLogin = async () => {
 	// 		const cookies = Cookies.get();
 	// 		console.log('cookies');

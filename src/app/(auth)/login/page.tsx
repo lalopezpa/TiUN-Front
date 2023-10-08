@@ -24,21 +24,21 @@ const Login = (): JSX.Element => {
 	const onSubmit = async (data: RequestData) => {
 		try {
 			const loginResult = await login(data);
-			const type_error = loginResult.error;
-			console.log('usuario');
-			console.log(user);
+			const typeError = loginResult.error;
+			// !console.log('usuario');
+			// console.log(user);
 			if (loginResult.success) {
 			// Inicio de sesión exitoso, muestra un toast de éxito y redirige
 				toast.success('Inicio de sesión exitoso');
 				setTimeout(() => {
 					router.push('/');
 				}, 2000);
-			} else if (type_error.includes('Email is wrong')) {
+			} else if (typeError?.includes('Email is wrong')) {
 			// Error de correo no registrado
 				toast.error('ERROR', {
 					description: 'Este correo no está registrado',
 				});
-			} else if (type_error.includes('Password is wrong')) {
+			} else if (typeError?.includes('Password is wrong')) {
 			// Error de contraseña incorrecta
 				toast.error('ERROR', {
 					description: 'La contraseña es incorrecta',
@@ -46,7 +46,7 @@ const Login = (): JSX.Element => {
 			} else {
 			// Otros errores no reconocidos, muestra un toast genérico
 				toast.error('Error en el registro');
-			// Console.log(type_error);
+			// Console.log(typeError);
 			}
 		} catch (error) {
 		// Error en el registro, muestra un toast genérico

@@ -54,6 +54,7 @@ tramp
 .pnp.*
 .webpack/
 .svelte-kit
+.vscode
 
 # Node
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
