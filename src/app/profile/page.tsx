@@ -96,6 +96,7 @@ const Profile = (): JSX.Element => {
 			</footer>
 		</div>
 
-);
+	);
 };
+
 export default Profile;

@@ -1,10 +1,11 @@
-'use client';
 import {useState, useEffect} from 'react';
+import {darkModeSchema} from '../types/DarkModeSchema';
+import {type DarkModeState} from '../types/DarkModeState';
 
-const useDarkMode = () => {
-	const isClient = typeof window === 'object'; // Verifica si estás en un entorno de navegador
+const useDarkMode = (): DarkModeState => {
+	const isClient = typeof window === 'object';
 	const storedMode = isClient ? localStorage.getItem('modoOscuro') : null;
-	const [modoOscuro, setModoOscuro] = useState(isClient && storedMode ? JSON.parse(storedMode) : false);
+	const [modoOscuro, setModoOscuro] = useState<boolean>(isClient && storedMode ? JSON.parse(storedMode) : false);
 
 	useEffect(() => {
 		if (isClient) {
@@ -24,6 +25,12 @@ const useDarkMode = () => {
 			localStorage.setItem('modoOscuro', JSON.stringify(newModoOscuro));
 		}
 	};
+
+	// Validar los valores con Zod antes de devolverlos
+	darkModeSchema.parse({
+		modoOscuro,
+		toggleModoOscuro,
+	});
 
 	return {modoOscuro, toggleModoOscuro};
 };

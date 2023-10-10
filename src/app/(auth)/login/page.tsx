@@ -12,16 +12,47 @@ import DarkModeToggle from '../../../components/common/DarkModeToggle';
 import useDarkMode from '../../../hooks/useDarkMode';
 import {useAuth} from '../../../context/authContext';
 import Background from '../../../components/common/Background';
+import {toast, Toaster} from 'sonner';
+import {useRouter} from 'next/navigation';
 
 const Login = (): JSX.Element => {
 	const	{register, handleSubmit, formState: {errors}, watch} = useForm();
 	const {modoOscuro, toggleModoOscuro} = useDarkMode();
 	const {login, user} = useAuth();
+	const router = useRouter();
 
 	const onSubmit = async (data: RequestData) => {
-		login(data);
-		console.log('usuario');
-		console.log(user);
+		try {
+			const loginResult = await login(data);
+			const typeError = loginResult.error;
+			// !console.log('usuario');
+			// console.log(user);
+			if (loginResult.success) {
+			// Inicio de sesión exitoso, muestra un toast de éxito y redirige
+				toast.success('Inicio de sesión exitoso');
+				setTimeout(() => {
+					router.push('/');
+				}, 2000);
+			} else if (typeError?.includes('Email is wrong')) {
+			// Error de correo no registrado
+				toast.error('ERROR', {
+					description: 'Este correo no está registrado',
+				});
+			} else if (typeError?.includes('Password is wrong')) {
+			// Error de contraseña incorrecta
+				toast.error('ERROR', {
+					description: 'La contraseña es incorrecta',
+				});
+			} else {
+			// Otros errores no reconocidos, muestra un toast genérico
+				toast.error('Error en el registro');
+			// Console.log(typeError);
+			}
+		} catch (error) {
+		// Error en el registro, muestra un toast genérico
+			toast.error('Error desconocido en el registro');
+		// Console.error('Error en el registro', error);
+		}
 	};
 
 	return (
@@ -29,7 +60,7 @@ const Login = (): JSX.Element => {
 			<main className='flex min-h-screen bg-verdeClaro bg-opacity-75 dark:bg-verdeOscuro md:full'>
 				<header className='fixed top-0 left-0 w-full p-4 bg-transparent z-50'>
 					<div className='flex justify-between'>
-						<Link href='/' className='text-white  '>Inicio</Link>
+						<Link href='/' className='text-white text-xl  hover:opacity-70'>Inicio</Link>
 						<DarkModeToggle modoOscuro={modoOscuro } toggleModoOscuro={toggleModoOscuro} />
 					</div>
 				</header>
@@ -54,7 +85,7 @@ const Login = (): JSX.Element => {
 							<input
 								id='email'
 								{...register('email', {required: true})}
-								className='w-[20rem] m-1 p-4 bg-white bg-opacity-20 rounded-lg placeholder-white placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro hover:bg-opacity-30 lg:w-[27rem] dark:focus:ring-verdeClaro'
+								className='w-[20rem] m-1 p-4 bg-white bg-opacity-20 rounded-lg placeholder-black  text-black placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro hover:bg-opacity-30 lg:w-[27rem] dark:focus:ring-verdeClaro'
 								placeholder='ejemplo@unal.edu.co'
 								type='email'
 							/>
@@ -64,7 +95,7 @@ const Login = (): JSX.Element => {
         Contraseña
 							<input
 								{...register('password', {required: true})}
-								className='w-[20rem] m-1 p-4 bg-white bg-opacity-20 rounded-lg placeholder-white placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro border-solid hover:bg-opacity-30 lg:w-[27rem] dark:focus:ring-verdeClaro'
+								className='w-[20rem] m-1 p-4 bg-white bg-opacity-20 rounded-lg placeholder-black  text-black  placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro border-solid hover:bg-opacity-30 lg:w-[27rem] dark:focus:ring-verdeClaro'
 								placeholder='**********************'
 								type='password'
 							/>
@@ -79,25 +110,20 @@ const Login = (): JSX.Element => {
 						</div>
 						<button
 							type='submit'
-							className='mt-4 bg-vinotinto text-white text-bold px-4 py-2 rounded border-solid hover:brightness-125 border-gris'
+							className='my-4 bg-vinotinto text-white text-bold px-4 py-2 rounded border-solid hover:brightness-125 border-gris'
 						>
         INGRESA
 						</button>
 						<div className='font-poppins text-xl flex flex-col justify-center items-center'>
-							<p className='text-white'>
+							<p className='text-white pb-6'>
           ¿No tienes cuenta? <Link href='/signup' className='text-amarillo hover:invert'>Regístrate</Link>
-							</p>
-							<p className='text-white'>
-          ------- O INGRESA CON --------
-							</p>
-							<p className='font-poppins text-xl text-white pb-10'>
-								<button>Google</button>
 							</p>
 						</div>
 					</form>
 					<FooterLogin />
 				</section>
 			</main>
+			<Toaster richColors visibleToasts={1} closeButton/>
 		</>
 	);
 };
