@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+import type React from 'react';
 import {useEffect, useState} from 'react';
 import 'font-awesome/css/font-awesome.min.css';
 // Import '/home/laucami/TiUN/src/index.css';

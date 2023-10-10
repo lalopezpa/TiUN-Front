@@ -1,5 +1,6 @@
 // Components/auth/LoginForm.tsx
-import React, {useState} from 'react';
+import type React from 'react';
+import {useState} from 'react';
 import {useAuth} from '../../context/authContext';
 
 const LoginForm: React.FC = () => {

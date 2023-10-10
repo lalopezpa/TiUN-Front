@@ -1,5 +1,7 @@
 // Context/UserContext.tsx
-import React, {createContext, useContext, useState, type ReactNode} from 'react';
+'use client';
+import type React from 'react';
+import {createContext, useContext, useState, type ReactNode} from 'react';
 
 // Define the shape of the user
 type User = {
