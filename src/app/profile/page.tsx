@@ -9,7 +9,7 @@ import fondo from '../../assets/fondo.jpg';
 import {useUser} from '../../context/userContext';
 
 const Profile = (): JSX.Element => {
- 	// Const {modoOscuro, toggleModoOscuro} = useDarkMode();
+// Const {modoOscuro, toggleModoOscuro} = useDarkMode();
 	// eslint-disable-next-line no-negated-condition
 	const {user} = typeof window !== 'undefined' ? useUser() : {user: null};
 
