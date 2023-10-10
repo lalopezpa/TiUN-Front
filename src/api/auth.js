@@ -44,6 +44,7 @@ export const CRUD = {
 				headers: {
 					'Content-Type': 'application/json',
 				},
+				credentials: 'include',
 			});
 
 			if (!response.ok) {
@@ -64,6 +65,7 @@ export const CRUD = {
 				headers: {
 					'Content-Type': 'application/json',
 				},
+				credentials: 'include',
 				body: JSON.stringify(productData),
 			});
 
@@ -86,6 +88,7 @@ export const CRUD = {
 				headers: {
 					'Content-Type': 'application/json',
 				},
+				credentials: 'include',
 				body: JSON.stringify(productData),
 			});
 
@@ -107,6 +110,7 @@ export const CRUD = {
 				headers: {
 					'Content-Type': 'application/json',
 				},
+				credentials: 'include',
 			});
 
 			if (!response.ok) {

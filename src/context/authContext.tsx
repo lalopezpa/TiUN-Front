@@ -27,7 +27,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
 	const signup = async (user: UserType) => {
 		try {
 			const res = await registerRequest(user);
-			const userData: UserType = (res.data as {user: UserType}).user; // Gracias Gpt
+			const userData: UserType = (res.data as {user: UserType}).user; // Gracias Gpt :)
 
 			return {success: true, user: userData, error: undefined};
 		} catch (error) {

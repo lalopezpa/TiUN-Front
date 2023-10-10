@@ -20,6 +20,9 @@ const ProductCRUD = () => {
 	useEffect(() => {
 		loadProducts();
 	}, []);
+	const resetForm = () => {
+		reset();
+	};
 
 	const handleAddProduct = async data => {
 		let imageFile = null;
@@ -27,42 +30,38 @@ const ProductCRUD = () => {
 		let imageUrl = null;
 
 		try {
-			// Verifica si se seleccionó una imagen
-			console.log(data)
+			console.log(data);
 			if (data.imageurl?.[0]) {
 				imageFile = data.imageurl[0];
 				storageRef = ref(storage, 'Productos/' + imageFile.name);
 
-				// Sube la imagen a Firebase Storage
 				const snapshot = await uploadBytes(storageRef, imageFile);
 
-				// Obtiene la URL de descarga de la imagen
 				imageUrl = await getDownloadURL(storageRef);
 
-				// Actualiza el campo de imagen en los datos del producto
 				data.imageurl = imageUrl;
 
-				// Realiza la solicitud POST para crear el producto
 				const createdProduct = await CRUD.createProduct(data);
 
-				// Agrega el producto al estado
 				setProducts([...products, createdProduct]);
+				if (isEditing) {
+					resetForm();
+				}
 
-				// Restablece el formulario y finaliza el proceso de adición
 				setIsAdding(false);
 			}
 		} catch (error) {
 			console.error('Error al agregar el producto:', error);
-			console.log("data despues del error")
-			console.log(data)
-			// Si hubo un error en la carga de la imagen, intenta eliminarla
+			console.log('data despues del error');
+			console.log(data);
+
 			if (imageFile && storageRef) {
 				try {
 					// Intenta eliminar la imagen en caso de error
 					await deleteObject(storageRef);
 					console.log('Imagen eliminada de Firebase Storage debido a un error en la petición POST.');
-					console.log("data despues de borrar")
-					console.log(data)
+					console.log('data despues de borrar');
+					console.log(data);
 				} catch (deleteError) {
 					console.error('No se pudo eliminar la imagen de Firebase Storage:', deleteError);
 				}
@@ -95,15 +94,14 @@ const ProductCRUD = () => {
 	};
 
 	const handleCancelEdit = () => {
+		resetForm();
 		setEditedProduct(null);
 		setIsEditing(false);
 	};
 
 	const handleSaveEdit = async data => {
 		try {
-			// Realiza una solicitud PUT para guardar los cambios en el producto
 			const updatedProduct = await CRUD.updateProduct(editedProduct._id, data);
-			// Actualiza la lista de productos con los cambios
 			const updatedProducts = products.map(product =>
 				product._id === editedProduct._id ? updatedProduct : product,
 			);
@@ -120,16 +118,16 @@ const ProductCRUD = () => {
 	return (
 		<>
 			<Header />
-			<div className='flex flex-col justify-between pt-16'>
-				<div className='container mx-auto px-4 h-100vh pt-9'>
-					<h1 className='text-3xl font-semibold text-gray-800 mb-6'>Administrar Productos</h1>
+			<div className='flex flex-col justify-between pt-16 min-h-screen max-h-max'>
+				<div className='container mx-auto px-4 pt-9'>
+					<h1 className='text-3xl font-poppins text-gray-800 mb-6'>Administrar Productos</h1>
 					<div className='mb-6'>
 						<button
 							onClick={() => {
 								setIsAdding(false);
 							}}
-							className={`mr-2 py-2 px-4 rounded cursor-pointer ${
-								isAdding ? 'bg-red-500 text-white' : 'bg-gray-200 text-gray-600'
+							className={`mr-2 py-2 px-4 rounded font-poppins ${
+								isAdding ? 'bg-verdeClaro text-white' : 'bg-gray-200 text-gray-600 cursor-not-allowed'
 							}`}
 						>
               Mis Productos
@@ -138,8 +136,8 @@ const ProductCRUD = () => {
 							onClick={() => {
 								setIsAdding(true);
 							}}
-							className={`py-2 px-4 rounded cursor-pointer ${
-								isAdding ? 'bg-gray-200 text-gray-600' : 'bg-red-500 text-white'
+							className={`py-2 px-4 rounded font-poppins ${
+								isAdding ? 'bg-gray-200 text-gray-600 cursor-not-allowed' : 'bg-verdeClaro text-white'
 							}`}
 						>
               Añadir Productos
@@ -181,7 +179,7 @@ const ProductCRUD = () => {
 									className='w-full p-2 mb-2 border rounded border-blue-500'
 								/>
 							</div>
-							{/* Resto de los campos de entrada */}
+							{/* Terminar los restantes */}
 							<button type='submit' className='bg-red-500 text-white py-2 px-4 rounded cursor-pointer'>
                 Agregar
 							</button>
@@ -228,20 +226,22 @@ const ProductCRUD = () => {
 						<table className='w-full mt-6'>
 							<thead>
 								<tr>
-									<th className='bg-gray-200 font-semibold py-2 px-4'>ID</th>
 									<th className='bg-gray-200 font-semibold py-2 px-4'>Nombre</th>
 									<th className='bg-gray-200 font-semibold py-2 px-4'>Descripción</th>
 									<th className='bg-gray-200 font-semibold py-2 px-4'>Precio</th>
+									<th className='bg-gray-200 font-semibold py-2 px-4'>Stock</th>
+									<th className='bg-gray-200 font-semibold py-2 px-4'>Descuento</th>
 									<th className='bg-gray-200 font-semibold py-2 px-4'>Acciones</th>
 								</tr>
 							</thead>
 							<tbody>
 								{displayedProducts.map(product => (
 									<tr key={product._id}>
-										<td className='border py-2 px-4'>{product._id}</td>
 										<td className='border'>{product.name}</td>
 										<td className='border'>{product.description}</td>
 										<td className='border'>{product.price}</td>
+										<td className='border'>{product.stock}</td>
+										<td className='border'>{product.discount}</td>
 										<td className='border py-2 px-4'>
 											<button
 												onClick={() => {
