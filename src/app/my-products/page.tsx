@@ -48,15 +48,15 @@ const ProductCRUD = () => {
 
 		try {
 			console.log(data);
-			if (data.imageurl?.[0]) {
-				imageFile = data.imageurl[0];
+			if (data.imageUrl?.[0]) {
+				imageFile = data.imageUrl[0];
 				storageRef = ref(storage, 'Productos/' + imageFile.name);
 
 				const snapshot = await uploadBytes(storageRef, imageFile);
 
 				imageUrl = await getDownloadURL(storageRef);
 
-				data.imageurl = imageUrl;
+				data.imageUrl = imageUrl;
 
 				const createdProduct = await CRUD.createProduct(data);
 
@@ -209,7 +209,7 @@ const ProductCRUD = () => {
 							<div>
 								<label>Foto del producto</label>
 								<input
-									{...register('imageurl')}
+									{...register('imageUrl')}
 									type='file'
 									className='w-full p-2 mb-2 border rounded border-blue-500'
 								/>
@@ -306,8 +306,7 @@ const ProductCRUD = () => {
 							<tbody>
 								{displayedProducts.map(product => (
 									<tr key={product._id}>
-										<td className='border'><Image src='https://firebasestorage.googleapis.com/v0/b/tiun-175b2.appspot.com/o/Productos%2F63b73981e5a99.jpeg?alt=media&token=b6472c9e-a92e-4278-b201-8f8255ba776b'
-											width={50} height = {100} alt = 'imagen'></Image></td>
+										<td className='border'><Image src={product.imageUrl}	width={500} height = {500} alt = 'imagen'></Image></td>
 										<td className='border'>{product.name}</td>
 										<td className='border'>{product.description}</td>
 										<td className='border'>{product.price}</td>
