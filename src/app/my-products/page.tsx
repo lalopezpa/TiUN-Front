@@ -1,5 +1,6 @@
 'use client';
 import React, {useState, useEffect} from 'react';
+import Image from 'next/image';
 import ReactPaginate from 'react-paginate';
 import Header from '../../components/common/Header';
 import Footer from '../../components/common/Footer';
@@ -14,6 +15,22 @@ const ProductCRUD = () => {
 	const [isAdding, setIsAdding] = useState(false);
 	const [isEditing, setIsEditing] = useState(false);
 	const [editedProduct, setEditedProduct] = useState(null);
+	const [imagePreview, setImagePreview] = useState(null);
+
+	const handleImageChange = e => {
+		const file = e.target.files[0];
+
+		if (file) {
+			// Lee el contenido del archivo como un objeto Blob
+			const reader = new FileReader();
+
+			reader.onload = e => {
+				setImagePreview(e.target.result);
+			};
+
+			reader.readAsDataURL(file);
+		}
+	};
 
 	const {handleSubmit, register, reset} = useForm();
 
@@ -172,6 +189,24 @@ const ProductCRUD = () => {
 								/>
 							</div>
 							<div>
+								<label>Cantidad</label>
+								<input
+									{...register('stock')}
+									type='number'
+									defaultValue=''
+									className='w-full p-2 mb-2 border rounded focus-border-blue-500'
+								/>
+							</div>
+							<div>
+								<label>Descuento</label>
+								<input
+									{...register('discount')}
+									type='number'
+									defaultValue=''
+									className='w-full p-2 mb-2 border rounded focus-border-blue-500'
+								/>
+							</div>
+							<div>
 								<label>Foto del producto</label>
 								<input
 									{...register('imageurl')}
@@ -211,6 +246,39 @@ const ProductCRUD = () => {
 									className='w-full p-2 mb-2 border rounded focus-border-blue-500'
 								/>
 							</div>
+							<div>
+								<label>Cantidad</label>
+								<input
+									{...register('stock')}
+									type='number'
+									defaultValue={editedProduct.stock}
+									className='w-full p-2 mb-2 border rounded focus-border-blue-500'
+								/>
+							</div>
+							<div>
+								<label>Descuento</label>
+								<input
+									{...register('discount')}
+									type='number'
+									defaultValue={editedProduct.discount}
+									className='w-full p-2 mb-2 border rounded focus-border-blue-500'
+								/>
+							</div>
+							<div>
+								<label>Foto del producto</label>
+								<input
+									type='file'
+									onChange={handleImageChange}
+									className='w-full p-2 mb-2 border rounded border-blue-500'
+								/>
+								{imagePreview && (
+									<img
+										src={imagePreview}
+										alt='Vista previa de la imagen'
+										style={{maxWidth: '100px'}} // Ajusta el tamaño según tus necesidades
+									/>
+								)}
+							</div>
 							<button type='submit' className='bg-red-500 text-white py-2 px-4 rounded cursor-pointer'>
                 Guardar
 							</button>
@@ -226,6 +294,7 @@ const ProductCRUD = () => {
 						<table className='w-full mt-6'>
 							<thead>
 								<tr>
+									<th className='bg-gray-200 font-semibold py-2 px-4'>Foto</th>
 									<th className='bg-gray-200 font-semibold py-2 px-4'>Nombre</th>
 									<th className='bg-gray-200 font-semibold py-2 px-4'>Descripción</th>
 									<th className='bg-gray-200 font-semibold py-2 px-4'>Precio</th>
@@ -237,6 +306,8 @@ const ProductCRUD = () => {
 							<tbody>
 								{displayedProducts.map(product => (
 									<tr key={product._id}>
+										<td className='border'><Image src='https://firebasestorage.googleapis.com/v0/b/tiun-175b2.appspot.com/o/Productos%2F63b73981e5a99.jpeg?alt=media&token=b6472c9e-a92e-4278-b201-8f8255ba776b'
+											width={50} height = {100} alt = 'imagen'></Image></td>
 										<td className='border'>{product.name}</td>
 										<td className='border'>{product.description}</td>
 										<td className='border'>{product.price}</td>
@@ -278,7 +349,7 @@ const ProductCRUD = () => {
 							previousLinkClassName={'border rounded-full p-2 px-4 mx-2 cursor-pointer text-gray-500 hover-bg-gray-200'}
 							nextLinkClassName={'border rounded-full p-2 px-4 mx-2 cursor-pointer text-gray-500 hover-bg-gray-200'}
 							disabledClassName={'cursor-not-allowed text-gray-400'}
-							activeClassName={'bg-red-500 text-white rounded-full p-2 px-4 mx-2 cursor-pointer'}
+							activeClassName={'bg-verdeClaro text-white rounded-full p-2 px-4 mx-2 cursor-pointer'}
 							pageClassName={'cursor-pointer rounded-full p-2 px-4 mx-2 hover-bg-gray-200'}
 						/>
 					) : null}

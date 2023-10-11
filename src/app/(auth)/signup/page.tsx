@@ -223,7 +223,7 @@ const Register = () => {
 										/>
 									</label>
 									<div className='font-poppins text-xl flex justify-between items-center'>
-										<p className='text-white'>Estoy de acuerdo con los  </p> <Link href={'/'} className='text-amarillo hover:invert'> Términos y Condiciones</Link>
+										<p className='text-white'>Estoy de acuerdo con los  </p> <Link href={'/politics'} className='text-amarillo hover:invert'> Términos y Condiciones</Link>
 									</div>
 								</div>
 								{errors.aceptaTerminos && <span className='text-red-600 font-poppins'>{errors.aceptaTerminos.message}</span>}
