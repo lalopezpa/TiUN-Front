@@ -13,7 +13,7 @@ type User = {
 // Define the shape of the context
 type UserContextType = {
 	user: User | undefined;
-	login: (userData: User) => void;
+	login2: (userData: User) => void;
 	logout: () => void;
 };
 
@@ -35,7 +35,7 @@ type UserProviderProps = {
 export const UserProvider: React.FC<UserProviderProps> = ({children}) => {
 	const [user, setUser] = useState<User | undefined>(null);
 
-	const login = (userData: User) => {
+	const login2 = (userData: User) => {
 		setUser(userData);
 	};
 
@@ -45,7 +45,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({children}) => {
 
 	const contextValue: UserContextType = {
 		user,
-		login,
+		login2,
 		logout,
 	};
 

@@ -14,11 +14,12 @@ import {useAuth} from '../../../context/authContext';
 import Background from '../../../components/common/Background';
 import {toast, Toaster} from 'sonner';
 import {useRouter} from 'next/navigation';
-
+import {useUser} from '../../../context/userContext';
 const Login = (): JSX.Element => {
 	const	{register, handleSubmit, formState: {errors}, watch} = useForm();
 	const {modoOscuro, toggleModoOscuro} = useDarkMode();
 	const {login, user} = useAuth();
+	const userContext = useUser();
 	const router = useRouter();
 
 	const onSubmit = async (data: RequestData) => {
@@ -29,6 +30,7 @@ const Login = (): JSX.Element => {
 			// console.log(user);
 			if (loginResult.success) {
 			// Inicio de sesión exitoso, muestra un toast de éxito y redirige
+				userContext.login2(data);
 				toast.success('Inicio de sesión exitoso');
 				setTimeout(() => {
 					router.push('/');

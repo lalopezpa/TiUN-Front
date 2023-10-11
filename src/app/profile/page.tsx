@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 // Import Background from '../../components/common/Background';
 // import DarkModeToggle from '../../components/common/DarkModeToggle';
@@ -12,7 +13,7 @@ const Profile = (): JSX.Element => {
 // Const {modoOscuro, toggleModoOscuro} = useDarkMode();
 	// eslint-disable-next-line no-negated-condition
 	const {user} = typeof window !== 'undefined' ? useUser() : {user: null};
-
+	console.log(user);
 	if (!user) {
 	// Usuario no autenticado
 		return <div>Usuario no autenticado</div>;
