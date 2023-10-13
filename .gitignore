@@ -7,6 +7,10 @@ yarn-error.log*
 lerna-debug.log*
 .pnpm-debug.log*
 
+#next
+.next
+next-env.d.ts
+
 node_modules
 dist
 dist-ssr
@@ -50,6 +54,7 @@ tramp
 .pnp.*
 .webpack/
 .svelte-kit
+.vscode
 
 # Node
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json

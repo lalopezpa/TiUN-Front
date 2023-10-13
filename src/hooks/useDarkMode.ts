@@ -1,26 +1,36 @@
 import {useState, useEffect} from 'react';
+import {darkModeSchema} from '../types/DarkModeSchema';
+import {type DarkModeState} from '../types/DarkModeState';
 
-const useDarkMode = () => {
-	// Obtén el valor almacenado en el localStorage
-	const storedMode = localStorage.getItem('modoOscuro');
-	const [modoOscuro, setModoOscuro] = useState(storedMode ? JSON.parse(storedMode) : false);
+const useDarkMode = (): DarkModeState => {
+	const isClient = typeof window === 'object';
+	const storedMode = isClient ? localStorage.getItem('modoOscuro') : null;
+	const [modoOscuro, setModoOscuro] = useState<boolean>(isClient && storedMode ? JSON.parse(storedMode) : false);
 
 	useEffect(() => {
-		// Agrega o elimina la clase 'dark' del body según el modo oscuro
-		if (modoOscuro) {
-			document.body.classList.add('dark');
-		} else {
-			document.body.classList.remove('dark');
+		if (isClient) {
+			if (modoOscuro) {
+				document.body.classList.add('dark');
+			} else {
+				document.body.classList.remove('dark');
+			}
 		}
-	}, [modoOscuro]);
+	}, [isClient, modoOscuro]);
 
 	const toggleModoOscuro = () => {
 		const newModoOscuro = !modoOscuro;
 		setModoOscuro(newModoOscuro);
 
-		// Actualiza el valor en el localStorage
-		localStorage.setItem('modoOscuro', JSON.stringify(newModoOscuro));
+		if (isClient) {
+			localStorage.setItem('modoOscuro', JSON.stringify(newModoOscuro));
+		}
 	};
+
+	// Validar los valores con Zod antes de devolverlos
+	darkModeSchema.parse({
+		modoOscuro,
+		toggleModoOscuro,
+	});
 
 	return {modoOscuro, toggleModoOscuro};
 };

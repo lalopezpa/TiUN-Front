@@ -1,4 +1,5 @@
 // ForgotPasswordForm.tsx
+'use client';
 import React, {useState, type ChangeEvent} from 'react';
 
 const ForgotPasswordForm = () => {

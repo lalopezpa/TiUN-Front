@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* Configuración global */
+html {
+  font-size: 16px; /* Tamaño base de fuente */
+}
+
+body {
+  background-color: #f8f8f8; /* Cambia por el color de fondo deseado */
+}
+
+/* Asegura que todos los elementos utilicen el box-sizing border-box */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Ajustes de los elementos principales */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: bold;
+}
+
+a {
+  text-decoration: none;
+
+}
+
+<<<<<<< HEAD:src/index.css
+<<<<<<< HEAD
+.custom-gold-star {
+  color: rgba(243, 223, 111, 0.781); 
+}
+
+=======
+=======
+>>>>>>> master:src/app/globals.css
+/* Añade más estilos según tus necesidades */
+.appearance-none::-webkit-inner-spin-button,
+.appearance-none::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0; /* Ajusta el margen según sea necesario */
+}
+/* <<<<<<< HEAD:src/index.css
+>>>>>>> master
+=======
+.custom-gold-star {
+  color: rgba(243, 223, 111, 0.781);
+}
+>>>>>>> master:src/app/globals.css */

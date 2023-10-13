@@ -2,6 +2,7 @@
 import React from 'react';
 import {useParams} from 'react-router-dom';
 
+//TODO: Pasar type
 type ProductDetailProps = {
 	// Define the props if needed
 };

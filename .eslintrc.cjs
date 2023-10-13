@@ -59,5 +59,6 @@ module.exports = {
 		'no-self-compare': 'warn', // Asegurarse de que no se use a === a
 		'no-sequences': 'warn', // Asegurarse de que no se use , expresiones de secuencia
 		'no-unmodified-loop-condition': 'warn', // Asegurarse de que no se use un bucle infinito
+		'react/prop-types': 'off',
 	},
 };

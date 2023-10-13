@@ -1,8 +1,8 @@
 // Src/pages/Favorites.tsx
-import Header from '../components/common/Header';
-import Footer from '../components/common/Footer';
+import Header from '../../components/common/Header';
+import Footer from '../../components/common/Footer';
 import styled from 'styled-components';
-import Carrusel from '../components/common/Carrusel';
+import Carrusel from '../../components/common/Carrusel';
 
 const Container = styled.div`
 display: flex;

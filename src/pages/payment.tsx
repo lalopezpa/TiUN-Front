@@ -1,7 +1,8 @@
 /* eslint-disable no-negated-condition */
 // Pages/Payment.tsx
-import React, {useState} from 'react';
-import {useCart} from '../context/cartContext';
+import type React from 'react';
+import {useState} from 'react';
+import {useCart} from '../../context/cartContext';
 
 const Payment: React.FC = () => {
 	const {cartItems, clearCart} = useCart();

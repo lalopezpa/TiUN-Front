@@ -1,13 +1,12 @@
-import React, {createContext, useContext, useEffect, useState} from 'react';
+import type React from 'react';
+import {createContext, useContext, useEffect, useState} from 'react';
+import {darkModeSchema} from '../types/DarkModeSchema';
+import {type DarkModeValues} from '../types/DarkModeSchema';
+import {type DarkModeState} from '../types/DarkModeState';
 
-type DarkModeContextType = {
-	modoOscuro: boolean;
-	toggleModoOscuro: () => void;
-};
+const DarkModeContext = createContext<DarkModeValues | undefined>(undefined);
 
-const DarkModeContext = createContext<DarkModeContextType | undefined>(undefined);
-
-export const useDarkMode = () => {
+export const useDarkMode = (): DarkModeState => {
 	const context = useContext(DarkModeContext);
 	if (!context) {
 		throw new Error('useDarkMode must be used within a DarkModeProvider');
@@ -40,10 +39,11 @@ export const DarkModeProvider: React.FC<DarkModeProviderProps> = ({children}) =>
 		setModoOscuro(!modoOscuro);
 	};
 
-	const contextValue: DarkModeContextType = {
+	// Validar los valores con Zod antes de asignarlos al contexto
+	const contextValue = darkModeSchema.parse({
 		modoOscuro,
 		toggleModoOscuro,
-	};
+	});
 
 	return <DarkModeContext.Provider value={contextValue}>{children}</DarkModeContext.Provider>;
 };

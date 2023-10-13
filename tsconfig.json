@@ -2,31 +2,46 @@
   "compilerOptions": {
     "target": "ES2020",
     "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ES2020",
+      "DOM",
+      "DOM.Iterable",
+      "esnext"
+    ],
     "module": "ESNext",
     "skipLibCheck": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
     "outDir": "./dist",
-    "rootDir": "src",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-
-
-    /* Bundler mode */
-    "moduleResolution": "bundler",
+    "moduleResolution": "node", // Cambiar "bundler" a "node"
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx",
-
-    /* Linting */
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "jsx": "preserve", // Cambiar "react-jsx" a "preserve"
+    "allowJs": true, // Agregar esta línea
+    "incremental": true, // Agregar esta línea
+    "jsxFactory": "react", // Agregar esta línea
+    "jsxFragmentFactory": "react", // Agregar esta línea
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "strict": true
   },
-  "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "./dist/types/**/*.ts",
+		"tailwind.config.ts", "src/middleware.ts", "src/api/auth.js"],
+  "exclude": [
+    "node_modules"
+  ], // Excluir "node_modules" en lugar de "./node_modules"
+  // "references": [{ "path": "./tsconfig.node.json" }]
+  "references": []
 }
