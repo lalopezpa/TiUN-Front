@@ -6,7 +6,7 @@ import Header from '../components/common/Header';
 import Footer from '../components/common/Footer';
 import Card from '../components/common/Card';
 import {CRUD} from '../api/auth';
-import {ProductType} from '../types/UserSchema';
+import type {ProductType} from '../types/ProductShema';
 
 const Container = styled.div`
   padding-top: 65px;
