@@ -6,7 +6,7 @@ import React from 'react';
 import Header from '../../components/common/Header';
 import {ListIcon, MoneyIcon, CheckIcon, ListForSendIcon, ListSendedIcon} from '../../components/icons/icons';
 import Footer from '../../components/common/Footer';
-import fondo from '../../assets/fondo.jpg';
+// Import fondo from '../../assets/fondo.jpg';
 import {useUser} from '../../context/userContext';
 
 const Profile = (): JSX.Element => {

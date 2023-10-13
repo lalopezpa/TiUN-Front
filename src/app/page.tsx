@@ -1,12 +1,12 @@
 'use client';
-import type React from 'react';
-import {useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import Carrusel from '../components/common/Carrusel';
 import Header from '../components/common/Header';
 import Footer from '../components/common/Footer';
 import Card from '../components/common/Card';
-import {useProduct} from '../context/productContext';
+import {CRUD} from '../api/auth';
+import {ProductType} from '../types/UserSchema';
 
 const Container = styled.div`
   padding-top: 65px;
@@ -16,19 +16,20 @@ const Container = styled.div`
   gap: 1rem;
 `;
 
-// Const BackgroundImage = styled.img`
-//   position: fixed;
-//   top: 0;
-//   left: 0;
-//   width: 100%;
-//   height: 100%;
-//   object-fit: fill;
-//   z-index: 0;
-//   opacity: 0.05;
-// `;
-
 const Home: React.FC = () => {
+	const [products, setProducts] = useState<ProductType[]>([]);
+
+	const loadProducts = async () => {
+		try {
+			const products = await CRUD.getProducts();
+			setProducts(products);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
 	useEffect(() => {
+		loadProducts();
 		const script = document.createElement('script');
 		script.src = 'https://web-chat.global.assistant.watson.appdomain.cloud/versions/latest/WatsonAssistantChatEntry.js';
 		script.async = true;
@@ -56,12 +57,14 @@ const Home: React.FC = () => {
 				<Header/>
 				<Container>
 					<Carrusel />
-					<Card Nombre={'Macbook pro'} Precio={'4000e'} Rating={4}/>
-					<Card Nombre={'HP XXXX'} Precio={'283929e'} Rating={4}/>
-					<Card Nombre={'HP XXXX'} Precio={'283929e'} Rating={5}/>
-					<Card Nombre={'HP XXXX'} Precio={'283929e'} Rating={3}/>
-					<Card Nombre={'HP XXXX'} Precio={'283929e'} Rating={1}/>
-					<Card Nombre={'HP XXXX'} Precio={'283929e'} Rating={1}/>
+					{products.map(product => (
+						<Card
+							key={product.id}
+							Nombre={product.name}
+							Precio={`$${product.price}`}
+							Rating={5}
+						/>
+					))} 
 				</Container>
 				<Footer/>
 			</div>

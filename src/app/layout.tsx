@@ -1,9 +1,12 @@
 import './globals.css';
+import React from 'react';
 import type {Metadata} from 'next';
 import {StrictMode} from 'react';
 import {AuthProvider} from '../context/authContext';
 import {CartProvider} from '../context/cartContext';
 import {UserProvider} from '../context/userContext';
+import {ProductProvider} from '../context/productContext';
+
 // Layout se encarga de renderizar el componente hijo junto con cierta información que se repite en todas las paginas, como el head, el footer, el header, etc
 // Para este caso, es necesario que de aquí se renderice el app y así se le agregue el contexto de autenticación
 // y todos los contextos que se necesiten
@@ -21,11 +24,13 @@ export default function RootLayout({children}: {
 			<StrictMode>
 				<UserProvider>
 					<AuthProvider>
-						<CartProvider>
-							<body>
-								<div id='root'>{children}</div>
-							</body>
-						</CartProvider>
+						<ProductProvider>
+							<CartProvider>
+								<body>
+									<div id='root'>{children}</div>
+								</body>
+							</CartProvider>
+						</ProductProvider>
 					</AuthProvider>
 				</UserProvider>
 			</StrictMode>
