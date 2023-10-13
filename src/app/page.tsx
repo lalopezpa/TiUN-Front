@@ -5,8 +5,8 @@ import styled from 'styled-components';
 import Carrusel from '../components/common/Carrusel';
 import Header from '../components/common/Header';
 import Footer from '../components/common/Footer';
-import fondo from '../assets/fondo.jpg';
 import Card from '../components/common/Card';
+import {useProduct} from '../context/productContext';
 
 const Container = styled.div`
   padding-top: 65px;

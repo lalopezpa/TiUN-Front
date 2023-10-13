@@ -54,7 +54,7 @@ const forgotPasswordValidate = (): JSX.Element => {
 		<>
 			<header className='flex justify-end  items-end bg-verdeClaro bg-opacity-75 '>
 				<div className='flex justify-end'>
-					<img src={logomini.src} alt='Logo' className='w-400 h-400 mx-auto my-4' />
+					{/* <img src={logomini.src} alt='Logo' className='w-400 h-400 mx-auto my-4' /> */}
 				</div>
 			</header>
 
