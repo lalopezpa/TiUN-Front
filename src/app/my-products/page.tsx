@@ -17,6 +17,8 @@ const ProductCRUD = () => {
 	const [editedProduct, setEditedProduct] = useState(null);
 	const [imagePreview, setImagePreview] = useState(null);
 
+	const {handleSubmit, register, reset, formState: {errors}} = useForm();
+
 	const handleImageChange = e => {
 		const file = e.target.files[0];
 
@@ -31,8 +33,6 @@ const ProductCRUD = () => {
 			reader.readAsDataURL(file);
 		}
 	};
-
-	const {handleSubmit, register, reset} = useForm();
 
 	useEffect(() => {
 		loadProducts();
@@ -134,227 +134,228 @@ const ProductCRUD = () => {
 
 	return (
 		<>
-			<Header />
-			<div className='flex flex-col justify-between pt-16 min-h-screen max-h-max'>
-				<div className='container mx-auto px-4 pt-9'>
-					<h1 className='text-3xl font-poppins text-gray-800 mb-6'>Administrar Productos</h1>
-					<div className='mb-6'>
-						<button
-							onClick={() => {
-								setIsAdding(false);
-							}}
-							className={`mr-2 py-2 px-4 rounded font-poppins ${
-								isAdding ? 'bg-verdeClaro text-white' : 'bg-gray-200 text-gray-600 cursor-not-allowed'
-							}`}
-						>
+			<div className='bg-gris dark:bg-grisOscuro'>
+				<Header/>
+				<div className='flex flex-col justify-between pt-16 min-h-screen max-h-max pb-10 px-0 '>
+					<div className='container mx-auto px-4 pt-9'>
+						{isAdding
+							? (<h1 className='text-3xl font-poppins text-gray-800 mb-6 dark:text-slate-100'>Añadir un producto</h1>)
+							: (<h1 className='text-3xl font-poppins text-gray-800 mb-6 dark:text-slate-100'>Administrar mis productos</h1>)
+						}
+						<div className='mb-6'>
+							<button
+								onClick={() => {
+									setIsAdding(false);
+								}}
+								className={`mr-2 py-2 px-4 rounded font-poppins ${
+									isAdding ? 'bg-verdeClaro text-white' : 'bg-gray-200 text-gray-600 cursor-not-allowed'
+								}`}
+							>
               Mis Productos
-						</button>
-						<button
-							onClick={() => {
-								setIsAdding(true);
-							}}
-							className={`py-2 px-4 rounded font-poppins ${
-								isAdding ? 'bg-gray-200 text-gray-600 cursor-not-allowed' : 'bg-verdeClaro text-white'
-							}`}
-						>
-              Añadir Productos
-						</button>
-					</div>
-
-					{isAdding ? (
-						<form onSubmit={handleSubmit(handleAddProduct)} className='mb-6'>
-							<div>
-								<label>Nombre del producto</label>
-								<input
-									{...register('name')}
-									defaultValue=''
-									className='w-full p-2 mb-2 border rounded focus-border-blue-500'
-								/>
-							</div>
-							<div>
-								<label>Descripción del producto</label>
-								<input
-									{...register('description')}
-									defaultValue=''
-									className='w-full p-2 mb-2 border rounded focus-border-blue-500'
-								/>
-							</div>
-							<div>
-								<label>Precio</label>
-								<input
-									{...register('price')}
-									type='number'
-									defaultValue=''
-									className='w-full p-2 mb-2 border rounded focus-border-blue-500'
-								/>
-							</div>
-							<div>
-								<label>Cantidad</label>
-								<input
-									{...register('stock')}
-									type='number'
-									defaultValue=''
-									className='w-full p-2 mb-2 border rounded focus-border-blue-500'
-								/>
-							</div>
-							<div>
-								<label>Descuento</label>
-								<input
-									{...register('discount')}
-									type='number'
-									defaultValue=''
-									className='w-full p-2 mb-2 border rounded focus-border-blue-500'
-								/>
-							</div>
-							<div>
-								<label>Foto del producto</label>
-								<input
-									{...register('imageUrl')}
-									type='file'
-									className='w-full p-2 mb-2 border rounded border-blue-500'
-								/>
-							</div>
-							{/* Terminar los restantes */}
-							<button type='submit' className='bg-red-500 text-white py-2 px-4 rounded cursor-pointer'>
-                Agregar
-							</button>
-						</form>
-					) : isEditing ? (
-						<form onSubmit={handleSubmit(handleSaveEdit)} className='mb-6'>
-							<div>
-								<label>Nombre del producto</label>
-								<input
-									{...register('name')}
-									defaultValue={editedProduct.name}
-									className='w-full p-2 mb-2 border rounded focus-border-blue-500'
-								/>
-							</div>
-							<div>
-								<label>Descripción del producto</label>
-								<input
-									{...register('description')}
-									defaultValue={editedProduct.description}
-									className='w-full p-2 mb-2 border rounded focus-border-blue-500'
-								/>
-							</div>
-							<div>
-								<label>Precio</label>
-								<input
-									{...register('price')}
-									defaultValue={editedProduct.price}
-									type='number'
-									className='w-full p-2 mb-2 border rounded focus-border-blue-500'
-								/>
-							</div>
-							<div>
-								<label>Cantidad</label>
-								<input
-									{...register('stock')}
-									type='number'
-									defaultValue={editedProduct.stock}
-									className='w-full p-2 mb-2 border rounded focus-border-blue-500'
-								/>
-							</div>
-							<div>
-								<label>Descuento</label>
-								<input
-									{...register('discount')}
-									type='number'
-									defaultValue={editedProduct.discount}
-									className='w-full p-2 mb-2 border rounded focus-border-blue-500'
-								/>
-							</div>
-							<div>
-								<label>Foto del producto</label>
-								<input
-									type='file'
-									onChange={handleImageChange}
-									className='w-full p-2 mb-2 border rounded border-blue-500'
-								/>
-								{imagePreview && (
-									<img
-										src={imagePreview}
-										alt='Vista previa de la imagen'
-										style={{maxWidth: '100px'}} // Ajusta el tamaño según tus necesidades
-									/>
-								)}
-							</div>
-							<button type='submit' className='bg-red-500 text-white py-2 px-4 rounded cursor-pointer'>
-                Guardar
 							</button>
 							<button
-								type='button'
-								onClick={handleCancelEdit}
-								className='bg-red-500 text-white py-2 px-4 rounded cursor-pointer ml-2'
+								onClick={() => {
+									setIsAdding(true);
+								}}
+								className={`py-2 px-4 rounded font-poppins ${
+									isAdding ? 'bg-gray-200 text-gray-600 cursor-not-allowed' : 'bg-verdeClaro text-white'
+								}`}
 							>
-                Cancelar
+              Añadir Productos
 							</button>
-						</form>
-					) : (
-						<table className='w-full mt-6'>
-							<thead>
-								<tr>
-									<th className='bg-gray-200 font-semibold py-2 px-4'>Foto</th>
-									<th className='bg-gray-200 font-semibold py-2 px-4'>Nombre</th>
-									<th className='bg-gray-200 font-semibold py-2 px-4'>Descripción</th>
-									<th className='bg-gray-200 font-semibold py-2 px-4'>Precio</th>
-									<th className='bg-gray-200 font-semibold py-2 px-4'>Stock</th>
-									<th className='bg-gray-200 font-semibold py-2 px-4'>Descuento</th>
-									<th className='bg-gray-200 font-semibold py-2 px-4'>Acciones</th>
-								</tr>
-							</thead>
-							<tbody>
-								{displayedProducts.map(product => (
-									<tr key={product._id}>
-										<td className='border'><Image src={product.imageUrl}	width={500} height = {500} alt = 'imagen'></Image></td>
-										<td className='border'>{product.name}</td>
-										<td className='border'>{product.description}</td>
-										<td className='border'>{product.price}</td>
-										<td className='border'>{product.stock}</td>
-										<td className='border'>{product.discount}</td>
-										<td className='border py-2 px-4'>
-											<button
-												onClick={() => {
-													handleDeleteProduct(product._id);
-												}}
-												className='bg-red-500 text-white py-2 px-4 rounded cursor-pointer'
-											>
-                        Eliminar
-											</button>
-											<button
-												onClick={() => {
-													handleEditProduct(product);
-												}}
-												className='bg-blue-500 text-white py-2 px-4 rounded cursor-pointer ml-2'
-											>
-                        Editar
-											</button>
-										</td>
-									</tr>
-								))}
-							</tbody>
-						</table>
-					)}
+						</div>
 
-					{products.length > 10 && !isAdding && !isEditing ? (
-						<ReactPaginate
-							previousLabel={'Anterior'}
-							nextLabel={'Siguiente'}
-							pageCount={Math.ceil(products.length / 10)}
-							onPageChange={data => {
-								setCurrentPage(data.selected);
-							}}
-							containerClassName={'flex justify-center items-center my-6'}
-							previousLinkClassName={'border rounded-full p-2 px-4 mx-2 cursor-pointer text-gray-500 hover-bg-gray-200'}
-							nextLinkClassName={'border rounded-full p-2 px-4 mx-2 cursor-pointer text-gray-500 hover-bg-gray-200'}
-							disabledClassName={'cursor-not-allowed text-gray-400'}
-							activeClassName={'bg-verdeClaro text-white rounded-full p-2 px-4 mx-2 cursor-pointer'}
-							pageClassName={'cursor-pointer rounded-full p-2 px-4 mx-2 hover-bg-gray-200'}
-						/>
-					) : null}
+						{isAdding ? (
+							<form onSubmit={handleSubmit(handleAddProduct)} className='mb-6'>
+								<div>
+									<label>Nombre del producto</label>
+									<input
+										{...register('name', {required: true})}
+										defaultValue=''
+										className='w-full p-2 mb-2 border rounded focus-border-blue-500'
+									/>
+									{errors.name && <span className='text-red-600'>Este campo es requerido</span>}
+								</div>
+								<div>
+									<label>Descripción del producto</label>
+									<input
+										{...register('description')}
+										defaultValue=''
+										className='w-full p-2 mb-2 border rounded focus-border-blue-500'
+									/>
+								</div>
+								<div>
+									<label>Precio</label>
+									<input
+										{...register('price')}
+										type='number'
+										defaultValue=''
+										className='w-full p-2 mb-2 border rounded focus-border-blue-500'
+									/>
+								</div>
+								<div>
+									<label>Cantidad</label>
+									<input
+										{...register('stock')}
+										type='number'
+										defaultValue=''
+										className='w-full p-2 mb-2 border rounded focus-border-blue-500'
+									/>
+								</div>
+								<div>
+									<label>Descuento</label>
+									<input
+										{...register('discount')}
+										type='number'
+										defaultValue=''
+										className='w-full p-2 mb-2 border rounded focus-border-blue-500'
+									/>
+								</div>
+								<div>
+									<label>Foto del producto</label>
+									<input
+										{...register('imageUrl')}
+										type='file'
+										className='w-full p-2 mb-2 border rounded border-blue-500'
+										onChange={handleImageChange}
+									/>{imagePreview && (
+										<img
+											src={imagePreview}
+											alt='Vista previa de la imagen'
+											style={{maxWidth: '100px'}} // Ajusta el tamaño según tus necesidades
+										/>
+									)}
+								</div>
+								{/* Terminar los restantes */}
+								<button type='submit' className='bg-red-500 text-white py-2 px-4 rounded cursor-pointer'>
+                Agregar
+								</button>
+							</form>
+						) : isEditing ? (
+							<form onSubmit={handleSubmit(handleSaveEdit)} className='mb-6'>
+								<div>
+									<label>Nombre del producto</label>
+									<input
+										{...register('name')}
+										defaultValue={editedProduct.name}
+										className='w-full p-2 mb-2 border rounded focus-border-blue-500'
+									/>
+								</div>
+								<div>
+									<label>Descripción del producto</label>
+									<input
+										{...register('description')}
+										defaultValue={editedProduct.description}
+										className='w-full p-2 mb-2 border rounded focus-border-blue-500'
+									/>
+								</div>
+								<div>
+									<label>Precio</label>
+									<input
+										{...register('price')}
+										defaultValue={editedProduct.price}
+										type='number'
+										className='w-full p-2 mb-2 border rounded focus-border-blue-500'
+									/>
+								</div>
+								<div>
+									<label>Cantidad</label>
+									<input
+										{...register('stock')}
+										type='number'
+										defaultValue={editedProduct.stock}
+										className='w-full p-2 mb-2 border rounded focus-border-blue-500'
+									/>
+								</div>
+								<div>
+									<label>Descuento</label>
+									<input
+										{...register('discount')}
+										type='number'
+										defaultValue={editedProduct.discount}
+										className='w-full p-2 mb-2 border rounded focus-border-blue-500'
+									/>
+								</div>
+								<button type='submit' className='bg-red-500 text-white py-2 px-4 rounded cursor-pointer'>
+                Guardar
+								</button>
+								<button
+									type='button'
+									onClick={handleCancelEdit}
+									className='bg-red-500 text-white py-2 px-4 rounded cursor-pointer ml-2'
+								>
+                Cancelar
+								</button>
+							</form>
+						) : (
+							<table className='w-full mt-6'>
+								<thead>
+									<tr className='bg-verdeClaro border dark:border-green-900'>
+										<th className='font-poppins py-2 px-2 md:px-4'>Foto</th>
+										<th className='font-poppins py-2 px-2 md:px-4'>Nombre</th>
+										<th className='font-poppins py-2 px-2 md:px-4'>Descripción</th>
+										<th className='font-poppins py-2 px-2 md:px-4'>Precio</th>
+										<th className='font-poppins py-2 px-2 md:px-4'>Stock</th>
+										<th className='font-poppins py-2 px-2 md:px-4'>Descuento</th>
+										<th className='font-poppins py-2 px-2 md:px-4'>Acciones</th>
+									</tr>
+								</thead>
+								<tbody className='text-center'>
+									{displayedProducts.map(product => (
+										<tr key={product._id} className='dark:bg-verdeClaro border dark:border-green-900'>
+											<td className='p-2'>
+												<Image src={product.imageUrl} width={250} height={250} alt='imagen' />
+											</td>
+											<td className='dark:text-white border border-green-200 dark:bg-verdeClaro  dark:border-green-900 text-black'><p className=''>{product.name}</p></td>
+											<td className='dark:text-white border border-green-200 dark:bg-verdeClaro  dark:border-green-900 text-black'>{product.description}</td>
+											<td className='dark:text-white border border-green-200 dark:bg-verdeClaro  dark:border-green-900 text-black'>{product.price}</td>
+											<td className='dark:text-white border border-green-200 dark:bg-verdeClaro  dark:border-green-900 text-black'>{product.stock}</td>
+											<td className='dark:text-white border border-green-200 dark:bg-verdeClaro  dark:border-green-900 text-black'>{product.discount}</td>
+											<td className='p-2'>
+												<button
+													onClick={() => {
+														handleDeleteProduct(product._id);
+													}}
+													className='bg-red-500 font-poppins text-white py-2 px-2 md:px-4 rounded cursor-pointer mb-2 md:mb-0 md:mr-2'
+												>
+            Eliminar
+												</button>
+												<button
+													onClick={() => {
+														handleEditProduct(product);
+													}}
+													className='bg-blue-500 font-poppins text-white py-2 px-2 md:px-4 rounded cursor-pointer'
+												>
+            Editar
+												</button>
+											</td>
+										</tr>
+									))}
+								</tbody>
+							</table>
+
+						)}
+
+						{products.length > 10 && !isAdding && !isEditing ? (
+							<ReactPaginate
+								previousLabel={'Anterior'}
+								nextLabel={'Siguiente'}
+								pageCount={Math.ceil(products.length / 10)}
+								onPageChange={data => {
+									setCurrentPage(data.selected);
+								}}
+								containerClassName={'flex justify-center items-center my-6'}
+								previousLinkClassName={'border rounded-full p-2 px-4 mx-2 cursor-pointer text-black dark:text-slate-100 hover-bg-gray-200'}
+								nextLinkClassName={'border rounded-full p-2 px-4 mx-2 cursor-pointer text-black  dark:text-slate-100 hover-bg-gray-200'}
+								disabledClassName={'cursor-not-allowed text-gray-400'}
+								activeClassName={'bg-verdeClaro text-white rounded-full p-2 px-4 mx-2 cursor-pointer'}
+								pageClassName={'cursor-pointer rounded-full p-2 px-4 mx-2 hover-bg-gray-200'}
+							/>
+						) : null}
+					</div>
 				</div>
+				<Footer />
 			</div>
-			<Footer />
 		</>
 	);
 };
