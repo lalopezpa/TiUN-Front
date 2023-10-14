@@ -1,6 +1,6 @@
 import {NextResponse} from 'next/server';
 import type {NextRequest} from 'next/server';
-import {verifyToken} from './api/auth';
+import {getUser} from './api/auth';
 
 export async function middleware(request: NextRequest): Promise<NextResponse> {
 	const authtoken = request.cookies.get('authToken');
@@ -20,7 +20,7 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
 				},
 			};
 
-			const userData = await verifyToken(requestOptions);
+			const userData = await getUser(requestOptions);
 
 			// Hacer algo con los datos del usuario, si es necesario
 			console.log('Datos del usuario:', userData);

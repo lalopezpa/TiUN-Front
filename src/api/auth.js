@@ -10,7 +10,7 @@ export const registerRequest = user => axiosInstance.post(`${API}signup`, user);
 
 export const loginRequest = user => axiosInstance.post(`${API}signin`, user);
 
-export const verifyToken = async (options = {}) => {
+export const getUser = async (options = {}) => {
 	try {
 		const response = await fetch(`${API}profile`, {
 			method: 'GET',
@@ -33,8 +33,6 @@ export const verifyToken = async (options = {}) => {
 		throw error; // Puedes re-lanzar el error si es necesario
 	}
 };
-
-// Export const verifyTokenRequest = async () => axiosInstance.get(`/auth/verify`);
 
 export const CRUD = {
 	async getProducts() {
