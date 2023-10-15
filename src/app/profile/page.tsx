@@ -14,7 +14,7 @@ const Profile = (): JSX.Element => {
 			try {
 				const profile = await verifyToken() as UserType;
 				setProfile(profile);
-				console.log();
+				console.log(profile);
 			} catch (error) {
 				console.error('Error fetching user profile:', error);
 			}
@@ -23,7 +23,7 @@ const Profile = (): JSX.Element => {
 		(async () => {
 			await fetchUserProfile();
 		})();
-	}, [profile]);
+	}, []);
 
 	if (!profile) {
 		return <div>Usuario no autenticado</div>;
@@ -94,6 +94,12 @@ const Profile = (): JSX.Element => {
 									<a className='flex items-center'>
 										<ListSendedIcon />
 										<span className='ml-1'>Enviados</span>
+									</a>
+								</div>
+								<div className='flex-1 items-center justify-center text-center ml-2'>
+									<a className='flex items-center'>
+										<ListSendedIcon />
+										<span className='ml-1'>Administrar productos</span>
 									</a>
 								</div>
 							</div>
