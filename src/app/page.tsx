@@ -1,5 +1,6 @@
 'use client';
-import React, {useState, useEffect} from 'react';
+import type React from 'react';
+import {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import Carrusel from '../components/common/Carrusel';
 import Header from '../components/common/Header';
