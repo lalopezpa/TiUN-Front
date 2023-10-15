@@ -27,21 +27,21 @@ const Login = (): JSX.Element => {
 
 	const onSubmit: SubmitHandler<any> = async (data: LoginDataType) => {
 		try {
-			const loginResult: LoginResponse = await login(data);
+			const loginResult: LoginResponse | undefined = await login(data);
 			console.log('loginresult', loginResult);
 
-			if (loginResult.userData) {
+			if (loginResult?.userData) {
 			// Inicio de sesión exitoso, muestra un toast de éxito y redirige
 				toast.success('Inicio de sesión exitoso');
 				setTimeout(() => {
 					router.push('/');
 				}, 2000);
-			} else if (loginResult.res?.includes('Email is wrong')) {
+			} else if (loginResult?.res?.includes('Email is wrong')) {
 			// Error de correo no registrado
 				toast.error('ERROR', {
 					description: 'Este correo no está registrado',
 				});
-			} else if (loginResult.res?.includes('Password is wrong')) {
+			} else if (loginResult?.res?.includes('Password is wrong')) {
 			// Error de contraseña incorrecta
 				toast.error('ERROR', {
 					description: 'La contraseña es incorrecta',
