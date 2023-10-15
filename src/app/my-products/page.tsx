@@ -1,33 +1,40 @@
 'use client';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, type ChangeEvent} from 'react';
 import Image from 'next/image';
 import ReactPaginate from 'react-paginate';
 import Header from '../../components/common/Header';
 import Footer from '../../components/common/Footer';
-import {CRUD} from '../../api/auth';
-import {ref, uploadBytes, getDownloadURL, deleteObject} from 'firebase/storage';
+import {CRUD} from '../../api/crud';
+import {ref, uploadBytes, getDownloadURL, deleteObject, list} from 'firebase/storage';
 import {storage} from '../../firebase/config';
-import {useForm} from 'react-hook-form';
-
-const ProductCRUD = () => {
-	const [products, setProducts] = useState([]);
-	const [currentPage, setCurrentPage] = useState(0);
-	const [isAdding, setIsAdding] = useState(false);
-	const [isEditing, setIsEditing] = useState(false);
-	const [editedProduct, setEditedProduct] = useState(null);
-	const [imagePreview, setImagePreview] = useState(null);
-
+import {useForm, type SubmitHandler} from 'react-hook-form';
+import {getCategories} from '../../api/categories';
+import {type CategoryType} from '../../types/CRUD/CategoriesSchema';
+import {type ProductType} from '../../types/CRUD/ProductSchema';
+import {type ProductFormDataType} from '../../types/CRUD/ProductFormSchema';
+import {getUser} from '../../api/auth';
+import {type UserType} from '../../types/UserSchema';
+const myProducts = (): JSX.Element => {
+	const [products, setProducts] = useState<ProductType[]>([]);
+	const [currentPage, setCurrentPage] = useState<number>(0);
+	const [isAdding, setIsAdding] = useState<boolean>(false);
+	const [isEditing, setIsEditing] = useState<boolean>(false);
+	const [editedProduct, setEditedProduct] = useState<ProductType | undefined>(undefined);
+	const [imagePreview, setImagePreview] = useState<string | ArrayBuffer | undefined>(undefined);
+	const [categories, setCategories] = useState<CategoryType[]>([]);
 	const {handleSubmit, register, reset, formState: {errors}} = useForm();
 
-	const handleImageChange = e => {
-		const file = e.target.files[0];
+	const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+		const file = e.target.files?.[0];
 
 		if (file) {
-			// Lee el contenido del archivo como un objeto Blob
 			const reader = new FileReader();
 
-			reader.onload = e => {
-				setImagePreview(e.target.result);
+			reader.onload = event => {
+				const result = event.target?.result;
+				if (result) {
+					setImagePreview(result);
+				}
 			};
 
 			reader.readAsDataURL(file);
@@ -35,22 +42,52 @@ const ProductCRUD = () => {
 	};
 
 	useEffect(() => {
-		loadProducts();
+		const fetchCategories = async () => {
+			try {
+				const categoriesData = await getCategories();
+				setCategories(categoriesData);
+			} catch (error) {
+				console.error('Error al obtener categorías:', error);
+			}
+		};
+
+		fetchCategories().catch(error => {
+			console.error('Error al cargar productos:', error);
+		});
 	}, []);
+
+	useEffect(() => {
+		const loadData = async () => {
+			await loadProducts();
+		};
+
+		loadData().catch(error => {
+			console.error('Error al cargar productos:', error);
+		});
+	}, []);
+
 	const resetForm = () => {
 		reset();
 	};
 
-	const handleAddProduct = async data => {
-		let imageFile = null;
+	const handleAddProduct: SubmitHandler<any> = async (data: ProductFormDataType) => {
+		const user: UserType = await getUser();
+		console.log('usuario', user);
+		let imageFile: File | undefined;
 		let storageRef = null;
 		let imageUrl = null;
+		const userFolderPath = `Usuarios/${user._id}/Productos`; // Carpeta del usuario
+
+		if (data.imageUrl) {
+			if (data.imageUrl instanceof FileList && data.imageUrl.length > 0) {
+				imageFile = data.imageUrl[0];
+			}
+		}
 
 		try {
-			console.log(data);
-			if (data.imageUrl?.[0]) {
-				imageFile = data.imageUrl[0];
-				storageRef = ref(storage, 'Productos/' + imageFile.name);
+			// Verifica que imageFile sea un objeto File válido
+			if (imageFile instanceof File) {
+				storageRef = ref(storage, `${userFolderPath}/${imageFile.name}`);
 
 				const snapshot = await uploadBytes(storageRef, imageFile);
 
@@ -58,8 +95,7 @@ const ProductCRUD = () => {
 
 				data.imageUrl = imageUrl;
 
-				const createdProduct = await CRUD.createProduct(data);
-
+				const createdProduct: ProductType = await CRUD.createProduct(data);
 				setProducts([...products, createdProduct]);
 				if (isEditing) {
 					resetForm();
@@ -69,16 +105,12 @@ const ProductCRUD = () => {
 			}
 		} catch (error) {
 			console.error('Error al agregar el producto:', error);
-			console.log('data despues del error');
-			console.log(data);
 
 			if (imageFile && storageRef) {
 				try {
 					// Intenta eliminar la imagen en caso de error
 					await deleteObject(storageRef);
-					console.log('Imagen eliminada de Firebase Storage debido a un error en la petición POST.');
-					console.log('data despues de borrar');
-					console.log(data);
+					console.log('Imagen eliminada de Firebase Storage debido a un error en la petición.');
 				} catch (deleteError) {
 					console.error('No se pudo eliminar la imagen de Firebase Storage:', deleteError);
 				}
@@ -95,7 +127,7 @@ const ProductCRUD = () => {
 		}
 	};
 
-	const handleDeleteProduct = async productId => {
+	const handleDeleteProduct: SubmitHandler<any> = async (productId: string): Promise<void> => {
 		try {
 			await CRUD.deleteProduct(productId);
 			const updatedProducts = products.filter(product => product._id !== productId);
@@ -105,26 +137,28 @@ const ProductCRUD = () => {
 		}
 	};
 
-	const handleEditProduct = product => {
+	const handleEditProduct: SubmitHandler<any> = (product: ProductType): void => {
 		setEditedProduct(product);
 		setIsEditing(true);
 	};
 
-	const handleCancelEdit = () => {
+	const handleCancelEdit: SubmitHandler<any> = () => {
 		resetForm();
-		setEditedProduct(null);
+		setEditedProduct(undefined);
 		setIsEditing(false);
 	};
 
-	const handleSaveEdit = async data => {
+	const handleSaveEdit: SubmitHandler<any> = async (data: ProductFormDataType) => {
 		try {
-			const updatedProduct = await CRUD.updateProduct(editedProduct._id, data);
-			const updatedProducts = products.map(product =>
-				product._id === editedProduct._id ? updatedProduct : product,
-			);
-			setProducts(updatedProducts);
-			setEditedProduct(null);
-			setIsEditing(false);
+			if (editedProduct) {
+				const updatedProduct = await CRUD.updateProduct(editedProduct._id, data);
+				const updatedProducts = products.map(product =>
+					product._id === editedProduct._id ? updatedProduct : product,
+				);
+				setProducts(updatedProducts);
+				setEditedProduct(undefined);
+				setIsEditing(false);
+			}
 		} catch (error) {
 			console.error(error);
 		}
@@ -220,11 +254,26 @@ const ProductCRUD = () => {
 										onChange={handleImageChange}
 									/>{imagePreview && (
 										<img
-											src={imagePreview}
+											src={typeof imagePreview === 'string' ? imagePreview : 'imagen-de-marcador-de-posicion.jpg'}
 											alt='Vista previa de la imagen'
-											style={{maxWidth: '100px'}} // Ajusta el tamaño según tus necesidades
+											style={{maxWidth: '100px'}}
 										/>
 									)}
+								</div>
+								<div>
+									<label>Categoría del producto</label>
+									<select
+										{...register('categories')}
+										className='w-full p-2 mb-2 border rounded focus-border-blue-500'
+									>
+										<option value=''>Seleccionar una categoría</option>
+										{categories.map(category => (
+											<option key={category._id} value={category._id}>
+												{category.name}
+											</option>
+										))}
+									</select>
+									{errors.category && <span className='text-red-600'>Este campo es requerido</span>}
 								</div>
 								{/* Terminar los restantes */}
 								<button type='submit' className='bg-red-500 text-white py-2 px-4 rounded cursor-pointer'>
@@ -237,7 +286,7 @@ const ProductCRUD = () => {
 									<label>Nombre del producto</label>
 									<input
 										{...register('name')}
-										defaultValue={editedProduct.name}
+										defaultValue={editedProduct ? editedProduct.name : ''}
 										className='w-full p-2 mb-2 border rounded focus-border-blue-500'
 									/>
 								</div>
@@ -245,7 +294,7 @@ const ProductCRUD = () => {
 									<label>Descripción del producto</label>
 									<input
 										{...register('description')}
-										defaultValue={editedProduct.description}
+										defaultValue={editedProduct ? editedProduct.description : ''}
 										className='w-full p-2 mb-2 border rounded focus-border-blue-500'
 									/>
 								</div>
@@ -253,7 +302,7 @@ const ProductCRUD = () => {
 									<label>Precio</label>
 									<input
 										{...register('price')}
-										defaultValue={editedProduct.price}
+										defaultValue={editedProduct ? editedProduct.price : ''}
 										type='number'
 										className='w-full p-2 mb-2 border rounded focus-border-blue-500'
 									/>
@@ -263,7 +312,7 @@ const ProductCRUD = () => {
 									<input
 										{...register('stock')}
 										type='number'
-										defaultValue={editedProduct.stock}
+										defaultValue={editedProduct ? editedProduct.stock : ''}
 										className='w-full p-2 mb-2 border rounded focus-border-blue-500'
 									/>
 								</div>
@@ -272,7 +321,7 @@ const ProductCRUD = () => {
 									<input
 										{...register('discount')}
 										type='number'
-										defaultValue={editedProduct.discount}
+										defaultValue={editedProduct ? editedProduct.discount : ''}
 										className='w-full p-2 mb-2 border rounded focus-border-blue-500'
 									/>
 								</div>
@@ -360,4 +409,5 @@ const ProductCRUD = () => {
 	);
 };
 
-export default ProductCRUD;
+export default myProducts;
+

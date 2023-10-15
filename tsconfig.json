@@ -38,7 +38,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "./dist/types/**/*.ts",
-		"tailwind.config.ts", "src/middleware.ts", "src/api/auth.js"],
+		"tailwind.config.ts", "src/middleware.ts", "src/api/auth.ts"],
   "exclude": [
     "node_modules"
   ], // Excluir "node_modules" en lugar de "./node_modules"
