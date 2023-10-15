@@ -21,15 +21,19 @@ const Home: React.FC = () => {
 
 	const loadProducts = async () => {
 		try {
-			const products = await CRUD.getProducts();
+			const products = await CRUD.getProducts() as ProductType[];
 			setProducts(products);
+			console.log(products);
 		} catch (error) {
 			console.error(error);
 		}
 	};
 
 	useEffect(() => {
-		loadProducts();
+		(async () => {
+			await loadProducts();
+		})();
+
 		const script = document.createElement('script');
 		script.src = 'https://web-chat.global.assistant.watson.appdomain.cloud/versions/latest/WatsonAssistantChatEntry.js';
 		script.async = true;
@@ -59,12 +63,13 @@ const Home: React.FC = () => {
 					<Carrusel />
 					{products.map(product => (
 						<Card
-							key={product.id}
+							key ={product.key}
+							Foto= {product.imageUrl}
 							Nombre={product.name}
 							Precio={`$${product.price}`}
-							Rating={5}
+							Rating={product.ratings}
 						/>
-					))} 
+					))}
 				</Container>
 				<Footer/>
 			</div>

@@ -4,12 +4,13 @@ import StarRating from './StarRating';
 
 // TODO: pasar type
 type CardProps = {
+	Foto: string;
 	Nombre: string;
 	Precio: string;
 	Rating: number;
 };
 
-const Card: React.FC<CardProps> = ({Nombre, Precio, Rating}) => (
+const Card: React.FC<CardProps> = ({Foto, Nombre, Precio, Rating}) => (
 	<div className='max-w-sm m-4 p-3 z-10 bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-verdeClaro dark:border-green-900 '>
 		<div className='flex items-center justify-between p-2'>
 			<a
@@ -24,9 +25,10 @@ const Card: React.FC<CardProps> = ({Nombre, Precio, Rating}) => (
 		<div className=''>
 			<a href='#' className='flex items-center '>
 				<img
-					src='https://via.placeholder.com/290x150'
+					src={Foto}
 					className='mx-auto rounded-lg'
 					alt=''
+					style={{width: '300px', height: '200px'}}
 				/>
 			</a>
 			<p className='m-3 font-normal text-gray-700 dark:text-white'>
