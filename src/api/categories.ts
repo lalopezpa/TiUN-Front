@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import {type CategoryType} from '../types/CRUD/CategoriesSchema';
 import {API} from './api';
 

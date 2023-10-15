@@ -1,57 +1,56 @@
 // Login.tsx
 'use client';
-import React, {useState, useEffect} from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
-import logo from '../../../assets/logo.png';
-import logooscuro from '../../../assets/logo_oscuro.png';
-import {useForm} from 'react-hook-form';
-import type RequestData from '../../../types/RequestData';
-import FooterLogin from '../../../components/common/FooterLogin';
-import DarkModeToggle from '../../../components/common/DarkModeToggle';
-import useDarkMode from '../../../hooks/useDarkMode';
-import {useAuth} from '../../../context/authContext';
-import Background from '../../../components/common/Background';
 import {toast, Toaster} from 'sonner';
 import {useRouter} from 'next/navigation';
+import {useForm, type SubmitHandler} from 'react-hook-form';
+
+import logo from '../../../assets/logo.png';
+import logooscuro from '../../../assets/logo_oscuro.png';
+
+import Background from '../../../components/common/Background';
+import FooterLogin from '../../../components/common/FooterLogin';
+import DarkModeToggle from '../../../components/common/DarkModeToggle';
+
+import useDarkMode from '../../../hooks/useDarkMode';
+
+import {useAuth} from '../../../context/authContext';
+
+import {type LoginDataType} from '../../../types/UserLoginSchema';
+import {type LoginResponse} from '../../../types/LoginResponseSchema';
 
 const Login = (): JSX.Element => {
-	const	{register, handleSubmit, formState: {errors}, watch} = useForm();
+	const	{register, handleSubmit, formState: {errors}} = useForm();
 	const {modoOscuro, toggleModoOscuro} = useDarkMode();
-	const {login, user} = useAuth();
+	const {login} = useAuth();
 	const router = useRouter();
 
-	const onSubmit = async (data: RequestData) => {
+	const onSubmit: SubmitHandler<any> = async (data: LoginDataType) => {
 		try {
-			const loginResult = await login(data);
-			const typeError = loginResult.error;
-			// !console.log('usuario');
-			// console.log(user);
-			if (loginResult.success) {
+			const loginResult: LoginResponse = await login(data);
+			console.log('loginresult', loginResult);
+
+			if (loginResult.userData) {
 			// Inicio de sesión exitoso, muestra un toast de éxito y redirige
 				toast.success('Inicio de sesión exitoso');
 				setTimeout(() => {
 					router.push('/');
 				}, 2000);
-			} else if (typeError?.includes('Email is wrong')) {
+			} else if (loginResult.res?.includes('Email is wrong')) {
 			// Error de correo no registrado
 				toast.error('ERROR', {
 					description: 'Este correo no está registrado',
 				});
-			} else if (typeError?.includes('Password is wrong')) {
+			} else if (loginResult.res?.includes('Password is wrong')) {
 			// Error de contraseña incorrecta
 				toast.error('ERROR', {
 					description: 'La contraseña es incorrecta',
 				});
 			} else {
-			// Otros errores no reconocidos, muestra un toast genérico
 				toast.error('Error en el registro');
-			// Console.log(typeError);
 			}
 		} catch (error) {
-		// Error en el registro, muestra un toast genérico
 			toast.error('Error desconocido en el registro');
-		// Console.error('Error en el registro', error);
 		}
 	};
 
@@ -65,7 +64,7 @@ const Login = (): JSX.Element => {
 					</div>
 				</header>
 				{/* División izquierda */}
-				<section className='w-1/2 flex flex-col justify-center items-center overflow-hidden min-h-max relative hidden md:flex sm:w-100%'>
+				<section className='w-1/2  flex-col justify-center items-center overflow-hidden min-h-max relative hidden md:flex sm:w-100%'>
 					<div className='w-full h-full absolute top-0 left-0 z-10'>
 						<Background modoOscuro={modoOscuro} />
 					</div>
@@ -92,7 +91,7 @@ const Login = (): JSX.Element => {
 							{errors.email && <span className='text-red-600'>Este campo es requerido</span>}
 						</label>
 						<label className='flex flex-col text-white'>
-        Contraseña
+							Contraseña
 							<input
 								{...register('password', {required: true})}
 								className='w-[20rem] m-1 p-4 bg-white bg-opacity-20 rounded-lg placeholder-black  text-black  placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro border-solid hover:bg-opacity-30 lg:w-[27rem] dark:focus:ring-verdeClaro'
@@ -104,7 +103,7 @@ const Login = (): JSX.Element => {
 						<div className='flex text-left w-[20rem] lg:w-[27rem]'>
 							<p>
 								<Link className='text-amarillo hover:invert' href='/RecoverPassword'>
-            Olvidé mi contraseña
+							Olvidé mi contraseña
 								</Link>
 							</p>
 						</div>
@@ -112,11 +111,11 @@ const Login = (): JSX.Element => {
 							type='submit'
 							className='my-4 bg-vinotinto text-white text-bold px-4 py-2 rounded border-solid hover:brightness-125 border-gris'
 						>
-        INGRESA
+							INGRESA
 						</button>
 						<div className='font-poppins text-xl flex flex-col justify-center items-center'>
 							<p className='text-white pb-6'>
-          ¿No tienes cuenta? <Link href='/signup' className='text-amarillo hover:invert'>Regístrate</Link>
+							¿No tienes cuenta? <Link href='/signup' className='text-amarillo hover:invert'>Regístrate</Link>
 							</p>
 						</div>
 					</form>

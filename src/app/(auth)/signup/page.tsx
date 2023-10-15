@@ -25,6 +25,7 @@ const Register = () => {
 
 			if (registrationResult.success) {
 				// Registro exitoso, muestra un toast de éxito y redirige
+				console.log(data);
 				toast.success('Registro exitoso');
 				setTimeout(() => {
 					router.push('/');

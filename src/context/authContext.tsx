@@ -7,7 +7,9 @@ import {type AuthContextType} from '../types/AuthContextType';
 import type RequestData from '../types/RequestData';
 import Cookies from 'js-cookie';
 
-export const AuthContext = createContext(null);
+import {type LoginDataType} from '../types/UserLoginSchema';
+import {type LoginResponse} from '../types/LoginResponseSchema';
+export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 // Este hook es para usar el contexto sin necesidad de importar useContext, hace el uso del contexto por mi
 export const useAuth = (): AuthContextType => {
@@ -20,10 +22,6 @@ export const useAuth = (): AuthContextType => {
 };
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
-	const [user, setUser] = useState<UserType | undefined>(undefined);
-	const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-	const [loading, setLoading] = useState<boolean>(true);
-
 	const signup = async (user: UserType) => {
 		try {
 			const res = await registerRequest(user);
@@ -40,68 +38,28 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
 		}
 	};
 
-	const login = async (user: RequestData) => {
+	const login = async (user: LoginDataType): Promise<LoginResponse | undefined> => {
 		try {
-			const res = await loginRequest(user);
-			const userData: UserType = (res.data as {user: UserType}).user;
-			// Console.log(res);
-			// console.log('userData');
-			// console.log(userData);
-			setUser(userData);
-			setIsAuthenticated(true);
-			return {success: true, user: userData, error: undefined};
+			const response = await loginRequest(user);
+
+			return response;
 		} catch (error) {
 			console.error('Error en el registro', error);
-			const errorcito = error.response.data;
-			console.log(errorcito);
-			return {success: false, user: undefined, error: errorcito};
+			return undefined;
 		}
 	};
 
 	const logout = () => {
 		Cookies.remove('authToken');
 		Cookies.remove('refreshToken');
-		setUser(undefined);
-		setIsAuthenticated(false);
 	};
 
-	// UseEffect(() => {
-	// 	const checkLogin = async () => {
-	// 		const cookies = Cookies.get();
-	// 		console.log('cookies');
-	// 		console.log(cookies.authToken);
-	// 		if (!cookies.authToken) {
-	// 			setIsAuthenticated(false);
-	// 			setLoading(false);
-	// 			return;
-	// 		}
-
-	// 		try {
-	// 			const res = await verifyTokenRequest(cookies.token);
-	// 			console.log(res);
-	// 			if (!res.data) {
-	// 				setIsAuthenticated(false);
-	// 				return;
-	// 			}
-
-	// 			setIsAuthenticated(true);
-	// 			setUser(res.data);
-	// 			setLoading(false);
-	// 		} catch (error) {
-	// 			setIsAuthenticated(false);
-	// 			setLoading(false);
-	// 		}
-	// 	};
-
-	// 	checkLogin();
-	// }, []);
 	return (
 		<AuthContext.Provider
 			value={{
 				login,
 				signup,
 				logout,
-				user,
 			}}
 		>
 			{children}
