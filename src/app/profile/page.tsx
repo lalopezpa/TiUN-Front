@@ -1,21 +1,31 @@
 'use client';
-import React from 'react';
-// Import Background from '../../components/common/Background';
-// import DarkModeToggle from '../../components/common/DarkModeToggle';
-// import useDarkMode from '../../hooks/useDarkMode';
+import React, {useEffect, useState} from 'react';
 import Header from '../../components/common/Header';
-import {ListIcon, MoneyIcon, CheckIcon, ListForSendIcon, ListSendedIcon} from '../../components/icons/icons';
+import {MoneyIcon, CheckIcon, ListForSendIcon, ListSendedIcon} from '../../components/icons/icons';
 import Footer from '../../components/common/Footer';
-// Import fondo from '../../assets/fondo.jpg';
-import {useUser} from '../../context/userContext';
+import {verifyToken} from '../../api/auth';
+import type {UserType} from '../../types/UserSchema';
 
 const Profile = (): JSX.Element => {
-// Const {modoOscuro, toggleModoOscuro} = useDarkMode();
-	// eslint-disable-next-line no-negated-condition
-	const {user} = typeof window !== 'undefined' ? useUser() : {user: null};
-	console.log(user);
-	if (!user) {
-	// Usuario no autenticado
+	const [profile, setProfile] = useState<UserType>();
+
+	useEffect(() => {
+		const fetchUserProfile = async () => {
+			try {
+				const profile = await verifyToken() as UserType;
+				setProfile(profile);
+				console.log();
+			} catch (error) {
+				console.error('Error fetching user profile:', error);
+			}
+		};
+
+		(async () => {
+			await fetchUserProfile();
+		})();
+	}, [profile]);
+
+	if (!profile) {
 		return <div>Usuario no autenticado</div>;
 	}
 
@@ -35,9 +45,9 @@ const Profile = (): JSX.Element => {
 						{/* Columna izquierda - Información del usuario */}
 						<div>
 							<div className='m-3 p-2'>
-								<h1 className='text-2xl font-bold py-3'>{user.id} </h1>
-								<p className='text-gray-600'>correo@unal.edu.co</p>
-								<p className='text-gray-600'>123-456-7890</p>
+								<h1 className='text-2xl font-bold py-3'>{profile.name} </h1>
+								<p className='text-gray-600'>{profile.email} </p>
+								<p className='text-gray-600'>{profile.phoneNumber} </p>
 							</div>
 							{/* Botón para editar perfil */}
 							<button className='bg-blue-500 text-white px-4 py-2 rounded-full ml-4'>
