@@ -1,14 +1,14 @@
 'use client';
-import {createContext, useState, useContext, useEffect} from 'react';
+import {createContext, useContext} from 'react';
 import {loginRequest, registerRequest} from '../api/auth';
-import {type UserType} from '../types/UserSchema';
 import {type AuthProviderProps} from '../types/AuthProviderProps';
 import {type AuthContextType} from '../types/AuthContextType';
-import type RequestData from '../types/RequestData';
 import Cookies from 'js-cookie';
 
 import {type LoginDataType} from '../types/UserLoginSchema';
 import {type LoginResponse} from '../types/LoginResponseSchema';
+import {type UserRegisterData} from '../types/UserRegisterSchema';
+import {type SignupResponse} from '../types/SignupResponseSchema';
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 // Este hook es para usar el contexto sin necesidad de importar useContext, hace el uso del contexto por mi
@@ -22,19 +22,14 @@ export const useAuth = (): AuthContextType => {
 };
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
-	const signup = async (user: UserType) => {
+	const signup = async (user: UserRegisterData): Promise<SignupResponse | undefined> => {
 		try {
-			const res = await registerRequest(user);
-			const userData: UserType = (res.data as {user: UserType}).user; // Gracias Gpt :)
+			const response = await registerRequest(user);
 
-			return {success: true, user: userData, error: undefined};
+			return response;
 		} catch (error) {
-			if (error instanceof Error) {
-				console.log(error.response.data);
-
-				const errorcito = error.response?.data;
-				return {success: false, user: undefined, error: errorcito};
-			}
+			console.error('Error en el registro', error);
+			return undefined;
 		}
 	};
 

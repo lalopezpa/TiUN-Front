@@ -5,10 +5,11 @@ import {useRouter} from 'next/navigation';
 import DarkModeToggle from '../../../components/common/DarkModeToggle';
 import useDarkMode from '../../../hooks/useDarkMode';
 import Footer from '../../../components/common/Footer';
-import {useForm} from 'react-hook-form';
+import {useForm,type SubmitHandler} from 'react-hook-form';
 import Background from '../../../components/common/Background';
 import {useAuth} from '../../../context/authContext';
 import {Toaster, toast} from 'sonner';
+import {type UserRegisterData} from '../../../types/UserRegisterSchema';
 
 const Register = () => {
 	const {modoOscuro, toggleModoOscuro} = useDarkMode();
@@ -18,24 +19,23 @@ const Register = () => {
 	const {signup} = useAuth();
 	const router = useRouter();
 
-	const onSubmit = async data => {
+	const onSubmit: SubmitHandler<any> = async (data: UserRegisterData) => {
 		try {
 			const registrationResult = await signup(data);
-			const type_error = registrationResult.error;
+			console.log(registrationResult);
 
-			if (registrationResult.success) {
+			if (registrationResult?.userData) {
 				// Registro exitoso, muestra un toast de éxito y redirige
-				console.log(data);
 				toast.success('Registro exitoso');
 				setTimeout(() => {
 					router.push('/');
 				}, 2000);
-			} else if (type_error.includes('id_cedula_1')) {
+			} else if (registrationResult?.res?.includes('id_cedula_1 dup key')) {
 				// Error de cedula duplicada, muestra un toast con el mensaje específico
 				toast.error('ERROR', {
 					description: 'La cédula ya está en uso',
 				});
-			} else if (type_error.includes('email_1')) {
+			} else if (registrationResult?.res?.includes('email_1')) {
 				// Error de correo duplicado, muestra un toast con el mensaje específico
 				toast.error('ERROR', {
 					description: 'El correo ya está en uso',
@@ -43,12 +43,12 @@ const Register = () => {
 			} else {
 				// Otros errores no reconocidos, muestra un toast genérico
 				toast.error('Error en el registro');
-				// console.log(type_error);
+				// Console.log(type_error);
 			}
 		} catch (error) {
 			// Error en el registro, muestra un toast genérico
 			toast.error('Error desconocido en el registro');
-			// console.error('Error en el registro', error);
+			// Console.error('Error en el registro', error);
 		}
 	};
 
@@ -208,6 +208,19 @@ const Register = () => {
 									})}
 								/>
 								{errors.confirmarcontraseña && (<span className='text-red-600 font-poppins'>{errors.confirmarcontraseña.message}</span>)}
+								<label>
+									<div className='flex flex-col'>
+										<div className='flex'>
+											<label className='flex flex-col text-white'> Pudes subir una foto de perfil, es opcional
+												<input
+													type='file'
+													accept='image/*'
+													{...register('profileImage')} // Registra el campo con RHF
+												/>
+											</label>
+										</div>
+									</div>
+								</label>
 							</label>
 							<div className='flex flex-col'>
 								<div className='flex'>
@@ -229,6 +242,7 @@ const Register = () => {
 								</div>
 								{errors.aceptaTerminos && <span className='text-red-600 font-poppins'>{errors.aceptaTerminos.message}</span>}
 							</div>
+
 						</div>
 						<button
 							type='submit'className='mt-4 bg-vinotinto text-white text-bold px-4 py-2 rounded border-solid hover:brightness-125 border-gris'>

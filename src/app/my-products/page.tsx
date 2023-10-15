@@ -5,13 +5,14 @@ import ReactPaginate from 'react-paginate';
 import Header from '../../components/common/Header';
 import Footer from '../../components/common/Footer';
 import {CRUD} from '../../api/crud';
-import {ref, uploadBytes, getDownloadURL, deleteObject, list} from 'firebase/storage';
-import {storage} from '../../firebase/config';
+
 import {useForm, type SubmitHandler} from 'react-hook-form';
 import {getCategories} from '../../api/categories';
 import {type CategoryType} from '../../types/CRUD/CategoriesSchema';
 import {type ProductType} from '../../types/CRUD/ProductSchema';
 import {type ProductFormDataType} from '../../types/CRUD/ProductFormSchema';
+import {ref, uploadBytes, getDownloadURL, deleteObject, list} from 'firebase/storage';
+import {storage} from '../../firebase/config';
 import {getUser} from '../../api/auth';
 import {type UserType} from '../../types/UserSchema';
 const myProducts = (): JSX.Element => {
