@@ -1,54 +1,30 @@
 'use client';
 // ForgotPassword.tsx
 import React from 'react';
-import fondo from '../../../assets/fondo.jpg';
 import logomini	from '../../../assets/logo_mini.png';
-import {useForm} from 'react-hook-form';
+import {useForm, type SubmitHandler} from 'react-hook-form';
 import Link from 'next/link';
-import Cookies from 'js-cookie';
 import Footer from '../../../components/common/Footer';
-import { render } from 'react-dom';
-import axios from 'axios';
-
-type ApiResponse = {
-	accessToken: string;
-};
-type RequestData = {
-	email: string;
-};
-
-const axiosInstance = axios.create({
-	baseURL: 'http://localhost:3000/',
-	withCredentials: true,
-});
-
-const API = 'http://localhost:3000/';
-
-
+import {resetPasswordRequest} from '../../../api/recoverpassword';
+import {type RecoverPasswordRequestData} from '../../../types/RecoverRequest';
+import {useRouter} from 'next/navigation';
 
 const forgotPassword = (): JSX.Element => {
-	const	{register, handleSubmit, formState: {errors}, watch} = useForm();
+	const	{register, handleSubmit, formState: {errors}} = useForm();
+	const router = useRouter();
 
-	const onSubmit = async (data: RequestData) => {
-		const requestData: RequestData = {
+	const onSubmit: SubmitHandler<any> = async (data: RecoverPasswordRequestData) => {
+		const requestData: RecoverPasswordRequestData = {
 			email: data.email,
 		};
 		console.log(requestData);
 		console.log(requestData.email);
-			
+
 		try {
-			// Realiza una solicitud POST a la API con los datos del formulario
-			const response = await axios.post<ApiResponse>(`${API}resetpassword`, requestData);
-			// Maneja la respuesta si es necesario
-			console.log("ahora no se que hacer");
-			// console.log(response.data);
-			// Guarda los tokens en las cookies
-			Cookies.set('accessToken', response.data.accessToken);
-			// Redirige al usuario al home
+			await resetPasswordRequest(requestData);
+			router.push('/reset_password');
 		} catch (error) {
 			console.error(error);
-			// Maneja los errores si ocurren
-			// console.error('Error al enviar los datos:', error);
 		}
 	};
 
@@ -87,6 +63,7 @@ const forgotPassword = (): JSX.Element => {
 												placeholder='correo@unal.edu.co'
 												type='email'
 											/>
+											{errors.email && <span className='text-red-600'>Este campo es requerido</span>}
 										</label>
 									</div>
 									<div className='flex justify-end items-end'>
@@ -101,10 +78,9 @@ const forgotPassword = (): JSX.Element => {
 										</Link>
 										<button
 											type='submit'
-											className='mt-4 bg-verdeSeccionLogin text-white text-bold px-7 py-2 rounded-full border-solid hover:brightness-125 border-gris ml-2'>		
+											className='mt-4 bg-verdeSeccionLogin text-white text-bold px-7 py-2 rounded-full border-solid hover:brightness-125 border-gris ml-2'>
 												BUSCAR
 										</button>
-										
 
 									</div>
 								</form>

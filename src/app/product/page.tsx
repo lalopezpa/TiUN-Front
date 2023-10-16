@@ -1,25 +1,16 @@
 'use client';
 import React from 'react';
-import fondo from '../../../assets/fondo.jpg';
+
 import {useForm} from 'react-hook-form';
-import Link from 'next/link';
 import Cookies from 'js-cookie';
 import Footer from '../../components/common/Footer';
 import Header from '../../components/common/Header';
-import styled from 'styled-components';
-import Carrusel from '../../components/common/Carrusel';
-import {url} from 'inspector';
-import {Stars} from '@mui/icons-material';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
-import Typography from '@mui/material/Typography';
 import StarIcon from '@mui/icons-material/Star';
 import {useState} from 'react';
 import ProductQuantity from '../../components/product/ProductQuantity';
-
-type ApiResponse = {
-	accessToken: string;
-};
+import {type ProductType} from '../../types/CRUD/ProductSchema';
 type RequestData = {
 	codigo: string;
 };
@@ -39,7 +30,7 @@ const product = {
 	updatedat: new Date(),
 };
 
-const TextoLargo = ({ texto }) => {
+const TextoLargo = ({texto}) => {
 	const [mostrarTextoCompleto, setMostrarTextoCompleto] = useState(false);
 	const toggleTexto = () => {
 		setMostrarTextoCompleto(!mostrarTextoCompleto);

@@ -1,64 +1,29 @@
 'use client';
 // ForgotPassword.tsx
 import React from 'react';
-import fondo from '../../../assets/fondo.jpg';
 import logomini from '../../../assets/logo_mini.png';
-import {useForm} from 'react-hook-form';
-import axios from 'axios';
-import Cookies from 'js-cookie';
+import {useForm, type SubmitHandler} from 'react-hook-form';
 import Footer from '../../../components/common/Footer';
 import Link from 'next/link';
-
-type ApiResponse = {
-	accessToken: string;
-};
+import {useRouter} from 'next/navigation';
+import {sendNewPasswordRequest} from '../../../api/recoverpassword';
 type RequestData = {
 	newpassword: string;
 };
 
-const axiosInstance = axios.create({
-	baseURL: 'http://localhost:3000/',
-	withCredentials: true,
-});
-
-const API = 'http://localhost:3000/';
-
 const forgotPasswordValidate = (): JSX.Element => {
-	const {
-		register,
-		handleSubmit,
-		formState: {errors},
-		watch,
-	} = useForm();
+	const router = useRouter();
+	const {register, handleSubmit, formState: {errors}} = useForm();
 
-	const onSubmit = async (data: RequestData) => {
-		const requestData: RequestData = {
-			newpassword: data.newpassword
+	const onSubmit: SubmitHandler<any> = async (data: RequestData) => {
+		const requestData = {
+			newpassword: data.newpassword,
 		};
-
-		console.log(requestData.newpassword);
-		const urlActual = window.location.href;
-		console.log(urlActual);
-		const url = new URL(urlActual); // Crea un objeto URL con la URL actual
-  		const token = url.searchParams.get('token'); // Obtiene el valor del parámetro 'token' de la URL
-		console.log(token);
-		const partes = urlActual.split("?");
-		console.log(partes);
-		const parametrosString = partes[1];
-		
 		try {
-			// Realiza una solicitud POST a la API con los datos del formulario
-			const response = await axios.post<ApiResponse>(`${API}newpassword?${parametrosString}`, requestData);
-			// Maneja la respuesta si es necesario
-			// console.log(response.data);
-			// Guarda los tokens en las cookies
-			Cookies.set('accessToken', response.data.accessToken);
-
-			// Redirige al usuario al home
-			window.location.href = '/';
+			await sendNewPasswordRequest(requestData);
+			router.push('/login');
 		} catch (error) {
-			// Maneja los errores si ocurren
-			// console.error('Error al enviar los datos:', error);
+			console.error(error);
 		}
 	};
 
@@ -91,12 +56,27 @@ const forgotPasswordValidate = (): JSX.Element => {
 										>
 											Crea una contraseña nueva de seis caracteres como minimo.
 											<input
-												id='password'
-												{...register('newpassword', {required: true})}
-												className=' flex justify-center items-center w-[20rem] m-1 p-4 bg-verdeSeccionLogin text-white  rounded-full placeholder-white placeholder-opacity-70  hover:brightness-125 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro lg:w-[27rem]'
-												placeholder='Nueva contraseña'
 												type='password'
+												placeholder='Contraseña'
+												className='w-auto m-2 p-4 bg-white bg-opacity-20 rounded-lg placeholder-black text-black placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro hover:bg-opacity-30 lg:w-[27rem] dark:text-white dark:placeholder-white'
+												{...register('newpassword', {
+													required: {
+														value: true,
+														message: 'La Contraseña es requerida',
+													},
+													minLength: {
+														value: 6,
+														message: 'La Contraseña debe ser mayor a 6 caracteres',
+													},
+													maxLength: {
+														value: 20,
+														message: 'La Contraseña debe ser máximo de 20 caracteres',
+													},
+												})}
 											/>
+											{errors.newpassword && typeof errors.newpassword.message === 'string' && (
+												<span className='text-red-600 font-poppins'>{errors.newpassword.message}</span>
+											)}
 										</label>
 									</div>
 									<div className='flex justify-end items-end'>
