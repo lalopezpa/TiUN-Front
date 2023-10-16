@@ -3,6 +3,8 @@
 import type React from 'react';
 import {createContext, useContext, useState, type ReactNode} from 'react';
 
+
+//TODO: pasar types
 // Define the shape of a cart item
 type CartItem = {
 	id: number;

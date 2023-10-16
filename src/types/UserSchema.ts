@@ -16,5 +16,6 @@ export const userSchema = z.object({
 	termsandconditions: z.boolean(),
 	__v: z.number(),
 	_id: z.string(),
+	imageUrl: z.string(),
 });
 export type UserType = z.infer<typeof userSchema>;

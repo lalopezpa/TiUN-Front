@@ -1,6 +1,7 @@
 import type React from 'react';
 import {DarkModeIcon, LightModeIcon} from '../icons/icons';
 
+//TODO: pasar type
 type DarkModeToggleProps = {
 	modoOscuro: boolean;
 	toggleModoOscuro: () => void;

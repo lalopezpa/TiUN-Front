@@ -1,4 +1,5 @@
 // Context/ProductContext.tsx
+'use client';
 import type React from 'react';
 import {createContext, useContext, useState} from 'react';
 

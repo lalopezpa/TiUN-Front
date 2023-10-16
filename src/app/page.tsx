@@ -2,11 +2,14 @@
 import type React from 'react';
 import {useEffect} from 'react';
 // Import styled from 'styled-components';
+import {useState, useEffect} from 'react';
+import styled from 'styled-components';
 import Carrusel from '../components/common/Carrusel';
 import Header from '../components/common/Header';
 import Footer from '../components/common/Footer';
-import fondo from '../assets/fondo.jpg';
 import Card from '../components/common/Card';
+import {CRUD} from '../api/auth';
+import type {ProductType} from '../types/ProductShema';
 
 // Const Container: StyledComponent<'div', any, Record<string, unknown>, never> = styled.div`
 //   padding-top: 65px;
@@ -28,7 +31,23 @@ import Card from '../components/common/Card';
 // `;
 
 const Home: React.FC = () => {
+	const [products, setProducts] = useState<ProductType[]>([]);
+
+	const loadProducts = async () => {
+		try {
+			const products = await CRUD.getProducts() as ProductType[];
+			setProducts(products);
+			console.log(products);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
 	useEffect(() => {
+		(async () => {
+			await loadProducts();
+		})();
+
 		const script = document.createElement('script');
 		script.src = 'https://web-chat.global.assistant.watson.appdomain.cloud/versions/latest/WatsonAssistantChatEntry.js';
 		script.async = true;
@@ -52,12 +71,15 @@ const Home: React.FC = () => {
 				<Header/>
 				<div className='pt-16 flex flex-wrap justify-center gap-4'>
 					<Carrusel />
-					<Card Nombre={'Macbook pro'} Precio={'4000e'} Rating={4}/>
-					<Card Nombre={'HP XXXX'} Precio={'283929e'} Rating={4}/>
-					<Card Nombre={'HP XXXX'} Precio={'283929e'} Rating={5}/>
-					<Card Nombre={'HP XXXX'} Precio={'283929e'} Rating={3}/>
-					<Card Nombre={'HP XXXX'} Precio={'283929e'} Rating={1}/>
-					<Card Nombre={'HP XXXX'} Precio={'283929e'} Rating={1}/>
+					{products.map(product => (
+						<Card
+							key ={product.key}
+							Foto= {product.imageUrl}
+							Nombre={product.name}
+							Precio={`$${product.price}`}
+							Rating={product.ratings}
+						/>
+					))}
 				</div>
 				<Footer/>
 			</div>

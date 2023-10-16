@@ -69,3 +69,26 @@ export const DarkModeIcon: React.FC<IconoProps> = ({width = '24', height = '24'}
 export const LightModeIcon: React.FC<IconoProps> = ({width = '24', height = '24'}) => (
 	<svg xmlns='http://www.w3.org/2000/svg' width={width} height={height} ><path d='M6.993 12c0 2.761 2.246 5.007 5.007 5.007s5.007-2.246 5.007-5.007S14.761 6.993 12 6.993 6.993 9.239 6.993 12zM12 8.993c1.658 0 3.007 1.349 3.007 3.007S13.658 15.007 12 15.007 8.993 13.658 8.993 12 10.342 8.993 12 8.993zM10.998 19h2v3h-2zm0-17h2v3h-2zm-9 9h3v2h-3zm17 0h3v2h-3zM4.219 18.363l2.12-2.122 1.415 1.414-2.12 2.122zM16.24 6.344l2.122-2.122 1.414 1.414-2.122 2.122zM6.342 7.759 4.22 5.637l1.415-1.414 2.12 2.122zm13.434 10.605-1.414 1.414-2.122-2.122 1.414-1.414z'></path></svg>
 );
+
+export const ListIcon: React.FC<IconoProps> = ({width = '24', height = '24', color = ''}) => (
+	<svg xmlns='http://www.w3.org/2000/svg' width={width} height={height} fill={color} viewBox='0 0 24 24'><path d='M3 5h18v2H3zm0 4h18v2H3zm0 4h18v2H3zm0 4h18v2H3z'></path></svg>
+);
+
+export const MoneyIcon: React.FC<IconoProps> = ({width = '24', height = '24', color = ''}) => (
+	<svg xmlns='http://www.w3.org/2000/svg' width={width} height={height} fill={color} viewBox='0 0 24 24'><path d='M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z'/><path d='M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2H3z'/>
+	</svg>
+);
+
+export const CheckIcon: React.FC<IconoProps> = ({width = '24', height = '24', color = ''}) => (
+	<svg xmlns='http://www.w3.org/2000/svg' width={width} height={height} fill={color} viewBox='0 0 24 24'><path d='M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z'/><path d='m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z'/>
+	</svg>
+);
+export const ListForSendIcon: React.FC<IconoProps> = ({width = '24', height = '24', color = ''}) => (
+	<svg xmlns='http://www.w3.org/2000/svg' width={width} height={height} fill={color} viewBox='0 0 24 24'><path d='M10 .5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5.5.5 0 0 1-.5.5.5.5 0 0 0-.5.5V2a.5.5 0 0 0 .5.5h5A.5.5 0 0 0 11 2v-.5a.5.5 0 0 0-.5-.5.5.5 0 0 1-.5-.5Z'/><path d='M4.085 1H3.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1h-.585c.055.156.085.325.085.5V2a1.5 1.5 0 0 1-1.5 1.5h-5A1.5 1.5 0 0 1 4 2v-.5c0-.175.03-.344.085-.5ZM6 8h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1 0-1Z'/>
+	</svg>
+);
+
+export const ListSendedIcon: React.FC<IconoProps> = ({width = '24', height = '24', color = ''}) => (
+	<svg xmlns='http://www.w3.org/2000/svg' width={width} height={height} fill={color} viewBox='0 0 24 24'><path d='M10 .5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5.5.5 0 0 1-.5.5.5.5 0 0 0-.5.5V2a.5.5 0 0 0 .5.5h5A.5.5 0 0 0 11 2v-.5a.5.5 0 0 0-.5-.5.5.5 0 0 1-.5-.5Z'/><path d='M4.085 1H3.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1h-.585c.055.156.085.325.085.5V2a1.5 1.5 0 0 1-1.5 1.5h-5A1.5 1.5 0 0 1 4 2v-.5c0-.175.03-.344.085-.5Zm6.769 6.854-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708.708Z'/>
+	</svg>
+);

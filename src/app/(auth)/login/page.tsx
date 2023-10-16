@@ -22,7 +22,7 @@ import {type LoginResponse} from '../../../types/LoginResponseSchema';
 const Login = (): JSX.Element => {
 	const	{register, handleSubmit, formState: {errors}} = useForm();
 	const {modoOscuro, toggleModoOscuro} = useDarkMode();
-	const {login} = useAuth();
+	const {login, user} = useAuth();
 	const router = useRouter();
 
 	const onSubmit: SubmitHandler<any> = async (data: LoginDataType) => {
@@ -31,6 +31,7 @@ const Login = (): JSX.Element => {
 
 			if (loginResult?.userData) {
 			// Inicio de sesión exitoso, muestra un toast de éxito y redirige
+				userContext.login2(data);
 				toast.success('Inicio de sesión exitoso');
 				setTimeout(() => {
 					router.push('/');
