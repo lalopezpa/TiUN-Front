@@ -5,9 +5,9 @@ import ReactPaginate from 'react-paginate';
 import Header from '../../components/common/Header';
 import Footer from '../../components/common/Footer';
 import {API} from '../../api/api';
-
+import {type ProductType} from '../../types/CRUD/ProductSchema';
 const ProductList = (): JSX.Element => {
-	const [products, setProducts] = useState([]);
+	const [products, setProducts] = useState<ProductType[]>([]);
 	const [pageNumber, setPageNumber] = useState(0);
 	const [filters, setFilters] = useState({
 		category: '', // Agrega más opciones según tus necesidades
@@ -26,7 +26,7 @@ const ProductList = (): JSX.Element => {
 		(pageNumber + 1) * itemsPerPage,
 	);
 
-	const handlePageClick = ({selected}) => {
+	const handlePageClick = ({selected}: {selected: number}) => {
 		setPageNumber(selected);
 	};
 
@@ -35,7 +35,8 @@ const ProductList = (): JSX.Element => {
 			const queryParameters = new URLSearchParams(filters).toString();
 			const response = await fetch(`${API}productsby?${queryParameters}`);
 			if (response.ok) {
-				const data = await response.json();
+				const data = await response.json() as ProductType[];
+				console.log(data);
 				setProducts(data);
 			} else {
 				console.error('Error al obtener productos');
@@ -46,8 +47,14 @@ const ProductList = (): JSX.Element => {
 	};
 
 	useEffect(() => {
-		fetchProducts();
-	}, [filters]); // Refetch cuando cambian los filtros
+		(async () => {
+			try {
+				await fetchProducts();
+			} catch (error) {
+				console.error('Error al obtener productos', error);
+			}
+		})();
+	}, [filters]);
 
 	return (
 		<>
@@ -147,7 +154,7 @@ const ProductList = (): JSX.Element => {
 								<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'>
 									{displayedProducts.map(product => (
 										<div
-											key={product.id}
+											key={product._id}
 											className='bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden'
 										>
 											<img
@@ -166,28 +173,16 @@ const ProductList = (): JSX.Element => {
 									))}
 								</div>
 								<ReactPaginate
-									previousLabel={
-										<i className='fas fa-chevron-left mr-2 text-gray-600 dark:text-gray-400'></i>
-									}
-									nextLabel={
-										<i className='fas fa-chevron-right ml-2 text-gray-600 dark:text-gray-400'></i>
-									}
-									breakLabel={'...'}
-									breakClassName={'break-me'}
-									pageCount={pageCount}
-									marginPagesDisplayed={2}
-									pageRangeDisplayed={5}
+									previousLabel={'Anterior'}
+									nextLabel={'Siguiente'}
+									pageCount={Math.ceil(products.length / 10)}
 									onPageChange={handlePageClick}
-									containerClassName={'mt-6 flex justify-center'}
-									subContainerClassName={'pages pagination'}
-									activeClassName={
-										'text-blue-500 border-blue-500 dark:text-blue-400 dark:border-blue-400'
-									}
-									previousClassName={'border rounded-l-full text-gray-600 dark:text-gray-400'}
-									nextClassName={'border rounded-r-full text-gray-600 dark:text-gray-400'}
-									pageLinkClassName={
-										'px-3 py-2 border rounded-full border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover-bg-gray-800'
-									}
+									containerClassName={'flex justify-center items-center my-6'}
+									previousLinkClassName={'border rounded-full p-2 px-4 mx-2 cursor-pointer text-black dark:text-slate-100 hover-bg-gray-200'}
+									nextLinkClassName={'border rounded-full p-2 px-4 mx-2 cursor-pointer text-black  dark:text-slate-100 hover-bg-gray-200'}
+									disabledClassName={'cursor-not-allowed text-gray-400'}
+									activeClassName={'bg-verdeClaro text-white rounded-full p-2 px-4 mx-2 cursor-pointer'}
+									pageClassName={'cursor-pointer rounded-full p-2 px-4 mx-2 hover-bg-gray-200'}
 								/>
 							</div>
 						</div>
