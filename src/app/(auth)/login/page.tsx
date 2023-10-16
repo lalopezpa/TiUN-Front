@@ -28,7 +28,6 @@ const Login = (): JSX.Element => {
 	const onSubmit: SubmitHandler<any> = async (data: LoginDataType) => {
 		try {
 			const loginResult: LoginResponse | undefined = await login(data);
-			console.log('loginresult', loginResult);
 
 			if (loginResult?.userData) {
 			// Inicio de sesión exitoso, muestra un toast de éxito y redirige

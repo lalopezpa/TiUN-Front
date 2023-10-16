@@ -1,5 +1,6 @@
 // Context/UserContext.tsx
-import React, {createContext, useContext, useState, type ReactNode} from 'react';
+import type React from 'react';
+import {createContext, useContext, useState, type ReactNode} from 'react';
 
 // Define the shape of the user
 type User = {
@@ -31,14 +32,14 @@ type UserProviderProps = {
 };
 
 export const UserProvider: React.FC<UserProviderProps> = ({children}) => {
-	const [user, setUser] = useState<User | undefined>(null);
+	const [user, setUser] = useState<User | undefined>(undefined);
 
 	const login = (userData: User) => {
 		setUser(userData);
 	};
 
 	const logout = () => {
-		setUser(null);
+		setUser(undefined);
 	};
 
 	const contextValue: UserContextType = {

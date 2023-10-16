@@ -10,7 +10,7 @@ const userRegisterSchema = z.object({
 	password: z.string(),
 	phoneNumber: z.string(),
 	username: z.string(),
-	imageUrl: z.string().optional(),
+	imageUrl: z.unknown(),
 });
 
 export type UserRegisterData = z.infer<typeof userRegisterSchema>;

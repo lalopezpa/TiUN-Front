@@ -1,5 +1,6 @@
 // Context/ProductContext.tsx
-import React, {createContext, useContext, useState} from 'react';
+import type React from 'react';
+import {createContext, useContext, useState} from 'react';
 
 type Product = {
 	id: number;

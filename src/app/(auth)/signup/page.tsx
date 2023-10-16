@@ -1,28 +1,53 @@
 'use client';
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useRef} from 'react';
 import Link from 'next/link';
 import {useRouter} from 'next/navigation';
 import DarkModeToggle from '../../../components/common/DarkModeToggle';
 import useDarkMode from '../../../hooks/useDarkMode';
 import Footer from '../../../components/common/Footer';
-import {useForm,type SubmitHandler} from 'react-hook-form';
+import {useForm, type SubmitHandler} from 'react-hook-form';
 import Background from '../../../components/common/Background';
 import {useAuth} from '../../../context/authContext';
 import {Toaster, toast} from 'sonner';
 import {type UserRegisterData} from '../../../types/UserRegisterSchema';
+import {type UserType} from '../../../types/UserSchema';
+import {ref, uploadBytes, getDownloadURL, deleteObject} from 'firebase/storage';
+import {storage} from '../../../firebase/config';
+import {getUser} from '../../../api/auth';
 
-const Register = () => {
+const Register = (): JSX.Element => {
 	const {modoOscuro, toggleModoOscuro} = useDarkMode();
 	const {register, handleSubmit, formState: {errors}, watch} = useForm();
-	const password = useRef(null);
-	password.current = watch('password', '');
+	const password = useRef('');
 	const {signup} = useAuth();
 	const router = useRouter();
+	password.current = watch('password', {value: ''}) as string;
 
 	const onSubmit: SubmitHandler<any> = async (data: UserRegisterData) => {
+		console.log(data);
+		const user: UserType | undefined = await getUser();
+		let imageFile: File | undefined;
+		let storageRef = null;
+		let imageUrl = null;
+		const userFolderPath = `Usuarios/${user?._id}/Profilepic`; // Carpeta del usuario
+		if (data.imageUrl) {
+			if (data.imageUrl instanceof FileList && data.imageUrl.length > 0) {
+				imageFile = data.imageUrl[0];
+			}
+		}
+
 		try {
+			if (imageFile instanceof File) {
+				storageRef = ref(storage, `${userFolderPath}/${imageFile.name}`);
+
+				const snapshot = await uploadBytes(storageRef, imageFile);
+
+				imageUrl = await getDownloadURL(storageRef);
+				console.log(imageUrl);
+				data.imageUrl = imageUrl;
+			}
+
 			const registrationResult = await signup(data);
-			console.log(registrationResult);
 
 			if (registrationResult?.userData) {
 				// Registro exitoso, muestra un toast de éxito y redirige
@@ -46,6 +71,16 @@ const Register = () => {
 				// Console.log(type_error);
 			}
 		} catch (error) {
+			if (imageFile && storageRef) {
+				try {
+					// Intenta eliminar la imagen en caso de error
+					await deleteObject(storageRef);
+					console.log('Imagen eliminada de Firebase Storage debido a un error en la petición.');
+				} catch (deleteError) {
+					console.error('No se pudo eliminar la imagen de Firebase Storage:', deleteError);
+				}
+			}
+
 			// Error en el registro, muestra un toast genérico
 			toast.error('Error desconocido en el registro');
 			// Console.error('Error en el registro', error);
@@ -126,14 +161,17 @@ const Register = () => {
 											value: /^[1-9]{1}\d{5,10}$/,
 											message: 'Cédula no válida',
 										},
-									})}/>
-								{errors.id_cedula && <span className='text-red-600 font-poppins'>{errors.id_cedula.message}</span>}
+									})}
+								/>
+								{errors.id_cedula && typeof errors.id_cedula.message === 'string' && (
+									<span className='text-red-600 font-poppins'>{errors.id_cedula.message}</span>
+								)}
 							</label>
 							<label className='flex flex-col text-white'>
 								<input
 									type='tel'
 									placeholder='Teléfono'
-									className='w-[20rem] m-2 p-4 bg-white bg-opacity-20 rounded-lg placeholder-black  text-black placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro hover:bg-opacity-30 lg:w-[27rem] dark:text-white dark:placeholder-white'
+									className='w-[20rem] m-2 p-4 bg-white bg-opacity-20 rounded-lg placeholder-black text-black placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro hover:bg-opacity-30 lg:w-[27rem] dark:text-white dark:placeholder-white'
 									{...register('phoneNumber', {
 										required: {
 											value: true,
@@ -145,7 +183,9 @@ const Register = () => {
 										},
 									})}
 								/>
-								{errors.phoneNumber && <span className='text-red-600 font-poppins'>{errors.phoneNumber.message}</span>}
+								{errors.phoneNumber && typeof errors.phoneNumber.message === 'string' && (
+									<span className='text-red-600 font-poppins'>{errors.phoneNumber.message}</span>
+								)}
 							</label>
 						</div>
 						<div className='flex flex-col' >
@@ -153,7 +193,7 @@ const Register = () => {
 								<input
 									type='email'
 									placeholder='Correo'
-									className='w-auto m-2 p-4 bg-white bg-opacity-20 rounded-lg placeholder-black  text-black placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro hover:bg-opacity-30 lg:w-[27rem] dark:text-white dark:placeholder-white'
+									className='w-auto m-2 p-4 bg-white bg-opacity-20 rounded-lg placeholder-black text-black placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro hover:bg-opacity-30 lg:w-[27rem] dark:text-white dark:placeholder-white'
 									{...register('email', {
 										required: {
 											value: true,
@@ -165,13 +205,15 @@ const Register = () => {
 										},
 									})}
 								/>
-								{errors.email && <span className='text-red-600 font-poppins'>{errors.email.message}</span>}
+								{errors.email && typeof errors.email.message === 'string' && (
+									<span className='text-red-600 font-poppins'>{errors.email.message}</span>
+								)}
 							</label>
 							<label className='flex flex-col text-white'>
 								<input
 									type='password'
 									placeholder='Contraseña'
-									className='w-auto m-2 p-4 bg-white bg-opacity-20 rounded-lg placeholder-black  text-black placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro hover:bg-opacity-30 lg:w-[27rem] dark:text-white dark:placeholder-white'
+									className='w-auto m-2 p-4 bg-white bg-opacity-20 rounded-lg placeholder-black text-black placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro hover:bg-opacity-30 lg:w-[27rem] dark:text-white dark:placeholder-white'
 									{...register('password', {
 										required: {
 											value: true,
@@ -187,13 +229,16 @@ const Register = () => {
 										},
 									})}
 								/>
-								{errors.password && <span className='text-red-600 font-poppins'>{errors.password.message}</span>}
+								{errors.password && typeof errors.password.message === 'string' && (
+									<span className='text-red-600 font-poppins'>{errors.password.message}</span>
+								)}
 							</label>
+
 							<label className='flex flex-col text-white'>
 								<input
 									type='password'
 									placeholder='Confirmar contraseña'
-									className='w-auto m-2 p-4 bg-white bg-opacity-20 rounded-lg placeholder-black  text-black placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro hover:bg-opacity-30 lg:w-[27rem] dark:text-white dark:placeholder-white'
+									className='w-auto m-2 p-4 bg-white bg-opacity-20 rounded-lg placeholder-black text-black placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro hover:bg-opacity-30 lg:w-[27rem] dark:text-white dark:placeholder-white'
 									{...register('confirmarcontraseña', {
 										required: {
 											value: true,
@@ -207,20 +252,23 @@ const Register = () => {
 											value === password.current || 'Las contraseñas no coinciden',
 									})}
 								/>
-								{errors.confirmarcontraseña && (<span className='text-red-600 font-poppins'>{errors.confirmarcontraseña.message}</span>)}
-								<label>
-									<div className='flex flex-col'>
-										<div className='flex'>
-											<label className='flex flex-col text-white'> Pudes subir una foto de perfil, es opcional
-												<input
-													type='file'
-													accept='image/*'
-													{...register('profileImage')} // Registra el campo con RHF
-												/>
-											</label>
-										</div>
+								{errors.confirmarcontraseña && typeof errors.confirmarcontraseña.message === 'string' && (
+									<span className='text-red-600 font-poppins'>{errors.confirmarcontraseña.message}</span>
+								)}
+							</label>
+
+							<label>
+								<div className='flex flex-col'>
+									<div className='flex'>
+										<label className='flex flex-col text-white'> Pudes subir una foto de perfil, es opcional
+											<input
+												type='file'
+												accept='image/*'
+												{...register('imageUrl')} // Registra el campo con RHF
+											/>
+										</label>
 									</div>
-								</label>
+								</div>
 							</label>
 							<div className='flex flex-col'>
 								<div className='flex'>
@@ -240,16 +288,16 @@ const Register = () => {
 										<p className='text-white'>Estoy de acuerdo con los  </p> <Link href={'/politics'} className='text-amarillo hover:invert'> Términos y Condiciones</Link>
 									</div>
 								</div>
-								{errors.aceptaTerminos && <span className='text-red-600 font-poppins'>{errors.aceptaTerminos.message}</span>}
+								{errors.aceptaTerminos && typeof errors.aceptaTerminos.message === 'string' && (
+									<span className='text-red-600 font-poppins'>{errors.aceptaTerminos.message}</span>
+								)}
 							</div>
-
 						</div>
 						<button
 							type='submit'className='mt-4 bg-vinotinto text-white text-bold px-4 py-2 rounded border-solid hover:brightness-125 border-gris'>
 							REGISTRATE
 						</button>
 					</form>
-					{/* <pre style={{width: '400px'}}>{JSON.stringify(watch(), null, 2)}</pre> */}
 				</main>
 				<Footer></Footer>
 				<Toaster richColors visibleToasts={1} closeButton/>

@@ -5,7 +5,9 @@ import {type DarkModeState} from '../types/DarkModeState';
 const useDarkMode = (): DarkModeState => {
 	const isClient = typeof window === 'object';
 	const storedMode = isClient ? localStorage.getItem('modoOscuro') : null;
-	const [modoOscuro, setModoOscuro] = useState<boolean>(isClient && storedMode ? JSON.parse(storedMode) : false);
+	const [modoOscuro, setModoOscuro] = useState<boolean>(
+		isClient && storedMode ? JSON.parse(storedMode) as boolean : false,
+	);
 
 	useEffect(() => {
 		if (isClient) {

@@ -2,19 +2,23 @@
 import React, {useState, useEffect, type ChangeEvent} from 'react';
 import Image from 'next/image';
 import ReactPaginate from 'react-paginate';
+import {useForm, type SubmitHandler} from 'react-hook-form';
+import {ref, uploadBytes, getDownloadURL, deleteObject} from 'firebase/storage';
+
 import Header from '../../components/common/Header';
 import Footer from '../../components/common/Footer';
-import {CRUD} from '../../api/crud';
 
-import {useForm, type SubmitHandler} from 'react-hook-form';
+import {getUser} from '../../api/auth';
+import {CRUD} from '../../api/crud';
 import {getCategories} from '../../api/categories';
+
 import {type CategoryType} from '../../types/CRUD/CategoriesSchema';
 import {type ProductType} from '../../types/CRUD/ProductSchema';
-import {type ProductFormDataType} from '../../types/CRUD/ProductFormSchema';
-import {ref, uploadBytes, getDownloadURL, deleteObject, list} from 'firebase/storage';
-import {storage} from '../../firebase/config';
-import {getUser} from '../../api/auth';
 import {type UserType} from '../../types/UserSchema';
+import {type ProductFormDataType} from '../../types/CRUD/ProductFormSchema';
+
+import {storage} from '../../firebase/config';
+
 const myProducts = (): JSX.Element => {
 	const [products, setProducts] = useState<ProductType[]>([]);
 	const [currentPage, setCurrentPage] = useState<number>(0);
@@ -72,12 +76,11 @@ const myProducts = (): JSX.Element => {
 	};
 
 	const handleAddProduct: SubmitHandler<any> = async (data: ProductFormDataType) => {
-		const user: UserType = await getUser();
-		console.log('usuario', user);
+		const user: UserType | undefined = await getUser();
 		let imageFile: File | undefined;
 		let storageRef = null;
 		let imageUrl = null;
-		const userFolderPath = `Usuarios/${user._id}/Productos`; // Carpeta del usuario
+		const userFolderPath = `Usuarios/${user?._id}/Productos`; // Carpeta del usuario
 
 		if (data.imageUrl) {
 			if (data.imageUrl instanceof FileList && data.imageUrl.length > 0) {
@@ -354,7 +357,7 @@ const myProducts = (): JSX.Element => {
 									{displayedProducts.map(product => (
 										<tr key={product._id} className='dark:bg-verdeClaro border dark:border-green-900'>
 											<td className='p-2'>
-												<Image src={product.imageUrl} width={250} height={250} alt='imagen' />
+												<Image src={product.imageUrl} width={100} height={100} alt='imagen' />
 											</td>
 											<td className='dark:text-white border border-green-200 dark:bg-verdeClaro  dark:border-green-900 text-black'><p className=''>{product.name}</p></td>
 											<td className='dark:text-white border border-green-200 dark:bg-verdeClaro  dark:border-green-900 text-black'>{product.description}</td>
@@ -411,4 +414,3 @@ const myProducts = (): JSX.Element => {
 };
 
 export default myProducts;
-
