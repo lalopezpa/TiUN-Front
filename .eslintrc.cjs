@@ -6,6 +6,8 @@ module.exports = {
 	extends: [
 		'xo',
 		'plugin:react/recommended',
+		'eslint:recommended',
+		'next',
 	],
 	overrides: [
 		{
