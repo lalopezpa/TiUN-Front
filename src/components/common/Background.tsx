@@ -1,7 +1,9 @@
+import React from 'react';
+
 import fondo from '../../assets/fondo.jpg';
 import fondoOscuro from '../../assets/fondo_oscuro.png';
 
-const Background = (modoOscuro: boolean): JSX.Element => (
+const Background = ({modoOscuro}: {modoOscuro: boolean}): JSX.Element => (
 	<>
 		<img
 			src={modoOscuro ? fondoOscuro.src : fondo.src}
@@ -13,4 +15,3 @@ const Background = (modoOscuro: boolean): JSX.Element => (
 );
 
 export default Background;
-
