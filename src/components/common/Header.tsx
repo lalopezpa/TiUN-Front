@@ -6,9 +6,9 @@ import {ShoppingCartIcon, UserIcon, FavoritesIcon} from '../icons/icons';
 import DarkModeToggle from './DarkModeToggle';
 import useDarkMode from '../../hooks/useDarkMode';
 import Link from 'next/link';
-const Header = () => {
+const Header = (): JSX.Element => {
 	const {modoOscuro, toggleModoOscuro} = useDarkMode();
-	// console.log(modoOscuro);
+	// Console.log(modoOscuro);
 	// TODO Para implementar
 	// const [selectedCategory, setSelectedCategory] = useState('');
 	// const [searchQuery, setSearchQuery] = useState('');

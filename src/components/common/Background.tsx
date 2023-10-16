@@ -1,7 +1,7 @@
 import fondo from '../../assets/fondo.jpg';
 import fondoOscuro from '../../assets/fondo_oscuro.png';
 
-const Background = ({modoOscuro}) => (
+const Background = (modoOscuro: boolean): JSX.Element => (
 	<>
 		<img
 			src={modoOscuro ? fondoOscuro.src : fondo.src}

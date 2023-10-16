@@ -1,6 +1,6 @@
 // Añadan aquí los imports de los iconos que vayan a utilizar. Dejenlos como export const cada uno para que
 // al momento de importarlos solo se importe el que se necesita y no todos.
-import React from 'react';
+import type React from 'react';
 import type IconoProps from '../../types/iconType';
 
 export const Prueba: React.FC<IconoProps> = ({width = '24', height = '24', color = 'currentColor'}) => (

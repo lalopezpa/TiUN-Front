@@ -1,6 +1,7 @@
 // Context/CartContext.tsx
 'use client';
-import React, {createContext, useContext, useState, type ReactNode} from 'react';
+import type React from 'react';
+import {createContext, useContext, useState, type ReactNode} from 'react';
 
 // Define the shape of a cart item
 type CartItem = {

@@ -1,5 +1,5 @@
 // Components/cart/CartItems.tsx
-import React from 'react';
+import type React from 'react';
 import {useCart} from '../../context/cartContext';
 
 const CartItems: React.FC = () => {

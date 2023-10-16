@@ -1,4 +1,4 @@
-// import type React from 'react';
+// Import type React from 'react';
 // import {useEffect} from 'react';
 
 // declare global {

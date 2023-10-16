@@ -1,5 +1,5 @@
 // Components/product/ProductDetail.tsx
-import React from 'react';
+import type React from 'react';
 
 type Product = {
 	id: number;

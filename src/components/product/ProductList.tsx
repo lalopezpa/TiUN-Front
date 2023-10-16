@@ -1,5 +1,5 @@
 // Components/product/ProductList.tsx
-import React from 'react';
+import type React from 'react';
 import ProductDetail from './ProductDetail';
 import {useProduct} from '../../context/productContext';
 
