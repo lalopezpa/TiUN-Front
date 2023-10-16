@@ -56,7 +56,7 @@ const Profile = (): JSX.Element => {
 						</div>
 						{/* Columna derecha - Imagen en dispositivos medianos y grandes */}
 						<img
-							src='https://via.placeholder.com/150x175'
+							src={profile.imageUrl}
 							className='mx-auto  rounded-lg md:ml-auto'
 							alt=''
 						/>
