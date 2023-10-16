@@ -2,14 +2,13 @@
 import type React from 'react';
 import {useEffect} from 'react';
 // Import styled from 'styled-components';
-import {useState, useEffect} from 'react';
-import styled from 'styled-components';
+import {useState} from 'react';
 import Carrusel from '../components/common/Carrusel';
 import Header from '../components/common/Header';
 import Footer from '../components/common/Footer';
 import Card from '../components/common/Card';
-import {CRUD} from '../api/auth';
-import type {ProductType} from '../types/ProductShema';
+import {CRUD} from '../api/crud';
+import type {ProductType} from '../types/CRUD/ProductSchema';
 
 // Const Container: StyledComponent<'div', any, Record<string, unknown>, never> = styled.div`
 //   padding-top: 65px;
@@ -35,7 +34,7 @@ const Home: React.FC = () => {
 
 	const loadProducts = async () => {
 		try {
-			const products = await CRUD.getProducts() as ProductType[];
+			const products = await CRUD.getProducts();
 			setProducts(products);
 			console.log(products);
 		} catch (error) {
@@ -73,7 +72,7 @@ const Home: React.FC = () => {
 					<Carrusel />
 					{products.map(product => (
 						<Card
-							key ={product.key}
+							key ={product._id}
 							Foto= {product.imageUrl}
 							Nombre={product.name}
 							Precio={`$${product.price}`}

@@ -13,6 +13,7 @@ const productSchema = z.object({
 	updatedAt: z.string(),
 	sellerId: z.string(),
 	solds: z.number(),
+	ratings: z.number(),
 });
 
 export type ProductType = z.infer<typeof productSchema>;
