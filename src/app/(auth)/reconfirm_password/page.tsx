@@ -41,10 +41,10 @@ const forgotPasswordValidate = (): JSX.Element => {
 				<section>
 					<div className='flex justify-center items-center z-30 '>
 						<div className='bg-gray p-8 rouded-full '>
-							<h2 className='flex justify-center items-center text-4xl mb-4 font-poppins font-bold text-white'>
+							<h2 className='flex justify-center items-center text-4xl mb-4 font-poppins font-bold text-white px-5'>
 								RECUPERAR LA CONTRASEÑA
 							</h2>
-							<div className='bg-gray-300 p-8 rounded-lg shadow-md '>
+							<div className='bg-gray-300 py-8 rounded-lg shadow-md px-4'>
 								<form
 									onSubmit={handleSubmit(onSubmit)}
 									className=' text-xl flex flex-col '
