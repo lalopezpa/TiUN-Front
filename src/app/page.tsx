@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 'use client';
 import type React from 'react';
 import {useEffect} from 'react';

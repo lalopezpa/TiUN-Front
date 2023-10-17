@@ -9,7 +9,6 @@ import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import StarIcon from '@mui/icons-material/Star';
 import {useState} from 'react';
-import ProductQuantity from '../../components/product/ProductQuantity';
 import {type ProductType} from '../../types/CRUD/ProductSchema';
 type RequestData = {
 	codigo: string;

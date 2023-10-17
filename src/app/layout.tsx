@@ -1,9 +1,8 @@
 import './globals.css';
-import React from 'react';
+import type React from 'react';
 import type {Metadata} from 'next';
 import {StrictMode} from 'react';
 import {AuthProvider} from '../context/authContext';
-import {CartProvider} from '../context/cartContext';
 import {UserProvider} from '../context/userContext';
 import {ProductProvider} from '../context/productContext';
 
@@ -25,11 +24,9 @@ export default function RootLayout({children}: {
 				<UserProvider>
 					<AuthProvider>
 						<ProductProvider>
-							<CartProvider>
-								<body>
-									<div id='root'>{children}</div>
-								</body>
-							</CartProvider>
+							<body>
+								<div id='root'>{children}</div>
+							</body>
 						</ProductProvider>
 					</AuthProvider>
 				</UserProvider>

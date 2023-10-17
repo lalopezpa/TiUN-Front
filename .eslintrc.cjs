@@ -41,7 +41,7 @@ module.exports = {
 		'jsx-quotes': [2, 'prefer-single'], // Cambia las comillas dobles por simples
 		indent: ['error', 'tab'], // Indentación con tabulador
 		// Para producción, temporalmente desactivado
-		'@typescript-eslint/no-unused-vars': 'warn', // 'error' for production
+		'@typescript-eslint/no-unused-vars': 'off', // 'error' for production
 		eqeqeq: 'error', // Usar === en vez de ==
 		'no-unused-vars': 'error', // No dejar variables sin usar
 		semi: ['error', 'always'], // Poner ; al final de cada línea
@@ -51,7 +51,7 @@ module.exports = {
 		'no-trailing-spaces': 'warn', // No dejar espacios al final de las líneas
 		'react/react-in-jsx-scope': 'off', // No dejar importar React
 		// Para producción, temporalmente desactivado
-		'@typescript-eslint/explicit-module-boundary-types': 'warn', // No dejar funciones sin tipo de retorno
+		'@typescript-eslint/explicit-module-boundary-types': 'off', // No dejar funciones sin tipo de retorno
 		'object-shorthand': 'warn', // No dejar funciones sin tipo de retorno
 		'consistent-return': 'warn', // Asegurarse de que todas las rutas de una función tengan un valor de retorno, o ninguna.
 		'default-case': 'warn', // Asegurarse de que todos los switch tengan un default
@@ -64,7 +64,10 @@ module.exports = {
 		'no-unmodified-loop-condition': 'warn', // Asegurarse de que no se use un bucle infinito
 		'react/prop-types': 'off',
 		// Para producción, temporalmente desactivado
-		'@typescript-eslint/no-unsafe-assignment': 'warn',
+		'@typescript-eslint/no-unsafe-assignment': 'off',
 		'@typescript-eslint/consistent-type-definitions': 'warn',
+		'no-warning-comments': 'off',
+		'no-multiple-empty-lines': 'off',
+
 	},
 };

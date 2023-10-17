@@ -1,1 +1,1 @@
-export const API = 'https://backend-6fx2-pu7whrizb-jonathans-projects-687328a7.vercel.app/' || 'http://localhost:3000/';
+export const API = process.env.BACKEND_API_URL || 'http://localhost:3000/';

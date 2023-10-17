@@ -1,4 +1,3 @@
-/* eslint-disable no-warning-comments */
 'use client';
 import React, {useState} from 'react';
 import logoMini from '../../assets/logo_mini.png';
