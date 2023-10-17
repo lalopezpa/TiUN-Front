@@ -44,7 +44,7 @@ const Profile = (): JSX.Element => {
 					<div className='grid grid-cols-1 md:grid-cols-2 gap-6 container mx-auto p-5 bg-gray-100 max-w-md rounded-lg shadow-md mt-32'>
 						{/* Columna izquierda - Información del usuario */}
 						<div>
-							<div className='m-3 p-2'>
+							<div className='m-3 p-2 flex-shrink-0'>
 								<h1 className='text-2xl font-bold py-3'>{profile.name} </h1>
 								<p className='text-gray-600'>{profile.email} </p>
 								<p className='text-gray-600'>{profile.phoneNumber} </p>
@@ -55,10 +55,16 @@ const Profile = (): JSX.Element => {
 							</button>
 						</div>
 						{/* Columna derecha - Imagen en dispositivos medianos y grandes */}
+						{/* <img
+							src={profile.imageUrl}
+							className='w-1/3 rounded-lg h-auto md:hidden'
+							alt='Imagen para dispositivos móviles'
+						/> */}
+
 						<img
 							src={profile.imageUrl}
-							className='mx-auto  rounded-lg md:ml-auto'
-							alt=''
+							className='w-full rounded-lg h-auto hidden md:block'
+							alt='Imagen para dispositivos de escritorio'
 						/>
 
 						{/* Nueva fila para "My Orders" */}
