@@ -45,6 +45,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
 	};
 
 	const logout = () => {
+		console.log('Realizando logout');
 		Cookies.remove('authToken');
 		Cookies.remove('refreshToken');
 	};

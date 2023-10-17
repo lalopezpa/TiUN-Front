@@ -5,9 +5,20 @@ import {MoneyIcon, CheckIcon, ListForSendIcon, ListSendedIcon} from '../../compo
 import Footer from '../../components/common/Footer';
 import {getUser} from '../../api/auth';
 import type {UserType} from '../../types/UserSchema';
+import {useAuth} from '../../context/authContext';
+import {useRouter} from 'next/navigation';
 
 const Profile = (): JSX.Element => {
 	const [profile, setProfile] = useState<UserType>();
+	const {logout} = useAuth();
+	const router = useRouter();
+	
+	const handleLogout = () => {
+		console.log('Antes de logout');
+		logout();
+		console.log('Después de logout');
+		router.push('/');
+	};
 
 	useEffect(() => {
 		const fetchUserProfile = async () => {
@@ -50,8 +61,11 @@ const Profile = (): JSX.Element => {
 								<p className='text-gray-600'>{profile.phoneNumber} </p>
 							</div>
 							{/* Botón para editar perfil */}
-							<button className='bg-blue-500 text-white px-4 py-2 rounded-full ml-4'>
+							<button className='bg-blue-500 text-white m-1 px-4 py-2 rounded-full ml-4'>
 								Editar perfil
+							</button>
+							<button className='bg-red-500 text-white m-1 px-4 py-2 rounded-full ml-4' onClick={handleLogout} >
+								Salir 
 							</button>
 						</div>
 						{/* Columna derecha - Imagen en dispositivos medianos y grandes */}
@@ -63,7 +77,7 @@ const Profile = (): JSX.Element => {
 
 						<img
 							src={profile.imageUrl}
-							className='w-full rounded-lg h-auto hidden md:block'
+							className='w-full rounded-lg h-auto hidden md:block mt-5'
 							alt='Imagen para dispositivos de escritorio'
 						/>
 
