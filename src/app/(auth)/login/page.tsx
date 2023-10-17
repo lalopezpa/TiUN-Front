@@ -4,7 +4,7 @@ import Link from 'next/link';
 import {toast, Toaster} from 'sonner';
 import {useRouter} from 'next/navigation';
 import {useForm, type SubmitHandler} from 'react-hook-form';
-
+import {API} from '../../../api/api';
 import logo from '../../../assets/logo.png';
 import logooscuro from '../../../assets/logo_oscuro.png';
 
@@ -24,11 +24,9 @@ const Login = (): JSX.Element => {
 	const {modoOscuro, toggleModoOscuro} = useDarkMode();
 	const {login} = useAuth();
 	const router = useRouter();
-
 	const onSubmit: SubmitHandler<any> = async (data: LoginDataType) => {
 		try {
 			const loginResult: LoginResponse | undefined = await login(data);
-
 			if (loginResult?.userData) {
 			// Inicio de sesión exitoso, muestra un toast de éxito y redirige
 				toast.success('Inicio de sesión exitoso');

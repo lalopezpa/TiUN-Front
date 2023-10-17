@@ -3,12 +3,13 @@
 import type React from 'react';
 import {useEffect} from 'react';
 // Import styled from 'styled-components';
+import {API} 	from '../api/api';
 import {useState} from 'react';
 import Carrusel from '../components/common/Carrusel';
 import Header from '../components/common/Header';
 import Footer from '../components/common/Footer';
 import Card from '../components/common/Card';
-import {CRUD} from '../api/crud';
+import {getAllProducts} from '../api/crud';
 import type {ProductType} from '../types/CRUD/ProductSchema';
 
 // Const Container: StyledComponent<'div', any, Record<string, unknown>, never> = styled.div`
@@ -32,10 +33,10 @@ import type {ProductType} from '../types/CRUD/ProductSchema';
 
 const Home: React.FC = () => {
 	const [products, setProducts] = useState<ProductType[]>([]);
-
+	console.log(API);
 	const loadProducts = async () => {
 		try {
-			const products = await CRUD.getProducts();
+			const products = await getAllProducts();
 			setProducts(products);
 			console.log(products);
 		} catch (error) {

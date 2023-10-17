@@ -33,7 +33,7 @@ const ProductList = (): JSX.Element => {
 	const fetchProducts = async () => {
 		try {
 			const queryParameters = new URLSearchParams(filters).toString();
-			const response = await fetch(`${API}productsby?${queryParameters}`);
+			const response = await fetch(`https://backend-6fx2.vercel.app/productsby?${queryParameters}`);
 			if (response.ok) {
 				const data = await response.json() as ProductType[];
 				console.log(data);

@@ -4,19 +4,43 @@ import {type ProductFormDataType} from '../types/CRUD/ProductFormSchema';
 import {type CrudMethods} from '../types/CRUD/Crudmethodstype';
 import {API} from './api';
 
+export async function getAllProducts(): Promise<ProductType[]> {
+	try {
+		const requestOptions: RequestInit = {
+			method: 'GET',
+			credentials: 'include',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		};
+
+		const response = await fetch('https://backend-6fx2.vercel.app/product', requestOptions);
+		console.log(response);
+		if (!response.ok) {
+			throw new Error('Error al obtener productos');
+		}
+
+		const productData: ProductType[] = (await response.json()) as ProductType[];
+		return productData;
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+}
+
 export const CRUD: CrudMethods = {
 	async getProducts(): Promise<ProductType[]> {
 		try {
 			const requestOptions: RequestInit = {
 				method: 'GET',
+				credentials: 'include',
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				credentials: 'include',
 			};
 
-			const response = await fetch(`${API}productseller`, requestOptions);
-
+			const response = await fetch('https://backend-6fx2.vercel.app/productseller', requestOptions);
+			console.log(response);
 			if (!response.ok) {
 				throw new Error('Error al obtener productos');
 			}
@@ -39,7 +63,7 @@ export const CRUD: CrudMethods = {
 				credentials: 'include',
 				body: JSON.stringify(productData),
 			};
-			const response = await fetch(`${API}product`, requestOptions);
+			const response = await fetch('https://backend-6fx2.vercel.app/product', requestOptions);
 
 			if (!response.ok) {
 				console.error(response);
@@ -64,7 +88,7 @@ export const CRUD: CrudMethods = {
 				credentials: 'include',
 				body: JSON.stringify(productData),
 			};
-			const response = await fetch(`${API}product/${productId}`, requestOptions);
+			const response = await fetch(`https://backend-6fx2.vercel.app/product/${productId}`, requestOptions);
 
 			if (!response.ok) {
 				throw new Error('Error al actualizar el producto');
@@ -87,7 +111,7 @@ export const CRUD: CrudMethods = {
 				},
 				credentials: 'include',
 			};
-			const response = await fetch(`${API}product/${productId}`, requestOptions);
+			const response = await fetch(`https://backend-6fx2.vercel.app/product/${productId}`, requestOptions);
 
 			if (!response.ok) {
 				console.error(response);

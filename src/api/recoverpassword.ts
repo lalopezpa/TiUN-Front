@@ -12,7 +12,7 @@ type RequestData = {
 };
 export const resetPasswordRequest = async (requestData: RequestData1): Promise<void> => {
 	try {
-		const response = await fetch(`${API}resetpassword`, {
+		const response = await fetch('https://backend-6fx2.vercel.app/resetpassword', {
 			method: 'POST',
 			credentials: 'include',
 			headers: {
@@ -40,7 +40,7 @@ export const sendNewPasswordRequest = async (requestData: RequestData): Promise<
 	const partes = urlActual.split('?');
 	const parametrosString = partes[1];
 
-	const response = await fetch(`${API}newpassword?${parametrosString}`, {
+	const response = await fetch(`https://backend-6fx2.vercel.app/newpassword?${parametrosString}`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',

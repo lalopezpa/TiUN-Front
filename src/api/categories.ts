@@ -3,7 +3,7 @@ import {API} from './api';
 
 export async function getCategories(): Promise<CategoryType[]> {
 	try {
-		const response = await fetch(`${API}categories`, {
+		const response = await fetch('https://backend-6fx2.vercel.app/categories', {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
