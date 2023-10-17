@@ -30,7 +30,7 @@ const product = {
 	updatedat: new Date(),
 };
 
-const TextoLargo = ({texto}) => {
+const TextoLargo = (texto: string) => {
 	const [mostrarTextoCompleto, setMostrarTextoCompleto] = useState(false);
 	const toggleTexto = () => {
 		setMostrarTextoCompleto(!mostrarTextoCompleto);
@@ -84,7 +84,6 @@ const products = (): JSX.Element => {
 			// Maneja la respuesta si es necesario
 			// console.log(response.data);
 			// Guarda los tokens en las cookies
-			Cookies.set('accessToken', response.data.accessToken);
 			// Redirige al usuario al home
 		} catch (error) {
 			// Maneja los errores si ocurren
@@ -125,8 +124,6 @@ const products = (): JSX.Element => {
 									</div>
 									<p className='text-gray-700  text-left font-poppins '>Precio: {monedaFormateada}</p>
 									<p className='text-gray-700  font-poppins'>Stock: {product.stock}</p>
-									<TextoLargo texto={product.description} />
-									<ProductQuantity stock={product.stock} />
 									<div className='flex space-x-4 mt-4 font-poppins'>
 										<button className='className=" bg-green-500 hover:bg-green-700 text-white font-poppins font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out"'>
 										Agregar al Carrito

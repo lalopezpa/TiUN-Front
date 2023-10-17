@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import Header from '../../components/common/Header';
 import {MoneyIcon, CheckIcon, ListForSendIcon, ListSendedIcon} from '../../components/icons/icons';
 import Footer from '../../components/common/Footer';
-import {verifyToken} from '../../api/auth';
+import {getUser} from '../../api/auth';
 import type {UserType} from '../../types/UserSchema';
 
 const Profile = (): JSX.Element => {
@@ -12,7 +12,7 @@ const Profile = (): JSX.Element => {
 	useEffect(() => {
 		const fetchUserProfile = async () => {
 			try {
-				const profile = await verifyToken() as UserType;
+				const profile = (await getUser())!;
 				setProfile(profile);
 				console.log(profile);
 			} catch (error) {

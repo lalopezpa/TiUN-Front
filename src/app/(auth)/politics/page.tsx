@@ -1,4 +1,3 @@
-'use client';
 import type React from 'react';
 import fondo from '../../../assets/fondo.jpg';
 import logo from '../../../assets/logo.png';
