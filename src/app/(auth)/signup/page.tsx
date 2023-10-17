@@ -98,6 +98,15 @@ const Register = (): JSX.Element => {
 					</div>
 				</header>
 				{/* División izquierda */}
+				<section className='w-1/2  flex-col justify-center items-center overflow-hidden min-h-max relative hidden md:flex sm:w-100%'>
+					<div className='w-full h-full absolute top-0 left-0 z-10'>
+						<Background modoOscuro={modoOscuro} />
+					</div>
+					<figure className='z-20'>
+						<img src={modoOscuro ? logooscuro.src : logo.src} alt='logo'loading='lazy' className='w-[24rem] h-[24rem] px-4 lg:w-[36rem] lg:h-[36rem] lg:px-0' />
+					</figure>
+				</section>
+				{/* División derecha */}
 				<section className='bg-verdeSeccionLogin bg-opacity-90 w-full md:w-1/2 p-10 pb-0 flex flex-col justify-between items-center dark:bg-verdeOscuro'>
 					<form onSubmit={handleSubmit(onSubmit)} className='w-full text-xl flex flex-col justify-center items-center'>
 						<div className='w-full h-full absolute top-0 left-0 -z-20'>
@@ -254,7 +263,10 @@ const Register = (): JSX.Element => {
 									/>
 								</label>
 								<div className='font-poppins text-xl'>
-									<p className='text-black placeholder-black dark:text-white'>Estoy de acuerdo con los</p> <Link href={'/politics'} className='text-amarillo hover:invert'> Términos y Condiciones</Link>
+									<p className='text-black placeholder-black dark:text-white'>Estoy de acuerdo con los</p> <Link href='/politics' className='text-amarillo hover:invert' target='_blank'>
+  Términos y Condiciones
+									</Link>
+
 								</div>
 							</div>
 						</div>
@@ -266,15 +278,6 @@ const Register = (): JSX.Element => {
 						</button>
 					</form>
 					<FooterLogin/>
-				</section>
-				{/* División derecha */}
-				<section className='w-1/2  flex-col justify-center items-center overflow-hidden min-h-max relative hidden md:flex sm:w-100%'>
-					<div className='w-full h-full absolute top-0 left-0 z-10'>
-						<Background modoOscuro={modoOscuro} />
-					</div>
-					<figure className='z-20'>
-						<img src={modoOscuro ? logooscuro.src : logo.src} alt='logo'loading='lazy' className='w-[24rem] h-[24rem] px-4 lg:w-[36rem] lg:h-[36rem] lg:px-0' />
-					</figure>
 				</section>
 			</main>
 			<Toaster richColors visibleToasts={1} closeButton/>
