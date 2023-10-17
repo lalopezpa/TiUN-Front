@@ -2,6 +2,7 @@ import type React from 'react';
 import fondo from '../../../assets/fondo.jpg';
 import logo from '../../../assets/logo.png';
 import FooterLogin from '../../../components/common/FooterLogin';
+import Link from 'next/link';
 
 const Politics: React.FC = () => (
 	<>
@@ -18,7 +19,7 @@ const Politics: React.FC = () => (
 				</section>
 				{/* División derecha */}
 				<section className=' bg-opacity-90 w-full md:w-1/2  flex flex-col justify-between items-center md:pt-36'>
-					<h1 className='text-3xl font-bold text-white '>Términos y condiciones de uso del sitio</h1>
+					<h1 className='text-3xl font-bold text-white mx-8 mt-12 md:mt-0'>Términos y condiciones de uso del sitio</h1>
 					<div className=' bg-white justify-between rounded-lg shadow-lg p-4 m-14'>
 						<p>Versión vigente: 18 de Septiembre, 2023 </p>
 						<ul className='list-disc m-5 p-4 '>
@@ -32,15 +33,6 @@ const Politics: React.FC = () => (
                             TiUN solo permite la venta de artículos legales en Colombia.
 							</li>
 						</ul>
-						<div className=' flex  justify-center'>
-							<button className='m-2 bg-vinotinto text-white text-bold px-4 py-2 rounded border-solid hover:brightness-125 border-gris'>
-                            Rechazar
-							</button>
-							<button className='m-2 bg-verdeClaro text-white text-bold px-4 py-2 rounded border-solid hover:brightness-125 border-gris'>
-                            Aceptar
-							</button>
-						</div>
-
 					</div>
 					<FooterLogin />
 				</section>
