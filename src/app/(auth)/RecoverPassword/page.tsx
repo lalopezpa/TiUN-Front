@@ -59,7 +59,7 @@ const forgotPassword = (): JSX.Element => {
 											<input
 												id='correo'
 												{...register('email', {required: true})}
-												className=' flex justify-center items-center w-[20rem] m-1 p-4 bg-verdeSeccionLogin text-white  rounded-full placeholder-white placeholder-opacity-70  hover:brightness-125 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro lg:w-[27rem]'
+												className='w-auto m-2 p-4 bg-white bg-opacity-20 rounded-lg placeholder-black text-black placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro hover:bg-opacity-30 lg:w-[27rem] dark:text-white dark:placeholder-white'
 												placeholder='correo@unal.edu.co'
 												type='email'
 											/>
