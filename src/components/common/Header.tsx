@@ -1,5 +1,6 @@
 'use client';
-import React, {useState, useEffect} from 'react';
+import type React from 'react';
+import {useState, useEffect} from 'react';
 import logoMini from '../../assets/logo_mini.png';
 import {ShoppingCartIcon, UserIcon, FavoritesIcon} from '../icons/icons';
 import DarkModeToggle from './DarkModeToggle';
@@ -8,6 +9,13 @@ import Link from 'next/link';
 import {type CategoryType} from '../../types/CRUD/CategoriesSchema';
 import {getCategories} from '../../api/categories';
 import {useRouter} from 'next/navigation';
+type Event = React.ChangeEvent<HTMLInputElement>;
+type SearchFilters = {
+	name: string;
+	category: string;
+	// Otros campos...
+};
+
 const Header = () => {
 	const router = useRouter();
 	const [searchFilters, setSearchFilters] = useState({
@@ -16,7 +24,7 @@ const Header = () => {
 	});
 
 	// Función para manejar cambios en los filtros de búsqueda
-	const handleFilterChange = event => {
+	const handleFilterChange: React.ChangeEventHandler<HTMLSelectElement> = event => {
 		const {name, value} = event.target;
 		setSearchFilters({
 			...searchFilters,
@@ -24,8 +32,9 @@ const Header = () => {
 		});
 	};
 
+
 	// Función para realizar la búsqueda y redirigir a la página de resultados
-	const handleSearchSubmit = e => {
+	const handleSearchSubmit: React.FormEventHandler<HTMLFormElement> = e => {
 		e.preventDefault(); // Previene el envío predeterminado del formulario
 		// Construye la URL de búsqueda con los parámetros name y category
 		const searchQuery = `/search?name=${searchFilters.name}&category=${searchFilters.category}`;
@@ -34,6 +43,13 @@ const Header = () => {
 		router.push(searchQuery);
 	};
 
+	const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = event => {
+		const {name, value} = event.target;
+		setSearchFilters({
+			...searchFilters,
+			[name]: value,
+		});
+	};
 
 	const [categories, setCategories] = useState<CategoryType[]>([]);
 	const {modoOscuro, toggleModoOscuro} = useDarkMode();
@@ -74,16 +90,12 @@ const Header = () => {
 									</option>
 								))}
 							</select>
-
 							<input
 								name='name'
 								type='text'
 								className=' flex-grow p-1 rounded-lg w-full max-w-4xl placeholder:text-verdeOscuro'
 								placeholder='Estoy buscando... '
-								onChange={handleFilterChange}
-								// TODO por implementar
-								// value={searchQuery}
-								// onChange={handleSearchInputChange}
+								onChange={handleInputChange}
 							/>
 							<button type='submit' className='px-2 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600'>Buscar</button>
 						</form>
@@ -122,7 +134,7 @@ const Header = () => {
 						type='text'
 						className=' flex-grow p-1 rounded-lg w-full max-w-4xl placeholder:text-verdeOscuro'
 						placeholder='Estoy buscando... '
-						onChange={handleFilterChange}
+						onChange={handleInputChange}
 						// TODO por implementar
 						// value={searchQuery}
 						// onChange={handleSearchInputChange}
