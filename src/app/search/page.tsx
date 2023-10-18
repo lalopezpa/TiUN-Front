@@ -37,7 +37,7 @@ const ProductList = (): JSX.Element => {
 			console.error('Error al cargar productos:', error);
 		});
 	}, []);
-	const itemsPerPage = 7;
+	const itemsPerPage = 10;
 	const pageCount = Math.ceil(products.length / itemsPerPage);
 	const displayedProducts = products.slice(
 		pageNumber * itemsPerPage,
