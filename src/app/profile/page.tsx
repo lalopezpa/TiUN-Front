@@ -7,12 +7,12 @@ import {getUser} from '../../api/auth';
 import type {UserType} from '../../types/UserSchema';
 import {useAuth} from '../../context/authContext';
 import {useRouter} from 'next/navigation';
-
+import Link from 'next/link';
+import Image from 'next/image';
 const Profile = (): JSX.Element => {
 	const [profile, setProfile] = useState<UserType>();
 	const {logout} = useAuth();
 	const router = useRouter();
-	
 	const handleLogout = () => {
 		console.log('Antes de logout');
 		logout();
@@ -37,7 +37,7 @@ const Profile = (): JSX.Element => {
 	}, []);
 
 	if (!profile) {
-		return <div>Usuario no autenticado</div>;
+		return <div>Usuario no autenticado <Link href={'./login'}>Volver</Link></div>;
 	}
 
 	return (
@@ -51,8 +51,8 @@ const Profile = (): JSX.Element => {
 					className='w-full h-full opacity-5 bg-cover'
 				/>
 			</div> */}
-				<div className='flex items-center justify-center h-full'>
-					<div className='grid grid-cols-1 md:grid-cols-2 gap-6 container mx-auto p-5 bg-gray-100 max-w-md rounded-lg shadow-md mt-32'>
+				<div className='flex items-center justify-center h-full pb-10'>
+					<div className='grid grid-cols-1 md:grid-cols-2 pb-10 gap-6 container mx-auto p-5 bg-gray-100 max-w-md rounded-lg shadow-md mt-32'>
 						{/* Columna izquierda - Información del usuario */}
 						<div>
 							<div className='m-3 p-2 flex-shrink-0'>
@@ -65,7 +65,7 @@ const Profile = (): JSX.Element => {
 								Editar perfil
 							</button>
 							<button className='bg-red-500 text-white m-1 px-4 py-2 rounded-full ml-4' onClick={handleLogout} >
-								Salir 
+								Salir
 							</button>
 						</div>
 						{/* Columna derecha - Imagen en dispositivos medianos y grandes */}
@@ -74,12 +74,9 @@ const Profile = (): JSX.Element => {
 							className='w-1/3 rounded-lg h-auto md:hidden'
 							alt='Imagen para dispositivos móviles'
 						/> */}
+						<Image src={profile.imageUrl} alt='profilepic' width={200} height={100}>
 
-						<img
-							src={profile.imageUrl}
-							className='w-full rounded-lg h-auto hidden md:block mt-5'
-							alt='Imagen para dispositivos de escritorio'
-						/>
+						</Image>
 
 						{/* Nueva fila para "My Orders" */}
 						<div className='md:col-span-2 ml-4 mx-2'>
@@ -117,10 +114,10 @@ const Profile = (): JSX.Element => {
 									</a>
 								</div>
 								<div className='flex-1 items-center justify-center text-center ml-2'>
-									<a className='flex items-center'>
+									<Link href={'./my-products'} className='flex items-center'>
 										<ListSendedIcon />
 										<span className='ml-1'>Administrar productos</span>
-									</a>
+									</Link>
 								</div>
 							</div>
 						</div>
