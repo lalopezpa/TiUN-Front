@@ -53,7 +53,7 @@ const ProductList = (): JSX.Element => {
 			const queryParameters = new URLSearchParams(filters).toString();
 			console.log('query', queryParameters);
 			// Cambiar
-			const response = await fetch(`http://localhost:3000/productsby?${queryParameters}`);
+			const response = await fetch(`https://backend-6fx2.vercel.app/productsby?${queryParameters}`);
 			console.log(queryParameters);
 			console.log(response);
 
