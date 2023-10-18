@@ -60,7 +60,6 @@ const ProductList = (): JSX.Element => {
 			if (response.ok) {
 				const data = await response.json() as ProductType[];
 				setProducts(data);
-				console.log(data)
 			} else {
 				console.error('Error al obtener productos');
 			}
@@ -86,17 +85,17 @@ const ProductList = (): JSX.Element => {
 	return (
 		<>
 			<Header />
-			<div className='flex flex-col justify-between md:pt-16 min-h-screen max-h-max pt-24'>
-				<div className='bg-gray-100 dark:bg-gray-900 py-8 flex flex-col'>
+			<div className='flex flex-col justify-between md:pt-16 min-h-screen max-h-max pt-24 dark:bg-grisOscuro'>
+				<div className='bg-gray-100 dark:bg-grisOscuro py-8 flex flex-col'>
 					<div className='container mx-auto px-4 flex-grow'>
 						<div className='flex'>
 							<div className='w-1/4 p-4'>
 								{/* Barra lateral de filtros */}
 								<div className='mb-6'>
-									<label className='text-gray-600 dark:text-gray-400'>Categoría</label>
+									<label className='text-black dark:text-white'>Categoría</label>
 									<select
 										name='category'
-										className='block w-full mt-1 border rounded-lg shadow-sm focus:border-blue-500 dark:focus:border-blue-400'
+										className='block placeholder-black text-black w-full mt-1 border rounded-lg shadow-sm focus:border-blue-500 dark:focus:border-blue-400'
 										value={filters.category}
 										onChange={e => {
 											setFilters({...filters, category: e.target.value});
@@ -110,12 +109,12 @@ const ProductList = (): JSX.Element => {
 									</select>
 								</div>
 								<div className='mb-6'>
-									<label className='text-gray-600 dark:text-gray-400'>Precio</label>
+									<label className='text-black dark:text-white'>Precio</label>
 									<div className='flex'>
 										<input
 											type='number'
 											placeholder='Mínimo'
-											className='block w-1/2 mt-1 border rounded-l-lg shadow-sm focus:border-blue-500 dark:focus:border-blue-400 appearance-none'
+											className='block placeholder-black text-black w-1/2 mt-1 border rounded-l-lg shadow-sm focus:border-blue-500 dark:focus:border-blue-400 appearance-none'
 											value={filters.priceMin}
 											onChange={e => {
 												setFilters({...filters, priceMin: e.target.value});
@@ -124,7 +123,7 @@ const ProductList = (): JSX.Element => {
 										<input
 											type='number'
 											placeholder='Máximo'
-											className='block w-1/2 mt-1 border rounded-r-lg shadow-sm focus:border-blue-500 dark:focus:border-blue-400 appearance-none'
+											className='block placeholder-black text-black w-1/2 mt-1 border rounded-r-lg shadow-sm focus:border-blue-500 dark:focus:border-blue-400 appearance-none'
 											value={filters.priceMax}
 											onChange={e => {
 												setFilters({...filters, priceMax: e.target.value});
@@ -133,22 +132,10 @@ const ProductList = (): JSX.Element => {
 									</div>
 								</div>
 								<div className='mb-6'>
-									<label className='text-gray-600 dark:text-gray-400'>Vendedor</label>
+									<label className='text-black '>Nombre del producto</label>
 									<input
 										type='text'
-										className='block w-full mt-1 border rounded-lg shadow-sm focus:border-blue-500 dark:focus:border-blue-400'
-										value={filters.seller_id}
-										onChange={e => {
-											setFilters({...filters, seller_id: e.target.value});
-										}}
-										placeholder='ID del vendedor'
-									/>
-								</div>
-								<div className='mb-6'>
-									<label className='text-gray-600 dark:text-gray-400'>Nombre del producto</label>
-									<input
-										type='text'
-										className='block w-full mt-1 border rounded-lg shadow-sm focus:border-blue-500 dark:focus:border-blue-400'
+										className='block text-black  placeholder-black w-full mt-1 border rounded-lg shadow-sm focus:border-blue-500 dark:focus:border-blue-400'
 										value={filters.name}
 										onChange={e => {
 											setFilters({...filters, name: e.target.value});
@@ -157,10 +144,10 @@ const ProductList = (): JSX.Element => {
 									/>
 								</div>
 								<div className='mb-6'>
-									<label className='text-gray-600 dark:text-gray-400'>Descuento mínimo</label>
+									<label className='text-black dark:text-white'>Descuento mínimo</label>
 									<input
 										type='number'
-										className='block w-full mt-1 border rounded-lg shadow-sm focus:border-blue-500 dark:focus:border-blue-400 appearance-none'
+										className='block placeholder-black text-black w-full mt-1  rounded-lg shadow-sm focus:border-blue-500  appearance-none'
 										value={filters.discountMin}
 										onChange={e => {
 											// Parsea el valor a un número
@@ -176,7 +163,7 @@ const ProductList = (): JSX.Element => {
 								</div>
 								<div>
 									<button
-										className='px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600'
+										className='px-4 py-2 bg-blue-500 text-black dark:text-white rounded-lg hover:bg-blue-600'
 										onClick={fetchProducts}
 									>
                     Aplicar filtros
@@ -191,7 +178,7 @@ const ProductList = (): JSX.Element => {
 									{displayedProducts.map(product => (
 										<div
 											key={product._id}
-											className='bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden'
+											className='bg-white dark:bg-emerald-800 shadow-lg rounded-lg overflow-hidden '
 										>
 											<img
 												src={product.imageUrl}

@@ -68,7 +68,7 @@ const Home: React.FC = () => {
 		<>
 			<div className='bg-gris dark:bg-grisOscuro'>
 				<Header/>
-				<div className='pt-16 flex flex-wrap justify-center gap-4'>
+				<div className='pt-16 flex flex-wrap min-h-screen justify-center gap-4'>
 					<Carrusel />
 					{products.map(product => (
 						<Card
