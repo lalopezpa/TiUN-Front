@@ -33,12 +33,10 @@ import type {ProductType} from '../types/CRUD/ProductSchema';
 
 const Home: React.FC = () => {
 	const [products, setProducts] = useState<ProductType[]>([]);
-	console.log(API);
 	const loadProducts = async () => {
 		try {
 			const products = await getAllProducts();
 			setProducts(products);
-			console.log(products);
 		} catch (error) {
 			console.error(error);
 		}

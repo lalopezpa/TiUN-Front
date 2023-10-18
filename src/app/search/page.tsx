@@ -6,6 +6,7 @@ import Header from '../../components/common/Header';
 import Footer from '../../components/common/Footer';
 import {API} from '../../api/api';
 import {type ProductType} from '../../types/CRUD/ProductSchema';
+
 const ProductList = (): JSX.Element => {
 	const [products, setProducts] = useState<ProductType[]>([]);
 	const [pageNumber, setPageNumber] = useState(0);
@@ -33,10 +34,11 @@ const ProductList = (): JSX.Element => {
 	const fetchProducts = async () => {
 		try {
 			const queryParameters = new URLSearchParams(filters).toString();
-			const response = await fetch(`https://backend-6fx2.vercel.app/productsby?${queryParameters}`);
+			console.log('query', queryParameters);
+			const response = await fetch(`http://localhost:3000/productsby?${queryParameters}`);
+
 			if (response.ok) {
 				const data = await response.json() as ProductType[];
-				console.log(data);
 				setProducts(data);
 			} else {
 				console.error('Error al obtener productos');
@@ -48,6 +50,10 @@ const ProductList = (): JSX.Element => {
 
 	useEffect(() => {
 		(async () => {
+			const urlActual = window.location.href;
+			const partes = urlActual.split('?');
+			const parametrosString = partes[1];
+			console.log('parametros', parametrosString);
 			try {
 				await fetchProducts();
 			} catch (error) {
