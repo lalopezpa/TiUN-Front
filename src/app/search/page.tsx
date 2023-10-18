@@ -6,10 +6,13 @@ import Header from '../../components/common/Header';
 import Footer from '../../components/common/Footer';
 import {API} from '../../api/api';
 import {type ProductType} from '../../types/CRUD/ProductSchema';
+import {type CategoryType} from '../../types/CRUD/CategoriesSchema';
+import {getCategories} from '../../api/categories';
 
 const ProductList = (): JSX.Element => {
 	const [products, setProducts] = useState<ProductType[]>([]);
 	const [pageNumber, setPageNumber] = useState(0);
+	const [categories, setCategories] = useState<CategoryType[]>([]);
 	const [filters, setFilters] = useState({
 		category: '', // Agrega más opciones según tus necesidades
 		priceMin: '',
@@ -20,6 +23,20 @@ const ProductList = (): JSX.Element => {
 		discountMin: '',
 	});
 
+	useEffect(() => {
+		const fetchCategories = async () => {
+			try {
+				const categoriesData = await getCategories();
+				setCategories(categoriesData);
+			} catch (error) {
+				console.error('Error al obtener categorías:', error);
+			}
+		};
+
+		fetchCategories().catch(error => {
+			console.error('Error al cargar productos:', error);
+		});
+	}, []);
 	const itemsPerPage = 7;
 	const pageCount = Math.ceil(products.length / itemsPerPage);
 	const displayedProducts = products.slice(
@@ -35,11 +52,15 @@ const ProductList = (): JSX.Element => {
 		try {
 			const queryParameters = new URLSearchParams(filters).toString();
 			console.log('query', queryParameters);
+			// Cambiar
 			const response = await fetch(`http://localhost:3000/productsby?${queryParameters}`);
+			console.log(queryParameters);
+			console.log(response);
 
 			if (response.ok) {
 				const data = await response.json() as ProductType[];
 				setProducts(data);
+				console.log(data)
 			} else {
 				console.error('Error al obtener productos');
 			}
@@ -65,7 +86,7 @@ const ProductList = (): JSX.Element => {
 	return (
 		<>
 			<Header />
-			<div className='flex flex-col justify-between pt-16 min-h-screen max-h-max'>
+			<div className='flex flex-col justify-between md:pt-16 min-h-screen max-h-max pt-24'>
 				<div className='bg-gray-100 dark:bg-gray-900 py-8 flex flex-col'>
 					<div className='container mx-auto px-4 flex-grow'>
 						<div className='flex'>
@@ -74,33 +95,36 @@ const ProductList = (): JSX.Element => {
 								<div className='mb-6'>
 									<label className='text-gray-600 dark:text-gray-400'>Categoría</label>
 									<select
+										name='category'
 										className='block w-full mt-1 border rounded-lg shadow-sm focus:border-blue-500 dark:focus:border-blue-400'
 										value={filters.category}
 										onChange={e => {
 											setFilters({...filters, category: e.target.value});
 										}}
 									>
-										<option value=''>Todas</option>
-										<option value='nuevo'>Nuevo</option>
-										<option value='usado'>Usado</option>
+										{categories.map(category => (
+											<option key={category._id} value={category._id}>
+												{category.name}
+											</option>
+										))}
 									</select>
 								</div>
 								<div className='mb-6'>
 									<label className='text-gray-600 dark:text-gray-400'>Precio</label>
 									<div className='flex'>
 										<input
-											type='text'
+											type='number'
 											placeholder='Mínimo'
-											className='block w-1/2 mt-1 border rounded-l-lg shadow-sm focus:border-blue-500 dark:focus:border-blue-400'
+											className='block w-1/2 mt-1 border rounded-l-lg shadow-sm focus:border-blue-500 dark:focus:border-blue-400 appearance-none'
 											value={filters.priceMin}
 											onChange={e => {
 												setFilters({...filters, priceMin: e.target.value});
 											}}
 										/>
 										<input
-											type='text'
+											type='number'
 											placeholder='Máximo'
-											className='block w-1/2 mt-1 border rounded-r-lg shadow-sm focus:border-blue-500 dark:focus:border-blue-400'
+											className='block w-1/2 mt-1 border rounded-r-lg shadow-sm focus:border-blue-500 dark:focus:border-blue-400 appearance-none'
 											value={filters.priceMax}
 											onChange={e => {
 												setFilters({...filters, priceMax: e.target.value});
@@ -136,10 +160,16 @@ const ProductList = (): JSX.Element => {
 									<label className='text-gray-600 dark:text-gray-400'>Descuento mínimo</label>
 									<input
 										type='number'
-										className='block w-full mt-1 border rounded-lg shadow-sm focus:border-blue-500 dark:focus:border-blue-400'
+										className='block w-full mt-1 border rounded-lg shadow-sm focus:border-blue-500 dark:focus:border-blue-400 appearance-none'
 										value={filters.discountMin}
 										onChange={e => {
-											setFilters({...filters, discountMin: e.target.value});
+											// Parsea el valor a un número
+											const value = parseInt(e.target.value, 10);
+
+											// Asegura que el valor esté dentro del rango de 0 a 100
+											const newValue = Math.min(100, Math.max(0, value));
+
+											setFilters({...filters, discountMin: newValue.toString()});
 										}}
 										placeholder='Descuento mínimo'
 									/>

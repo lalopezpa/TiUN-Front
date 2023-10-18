@@ -85,7 +85,7 @@ const Header = () => {
 								// value={searchQuery}
 								// onChange={handleSearchInputChange}
 							/>
-							<button type='submit' className='px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600'></button>
+							<button type='submit' className='px-2 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600'>Buscar</button>
 						</form>
 					</div>
 				</div>
@@ -103,7 +103,7 @@ const Header = () => {
 				</nav>
 			</div>
 			<div className='flex md:hidden flex-grow-0 bg-white rounded-lg p-0 shadow-md max-w-md h-full text-verdeOscuro lg:flex-grow-0-hidden '>
-				<form className='flex items-center space-x-5 '>
+				<form className='flex items-center space-x-5 ' onSubmit={handleSearchSubmit}>
 					<select
 						onChange={handleFilterChange}
 						name='category'
@@ -127,6 +127,7 @@ const Header = () => {
 						// value={searchQuery}
 						// onChange={handleSearchInputChange}
 					/>
+					<button type='submit' className='px-2 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600'>Buscar</button>
 				</form>
 			</div>
 			{/* Barra de búsqueda y filtros */}
