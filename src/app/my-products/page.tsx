@@ -17,6 +17,8 @@ import {type ProductType} from '../../types/CRUD/ProductSchema';
 import {type UserType} from '../../types/UserSchema';
 import {type ProductFormDataType} from '../../types/CRUD/ProductFormSchema';
 
+import {getImageDescription} from '../../services/imageDescriptionService';
+
 import {storage} from '../../firebase/config';
 
 const myProducts = (): JSX.Element => {
@@ -97,8 +99,11 @@ const myProducts = (): JSX.Element => {
 
 				imageUrl = await getDownloadURL(storageRef);
 
-				data.imageUrl = imageUrl;
+				const description = await getDescriptionForImage(imageUrl);
 
+				data.imageUrl = imageUrl;
+				data.description = description ?? 'Producto sin descripción';
+				console.log('descripcion' + description);
 				const createdProduct: ProductType = await CRUD.createProduct(data);
 				setProducts([...products, createdProduct]);
 				if (isEditing) {
@@ -168,6 +173,18 @@ const myProducts = (): JSX.Element => {
 		}
 	};
 
+	const getDescriptionForImage = async (imageUrl: string): Promise<string | undefined> => {
+		try {
+			const descriptionData: {description: {captions: Array<{text: string}>}} = await getImageDescription(imageUrl);
+			const descriptionText = descriptionData.description.captions[0]?.text;
+			console.log(descriptionData);
+			return descriptionText ?? 'No se encontró descripción';
+		} catch (error) {
+			console.error('Error al obtener la descripción de la imagen:', error);
+			return undefined;
+		}
+	};
+
 	const displayedProducts = products.slice(currentPage * 10, (currentPage + 1) * 10);
 
 	return (
@@ -206,58 +223,55 @@ const myProducts = (): JSX.Element => {
 						{isAdding ? (
 							<form onSubmit={handleSubmit(handleAddProduct)} className='mb-6'>
 								<div>
-									<label className='flex flex-col dark:text-white font-poppins'>Nombre del producto</label>
+									<label>Nombre del producto</label>
 									<input
 										{...register('name', {required: true})}
-										type='text'
 										defaultValue=''
-										className='w-full font-poppins  m-1 p-4 bg-white bg-opacity-20 rounded-lg placeholder-black  text-black  placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro border-solid hover:bg-opacity-30 dark:focus:ring-verdeClaro'
+										className='w-full p-2 mb-2 border rounded focus-border-blue-500'
 									/>
-									{errors.name && <span className='text-red-600 font-poppins'>Este campo es requerido</span>}
+									{errors.name && <span className='text-red-600'>Este campo es requerido</span>}
 								</div>
-								<div>
-									<label className='flex flex-col dark:text-white font-poppins'>Descripc	ión del producto</label>
+								{/* <div>
+									<label>Descripción del producto</label>
 									<input
-										{...register('description', {required: true})}
-										type='text'
+										{...register('description')}
 										defaultValue=''
-										className='w-full font-poppins m-1 p-4 bg-white bg-opacity-20 rounded-lg placeholder-black  text-black  placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro border-solid hover:bg-opacity-30 dark:focus:ring-verdeClaro'
+										className='w-full p-2 mb-2 border rounded focus-border-blue-500'
 									/>
-								</div>
+								</div> */}
 								<div>
-									<label className='flex flex-col dark:text-white font-poppins'>Precio</label>
+									<label>Precio</label>
 									<input
-										{...register('price', {required: true})}
+										{...register('price')}
 										type='number'
 										defaultValue=''
-										className='w-full font-poppins m-1 p-4 bg-white bg-opacity-20 rounded-lg placeholder-black  text-black  placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro border-solid hover:bg-opacity-30 dark:focus:ring-verdeClaro appearance-none'
+										className='w-full p-2 mb-2 border rounded focus-border-blue-500'
 									/>
 								</div>
 								<div>
-									<label className='flex flex-col dark:text-white font-poppins'>Cantidad</label>
+									<label>Cantidad</label>
 									<input
-										{...register('stock', {required: true})}
+										{...register('stock')}
 										type='number'
 										defaultValue=''
-										className='w-full font-poppins m-1 p-4 bg-white bg-opacity-20 rounded-lg placeholder-black  text-black  placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro border-solid hover:bg-opacity-30 dark:focus:ring-verdeClaro appearance-none'
+										className='w-full p-2 mb-2 border rounded focus-border-blue-500'
 									/>
 								</div>
 								<div>
-									<label className='flex flex-col dark:text-white font-poppins'>Descuento</label>
+									<label>Descuento</label>
 									<input
-										{...register('discount', {required: true})}
+										{...register('discount')}
 										type='number'
 										defaultValue=''
-										className='w-full font-poppins m-1 p-4 bg-white bg-opacity-20 rounded-lg placeholder-black  text-black  placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro border-solid hover:bg-opacity-30 dark:focus:ring-verdeClaro appearance-none'
+										className='w-full p-2 mb-2 border rounded focus-border-blue-500'
 									/>
 								</div>
 								<div>
-									<label className='flex flex-col dark:text-white font-poppins'>Foto del producto</label>
+									<label>Foto del producto</label>
 									<input
-										{...register('imageUrl', {required: true})}
+										{...register('imageUrl')}
 										type='file'
-										className='flex w-full mb-5 text-xs text-gray-900 border border-red-900 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400'
-										id='default_size'
+										className='w-full p-2 mb-2 border rounded border-blue-500'
 										onChange={handleImageChange}
 									/>{imagePreview && (
 										<img
@@ -268,10 +282,10 @@ const myProducts = (): JSX.Element => {
 									)}
 								</div>
 								<div>
-									<label className='flex flex-col dark:text-white font-poppins '>Categoría del producto</label>
+									<label>Categoría del producto</label>
 									<select
-										{...register('categories', {required: true})}
-										className='w-full font-poppins m-1 p-4 bg-white bg-opacity-20 rounded-lg placeholder-black  text-black  placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro border-solid hover:bg-opacity-30 dark:focus:ring-verdeClaro'
+										{...register('categories')}
+										className='w-full p-2 mb-2 border rounded focus-border-blue-500'
 									>
 										<option value=''>Seleccionar una categoría</option>
 										{categories.map(category => (
@@ -280,55 +294,56 @@ const myProducts = (): JSX.Element => {
 											</option>
 										))}
 									</select>
-									{errors.category && <span className='text-red-600 font-poppins '>Este campo es requerido</span>}
+									{errors.category && <span className='text-red-600'>Este campo es requerido</span>}
 								</div>
-								<button type='submit' className='m-2 font-poppins  bg-blue-600 text-white text-bold px-4 py-2 rounded border-solid hover:brightness-125 border-gris'>
+								{/* Terminar los restantes */}
+								<button type='submit' className='bg-red-500 text-white py-2 px-4 rounded cursor-pointer'>
                 Agregar
 								</button>
 							</form>
 						) : isEditing ? (
 							<form onSubmit={handleSubmit(handleSaveEdit)} className='mb-6'>
 								<div>
-									<label className='flex flex-col dark:text-white font-poppins'>Nombre del producto</label>
+									<label>Nombre del producto</label>
 									<input
 										{...register('name')}
 										defaultValue={editedProduct ? editedProduct.name : ''}
-										className='w-full m-1 p-4 bg-white bg-opacity-20 rounded-lg placeholder-black  text-black  placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro border-solid hover:bg-opacity-30  dark:focus:ring-verdeClaro font-poppins '
+										className='w-full p-2 mb-2 border rounded focus-border-blue-500'
 									/>
 								</div>
 								<div>
-									<label className='w-full m-1 p-4 bg-white bg-opacity-20 rounded-lg placeholder-black  text-black  placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro border-solid hover:bg-opacity-30  dark:focus:ring-verdeClaro font-poppins  '>Descripción del producto</label>
+									<label>Descripción del producto</label>
 									<input
 										{...register('description')}
 										defaultValue={editedProduct ? editedProduct.description : ''}
-										className='w-full m-1 p-4 bg-white bg-opacity-20 rounded-lg placeholder-black  text-black  placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro border-solid hover:bg-opacity-30  dark:focus:ring-verdeClaro font-poppins '
+										className='w-full p-2 mb-2 border rounded focus-border-blue-500'
 									/>
 								</div>
 								<div>
-									<label className='flex flex-col dark:text-white font-poppins'>Precio</label>
+									<label>Precio</label>
 									<input
 										{...register('price')}
 										defaultValue={editedProduct ? editedProduct.price : ''}
 										type='number'
-										className='w-full m-1 p-4 bg-white bg-opacity-20 rounded-lg placeholder-black  text-black  placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro border-solid hover:bg-opacity-30  dark:focus:ring-verdeClaro appearance-none font-poppins'
+										className='w-full p-2 mb-2 border rounded focus-border-blue-500'
 									/>
 								</div>
 								<div>
-									<label className='flex flex-col dark:text-white font-poppins '>Cantidad</label>
+									<label>Cantidad</label>
 									<input
 										{...register('stock')}
 										type='number'
 										defaultValue={editedProduct ? editedProduct.stock : ''}
-										className='w-full m-1 p-4 bg-white bg-opacity-20 rounded-lg placeholder-black  text-black  placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro border-solid hover:bg-opacity-30  dark:focus:ring-verdeClaro font-poppins appearance-none'
+										className='w-full p-2 mb-2 border rounded focus-border-blue-500'
 									/>
 								</div>
 								<div>
-									<label className='flex flex-col dark:text-white font-poppins '>Descuento</label>
+									<label>Descuento</label>
 									<input
 										{...register('discount')}
 										type='number'
 										defaultValue={editedProduct ? editedProduct.discount : ''}
-										className='w-full m-1 p-4 bg-white bg-opacity-20 rounded-lg placeholder-black  text-black  placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro border-solid hover:bg-opacity-30  dark:focus:ring-verdeClaro font-poppins appearance-none'
+										className='w-full p-2 mb-2 border rounded focus-border-blue-500'
 									/>
 								</div>
 								<button type='submit' className='bg-red-500 text-white py-2 px-4 rounded cursor-pointer'>
@@ -371,7 +386,7 @@ const myProducts = (): JSX.Element => {
 													onClick={() => {
 														handleDeleteProduct(product._id);
 													}}
-													className='m-2 bg-vinotinto text-white text-bold px-4 py-2 rounded border-solid hover:brightness-125 border-gris'
+													className='bg-red-500 font-poppins text-white py-2 px-2 md:px-4 rounded cursor-pointer mb-2 md:mb-0 md:mr-2'
 												>
             Eliminar
 												</button>
@@ -379,7 +394,7 @@ const myProducts = (): JSX.Element => {
 													onClick={() => {
 														handleEditProduct(product);
 													}}
-													className='m-2 bg-verdeClaro text-white text-bold px-4 py-2 rounded border-solid hover:brightness-125 border-gris'
+													className='bg-blue-500 font-poppins text-white py-2 px-2 md:px-4 rounded cursor-pointer'
 												>
             Editar
 												</button>
