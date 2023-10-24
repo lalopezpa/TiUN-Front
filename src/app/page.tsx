@@ -73,6 +73,7 @@ const Home: React.FC = () => {
 					{products.map(product => (
 						<Card
 							key ={product._id}
+							id ={product._id}
 							Foto= {product.imageUrl}
 							Nombre={product.name}
 							Precio={`$${product.price}`}
