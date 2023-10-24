@@ -8,7 +8,6 @@ import {API} from '../../api/api';
 import {type ProductType} from '../../types/CRUD/ProductSchema';
 import {type CategoryType} from '../../types/CRUD/CategoriesSchema';
 import {getCategories} from '../../api/categories';
-import Card from '../../components/common/Card';
 
 const ProductList = (): JSX.Element => {
 	const [products, setProducts] = useState<ProductType[]>([]);
@@ -177,14 +176,23 @@ const ProductList = (): JSX.Element => {
 								</h1>
 								<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'>
 									{displayedProducts.map(product => (
-										<Card
-											key ={product._id}
-											id ={product._id}
-											Foto= {product.imageUrl}
-											Nombre={product.name}
-											Precio={`$${product.price}`}
-											Rating={product.ratings}
-										/>
+										<div
+											key={product._id}
+											className='bg-white dark:bg-emerald-800 shadow-lg rounded-lg overflow-hidden '
+										>
+											<img
+												src={product.imageUrl}
+												alt={product.name}
+												className='w-full h-48 object-cover object-center'
+											/>
+											<div className='p-4'>
+												<h2 className='text-2xl text-gray-800 dark:text-gray-200 font-semibold'>
+													{product.name}
+												</h2>
+												<p className='text-gray-600 dark:text-gray-400'>{product.description}</p>
+												<p className='mt-2 text-black font-bold'>${product.price}</p>
+											</div>
+										</div>
 									))}
 								</div>
 								<ReactPaginate
