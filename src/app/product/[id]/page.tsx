@@ -65,9 +65,10 @@ const products = ({params}: PageProps): JSX.Element => {
 		const fetchCategories = async () => {
 			try {
 				const product = await getOneProduct(params.id);
+				console.log(product);
 				setProduct(product);
 			} catch (error) {
-				console.error('Error al obtener categorías:', error);
+				console.error('Error al obtener producto:', error);
 			}
 		};
 
