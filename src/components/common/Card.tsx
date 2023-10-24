@@ -1,7 +1,8 @@
 import type React from 'react';
 import {FavoritesIconN} from '../icons/icons';
 import StarRating from './StarRating';
-
+import Link from 'next/link';
+import Image from 'next/image';
 // TODO: pasar type
 type CardProps = {
 	Foto: string;
@@ -24,6 +25,7 @@ const Card: React.FC<CardProps> = ({Foto, Nombre, Precio, Rating}) => (
 		</div>
 		<div className=''>
 			<a href='#' className='flex items-center '>
+				<Image src={Foto} alt='foto product' width={300} height={200}/>
 				<img
 					src={Foto}
 					className='mx-auto rounded-lg'
