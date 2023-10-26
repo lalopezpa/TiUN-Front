@@ -198,15 +198,19 @@ const ProductList = (): JSX.Element => {
 								<ReactPaginate
 									previousLabel={'Anterior'}
 									nextLabel={'Siguiente'}
-									pageCount={Math.ceil(products.length / 10)}
+									breakLabel={'...'}
+									pageCount={pageCount}
+									marginPagesDisplayed={2}
+									pageRangeDisplayed={5}
 									onPageChange={handlePageClick}
 									containerClassName={'flex justify-center items-center my-6'}
-									previousLinkClassName={'border rounded-full p-2 px-4 mx-2 cursor-pointer text-black dark:text-slate-100 hover-bg-gray-200'}
-									nextLinkClassName={'border rounded-full p-2 px-4 mx-2 cursor-pointer text-black  dark:text-slate-100 hover-bg-gray-200'}
+									previousLinkClassName={'border rounded-full p-2 px-4 mx-2 cursor-pointer text-black dark:text-slate-100 hover:bg-gray-200'}
+									nextLinkClassName={'border rounded-full p-2 px-4 mx-2 cursor-pointer text-black dark:text-slate-100 hover:bg-gray-200'}
 									disabledClassName={'cursor-not-allowed text-gray-400'}
 									activeClassName={'bg-verdeClaro text-white rounded-full p-2 px-4 mx-2 cursor-pointer'}
-									pageClassName={'cursor-pointer rounded-full p-2 px-4 mx-2 hover-bg-gray-200'}
+									pageClassName={'cursor-pointer rounded-full p-2 px-4 mx-2 hover:bg-gray-200'}
 								/>
+
 							</div>
 						</div>
 					</div>

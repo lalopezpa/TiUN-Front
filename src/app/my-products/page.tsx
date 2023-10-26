@@ -393,22 +393,18 @@ const myProducts = (): JSX.Element => {
 
 						{products.length > 10 && !isAdding && !isEditing ? (
 							<ReactPaginate
-								previousLabel={''}
-								nextLabel={''}
+								previousLabel={'Anterior'}
+								nextLabel={'Siguiente'}
 								pageCount={Math.ceil(products.length / 10)}
 								onPageChange={data => {
 									setCurrentPage(data.selected);
 								}}
 								containerClassName={'flex justify-center items-center my-6'}
-								previousLinkClassName={'hidden'}
-								nextLinkClassName={'hidden'}
+								previousLinkClassName={'border rounded-full p-2 px-4 mx-2 cursor-pointer text-black dark:text-slate-100 hover-bg-gray-200'}
+								nextLinkClassName={'border rounded-full p-2 px-4 mx-2 cursor-pointer text-black  dark:text-slate-100 hover-bg-gray-200'}
 								disabledClassName={'cursor-not-allowed text-gray-400'}
 								activeClassName={'bg-verdeClaro text-white rounded-full p-2 px-4 mx-2 cursor-pointer'}
 								pageClassName={'cursor-pointer rounded-full p-2 px-4 mx-2 hover-bg-gray-200'}
-								pageLinkClassName={'cursor-pointer text-black dark:text-slate-100'}
-								breakLabel={<span className='text-black dark:text-slate-100 cursor-pointer'>...</span>}
-								marginPagesDisplayed={2}
-								pageRangeDisplayed={5} // Controla cuántos números de página se muestran
 							/>
 						) : null}
 					</div>
