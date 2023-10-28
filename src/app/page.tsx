@@ -77,6 +77,7 @@ const Home: React.FC = () => {
 							Nombre={product.name}
 							Precio={`$${product.price}`}
 							Rating={product.ratings}
+							onAddToCart={async () => Promise.resolve()}
 						/>
 					))}
 				</div>
