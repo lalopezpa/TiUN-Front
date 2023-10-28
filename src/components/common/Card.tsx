@@ -15,10 +15,13 @@ type CardProps = {
 
 const Card: React.FC<CardProps> = ({Foto, Nombre, Precio, Rating, onAddToCart}) => {
 	const handleAddToCart = async () => {
-		await onAddToCart();
-
-		// Muestra el toast
-		toast.success('Añadido al carrito correctamente');
+		try {
+			await onAddToCart();
+			toast.success('Añadido al carrito correctamente');
+		} catch (error) {
+			// Mostrar un mensaje o redirigir a la página de inicio de sesión
+			toast.error('Debes iniciar sesión para añadir productos al carrito');
+		}
 	};
 
 	return (

@@ -61,9 +61,9 @@ const Profile = (): JSX.Element => {
 								<p className='text-gray-600'>{profile.phoneNumber} </p>
 							</div>
 							{/* Botón para editar perfil */}
-							<button className='bg-blue-500 text-white m-1 px-4 py-2 rounded-full ml-4'>
+							{/* <button className='bg-blue-500 text-white m-1 px-4 py-2 rounded-full ml-4'>
 								Editar perfil
-							</button>
+							</button> */}
 							<button className='bg-red-500 text-white m-1 px-4 py-2 rounded-full ml-4' onClick={handleLogout} >
 								Salir
 							</button>

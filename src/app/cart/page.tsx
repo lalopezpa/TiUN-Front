@@ -1,108 +1,68 @@
-// Cart.tsx
 'use client';
-import {useEffect, useState} from 'react';
-import type React from 'react';
-import Footer from '../../components/common/Footer';
+import React, {useEffect, useState} from 'react';
 import Header from '../../components/common/Header';
+import {MoneyIcon, CheckIcon, ListForSendIcon, ListSendedIcon} from '../../components/icons/icons';
+import Footer from '../../components/common/Footer';
+import {getUser} from '../../api/auth';
+import type {UserType} from '../../types/UserSchema';
+import {useAuth} from '../../context/authContext';
+import {useRouter} from 'next/navigation';
+import Image from 'next/image';
 import CartItem from '../../components/common/CartItem';
-import {type ProductType} from '../../types/CRUD/ProductSchema';
-import {removeFromCart, getCartItems} from '../../api/cart'; // Asegúrate de importar las funciones correctas
 
-
-type CartItemType = {
-	id: number;
-	producto: ProductType;
-	cantidad: number;
-};
-
-type CartProps = Record<string, unknown>;
-
-const Cart: React.FC<CartProps> = () => {
-	const [carrito, setCarrito] = useState<ProductType[]>([]);
-	const [total, setTotal] = useState(0);
+const Cart = (): JSX.Element => {
+	const [profile, setProfile] = useState<UserType>();
+	const {logout} = useAuth();
+	const router = useRouter();
+	const handleLogout = () => {
+		console.log('Antes de logout');
+		logout();
+		console.log('Después de logout');
+		router.push('/');
+	};
 
 	useEffect(() => {
-		const fetchCartItems = async () => {
+		const fetchUserProfile = async () => {
 			try {
-				const cartItems = await getCartItems();
-				setCarrito(cartItems);
+				const profile = (await getUser())!;
+				setProfile(profile);
+				console.log(profile);
 			} catch (error) {
-				console.error(error);
-				// Manejar errores de manera adecuada
+				console.error('Error fetching user profile:', error);
 			}
 		};
 
-		void fetchCartItems();
+		(async () => {
+			await fetchUserProfile();
+		})();
 	}, []);
 
-	const eliminarDelCarrito = async (productoId: string) => {
-		await removeFromCart(productoId);
-		await fetchCartItems();
-	};
-
-	const fetchCartItems = async () => {
-		try {
-			const cartItems = await getCartItems();
-			setCarrito(cartItems);
-		} catch (error) {
-			console.error(error);
-			// Manejar errores de manera adecuada
-		}
-	};
-
-	if (!carrito) {
-		return <div>Cargando...</div>;
+	if (!profile) {
+		return <div> </div>;
 	}
-
-	if (carrito.length === 0) {
-		return (
-			<div>
-				<h1 className='text-2xl font-bold mb-4'>Carrito de Compras</h1>
-				<p>El carrito está vacío.</p>
-			</div>
-		);
-	}
-
-	// Calcula el total del carrito
-	const calcularTotal = () => {
-	// Implementa la lógica para calcular el total
-		let calculatedTotal = 0;
-		carrito.forEach(item => {
-			calculatedTotal += item.price * item.stock; // Modifica aquí
-		});
-		return calculatedTotal;
-	};
-
-
 
 	return (
-		<>
-			<div className='flex flex-col max-w-screen min-h-screen bg-repeat' style={{backgroundImage: 'url(https://img.freepik.com/vector-premium/fondo-vector-bolsas-compras_615502-2466.jpg)', zIndex: -1}}>
-				<header className='flex flex-col pt-'>
-					<Header />
-				</header>
-				<div>
-					<h1 className='text-2xl font-bold mb-4'>Carrito de Compras</h1>
-					{carrito.map(item => (
-						<CartItem
-							key={item._id}
-							producto={item}
-							cantidad={item.stock}
-							precio={item.price * item.stock}
-							eliminarDelCarrito={eliminarDelCarrito}
-						/>
-					))}
-
-					<div className='mt-4'>
-						<p className='text-xl font-bold'>Total: ${calcularTotal()}</p>
-						<button className='bg-blue-500 text-white px-4 py-2 mt-4'>Ir a Pagar</button>
+		<div className='bg-gris dark:bg-grisOscuro min-h-screen flex flex-col'>
+			<main className='relative flex-1'>
+				<Header />
+				<div className='flex items-center justify-center h-full pb-10'>
+					<div className='grid grid-cols-1 md:grid-cols-2 pb-10 gap-6 container mx-auto p-5 bg-gray-100 max-w-md rounded-lg shadow-md mt-32'>
+						<div>
+							<div className='m-3 p-2 flex-shrink-0'>
+								<div className='m-3 p-2 flex-shrink-0'>
+									{/* Usar join para convertir el array en una cadena */}
+									<h1 className='text-2xl font-bold py-3'>{profile.cart.join(', ')} </h1>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
-				<footer className='h-1/6 bg-verdeClaro bg-opacity-75 '>
-					<Footer />
-				</footer>
-			</div>
-		</>
+			</main>
+
+			<footer>
+				<Footer />
+			</footer>
+		</div>
 	);
 };
 
