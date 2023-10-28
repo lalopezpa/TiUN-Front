@@ -94,6 +94,12 @@ const Profile = (): JSX.Element => {
 										<span className='ml-1'>Por calificar</span>
 									</a>
 								</div>
+								<div className='flex-1 items-center justify-center text-center ml-2'>
+									<a className='flex items-center'>
+										<CheckIcon />
+										<span className='ml-1'>Por recoger</span>
+									</a>
+								</div>
 							</div>
 						</div>
 
@@ -103,14 +109,8 @@ const Profile = (): JSX.Element => {
 							<div className='flex mt-2 '>
 								<div className='flex-1 items-center justify-center text-center ml-2'>
 									<a className='flex items-center'>
-										<ListForSendIcon />
-										<span className='ml-1'>Por enviar</span>
-									</a>
-								</div>
-								<div className='flex-1 items-center justify-center text-center ml-2'>
-									<a className='flex items-center'>
 										<ListSendedIcon />
-										<span className='ml-1'>Enviados</span>
+										<span className='ml-1'>Vendidos</span>
 									</a>
 								</div>
 								<div className='flex-1 items-center justify-center text-center ml-2'>

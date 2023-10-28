@@ -2,7 +2,6 @@
 'use client';
 import type React from 'react';
 import {useEffect} from 'react';
-// Import styled from 'styled-components';
 import {API} 	from '../api/api';
 import {useState} from 'react';
 import Carrusel from '../components/common/Carrusel';
@@ -11,26 +10,6 @@ import Footer from '../components/common/Footer';
 import Card from '../components/common/Card';
 import {getAllProducts} from '../api/crud';
 import type {ProductType} from '../types/CRUD/ProductSchema';
-import {toast, Toaster} from 'sonner';
-
-// Const Container: StyledComponent<'div', any, Record<string, unknown>, never> = styled.div`
-//   padding-top: 65px;
-//   display:flex;
-//   flex-wrap: wrap;
-//   justify-content: center;
-//   gap: 1rem;
-// `;
-
-// Const BackgroundImage = styled.img`
-//   position: fixed;
-//   top: 0;
-//   left: 0;
-//   width: 100%;
-//   height: 100%;
-//   object-fit: fill;
-//   z-index: 0;
-//   opacity: 0.05;
-// `;
 
 const Home: React.FC = () => {
 	const [products, setProducts] = useState<ProductType[]>([]);
@@ -84,7 +63,6 @@ const Home: React.FC = () => {
 					))}
 				</div>
 				<Footer/>
-				<Toaster richColors visibleToasts={1} closeButton/>
 			</div>
 		</>
 	);
