@@ -11,6 +11,7 @@ import Footer from '../components/common/Footer';
 import Card from '../components/common/Card';
 import {getAllProducts} from '../api/crud';
 import type {ProductType} from '../types/CRUD/ProductSchema';
+import {toast, Toaster} from 'sonner';
 
 // Const Container: StyledComponent<'div', any, Record<string, unknown>, never> = styled.div`
 //   padding-top: 65px;
@@ -73,6 +74,7 @@ const Home: React.FC = () => {
 					{products.map(product => (
 						<Card
 							key ={product._id}
+							Id = {product._id}
 							Foto= {product.imageUrl}
 							Nombre={product.name}
 							Precio={`$${product.price}`}
@@ -82,6 +84,7 @@ const Home: React.FC = () => {
 					))}
 				</div>
 				<Footer/>
+				<Toaster richColors visibleToasts={1} closeButton/>
 			</div>
 		</>
 	);

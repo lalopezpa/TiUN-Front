@@ -1,14 +1,25 @@
 // AddToCartButton.tsx
 import type React from 'react';
+import {addToCart} from '../../api/cart';
+import {type ProductType} from '../../types/CRUD/ProductSchema';
+import {toast, Toaster} from 'sonner';
 
 type AddToCartButtonProps = {
-	onClick: () => Promise<void> | void;
+	product: string;
+	quantity: number;
 };
 
-const AddToCartButton: React.FC<AddToCartButtonProps> = ({onClick}) => {
+const AddToCartButton: React.FC<AddToCartButtonProps> = ({product, quantity}) => {
 	const handleClick = async () => {
-		if (typeof onClick === 'function') {
-			await onClick();
+		console.log('quantity:', quantity);
+		console.log('productId:', product);
+		try {
+			const updatedCart: ProductType[] = await addToCart(product, quantity);
+			console.log('Producto agregado al carrito:', updatedCart);
+			toast.success('Añadido al carrito correctamente');
+		} catch (error) {
+			console.error('Error al agregar el producto al carrito', error);
+			toast.error('Debes iniciar sesión para añadir productos al carrito');
 		}
 	};
 
@@ -19,6 +30,7 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({onClick}) => {
 		>
       Añadir al carrito
 		</button>
+		
 	);
 };
 

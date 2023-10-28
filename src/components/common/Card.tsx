@@ -3,31 +3,22 @@ import type React from 'react';
 import {FavoritesIconN} from '../icons/icons';
 import StarRating from './StarRating';
 import AddToCartButton from './AddToCartButton';
-import {toast, Toaster} from 'sonner';
+
 
 type CardProps = {
 	Foto: string;
+	Id: string;
 	Nombre: string;
 	Precio: string;
 	Rating: number;
 	onAddToCart: () => Promise<void>;
 };
 
-const Card: React.FC<CardProps> = ({Foto, Nombre, Precio, Rating, onAddToCart}) => {
-	const handleAddToCart = async () => {
-		try {
-			await onAddToCart();
-			toast.success('Añadido al carrito correctamente');
-		} catch (error) {
-			// Mostrar un mensaje o redirigir a la página de inicio de sesión
-			toast.error('Debes iniciar sesión para añadir productos al carrito');
-		}
-	};
-
-	return (
+const Card: React.FC<CardProps> = ({Foto, Id, Nombre, Precio, Rating, onAddToCart}) =>
+	(
 		<div className='max-w-sm m-4 p-3 z-10 bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-verdeClaro dark:border-green-900'>
 			<div className='flex items-center justify-between p-2'>
-				<AddToCartButton onClick={handleAddToCart} />
+				<AddToCartButton product={Id} quantity={1} />
 				<a className='text-verdeClaro dark:text-grisOscuro' href=''>
 					<FavoritesIconN />
 				</a>
@@ -47,9 +38,6 @@ const Card: React.FC<CardProps> = ({Foto, Nombre, Precio, Rating, onAddToCart}) 
 					<StarRating rating={Rating} />
 				</div>
 			</div>
-			<Toaster />
 		</div>
 	);
-};
-
 export default Card;
