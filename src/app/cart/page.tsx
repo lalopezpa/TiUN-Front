@@ -1,9 +1,9 @@
-// Carrito.tsx
+// Cart.tsx
 
 import type React from 'react';
 import {useState} from 'react';
 import CartItem from '../../components/common/CartItem';
-import {type ProductType} from '../../types/CRUD/ProductSchema'; 
+import {type ProductType} from '../../types/CRUD/ProductSchema';
 
 type CartProps = {
 	carrito: Array<{id: number; producto: ProductType; cantidad: number}>;
