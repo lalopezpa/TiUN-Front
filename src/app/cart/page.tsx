@@ -63,7 +63,6 @@ const Cart = (): JSX.Element => {
 												productName={product.productName} // Cambiar a product.productName
 												cantidad={product.quantity}
 												precio={product.subtotal}
-												eliminarDelCarrito={async () => Promise.resolve()}
 											/>
 										))}
 									</div>

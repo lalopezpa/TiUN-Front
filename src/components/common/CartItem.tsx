@@ -1,6 +1,8 @@
 import type React from 'react';
 import {useState} from 'react';
 import {type ProductType} from '../../types/CRUD/ProductSchema';
+import {removeFromCart} from '../../api/cart';
+import {toast} from 'sonner';
 
 type CartItemProps = {
 	producto: ProductType;
@@ -8,11 +10,28 @@ type CartItemProps = {
 	cantidad: number;
 	precio: number;
 	productImageUrl: string;
-	eliminarDelCarrito: (productoId: string) => void;
 };
-// ... (importa lo necesario)
 
-const CartItem: React.FC<CartItemProps> = ({producto, productName, cantidad, precio, productImageUrl, eliminarDelCarrito}) => {
+const RemoveFromCartButton: React.FC<{product: ProductType}> = ({product}) => {
+	const handleClick = async () => {
+		try {
+			const removedProduct: ProductType = await removeFromCart(product._id);
+			console.log('Producto eliminado del carrito:', removedProduct);
+			toast.success('Eliminado del carrito correctamente');
+		} catch (error) {
+			console.error('Error al eliminar el producto del carrito 1', error);
+			toast.error('Hubo un problema al eliminar el producto del carrito');
+		}
+	};
+
+	return (
+		<button onClick={handleClick} className='px-2 ml-12 py-1 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none focus:ring focus:border-blue-300'>
+      Eliminar
+		</button>
+	);
+};
+
+const CartItem: React.FC<CartItemProps> = ({producto, productName, cantidad, precio, productImageUrl}) => {
 	const [nuevaCantidad, setNuevaCantidad] = useState(cantidad);
 
 	const handleCantidadChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,7 +49,7 @@ const CartItem: React.FC<CartItemProps> = ({producto, productName, cantidad, pre
 						<p>Cantidad:</p>
 						<input
 							type='number'
-							className='m-5 p-1 border border-gray-300 rounded'
+							className='mr-24 p-1 border border-gray-300 rounded'
 							value={nuevaCantidad}
 							onChange={handleCantidadChange}
 						/>
@@ -38,17 +57,9 @@ const CartItem: React.FC<CartItemProps> = ({producto, productName, cantidad, pre
 					<p>Precio: ${precio.toFixed(2)}</p>
 				</div>
 			</div>
-			<button
-				onClick={() => {
-					eliminarDelCarrito(producto._id);
-				}}
-				className='ml-12 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none focus:ring focus:border-blue-300'
-			>
-			Eliminar
-			</button>
+			<RemoveFromCartButton product={producto} />
 		</div>
 	);
 };
 
 export default CartItem;
-
