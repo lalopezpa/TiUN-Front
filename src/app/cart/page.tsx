@@ -53,31 +53,22 @@ const Cart = (): JSX.Element => {
 					<div className='grid grid-cols-1 md:grid-cols-2 pb-10 gap-6 container mx-auto p-5 bg-gray-100 max-w-md rounded-lg shadow-md mt-32'>
 						<div>
 							<div className='m-3 p-2 flex-shrink-0'>
-								{
-									profile.cart.map((item, index) => (
-										item.products.map((product, index) => (
+								{profile.cart.map((cartItem, cartIndex) => (
+									<div key={cartItem._id}>
+										{cartItem.products.map((product, productIndex) => (
 											<CartItem
 												key={product._id}
+												productImageUrl={product.productImageUrl}
 												producto={product}
-												name={product.name}
-												cantidad={item.quantity}
+												productName={product.productName} // Cambiar a product.productName
+												cantidad={product.quantity}
 												precio={product.subtotal}
 												eliminarDelCarrito={async () => Promise.resolve()}
 											/>
-										))
-									))
-								}
+										))}
+									</div>
+								))}
 							</div>
-
-							<div>
-								{
-									profile.cart.map((item, index) => (
-										<div>{JSON.stringify(item)}</div>
-									))
-								}
-							</div>
-
-
 						</div>
 					</div>
 				</div>
