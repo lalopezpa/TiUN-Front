@@ -1,8 +1,10 @@
 import type React from 'react';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {type ProductType} from '../../types/CRUD/ProductSchema';
 import {removeFromCart} from '../../api/cart';
 import {toast} from 'sonner';
+import {getUser} from '../../api/auth';
+import type {UserType} from '../../types/UserSchema';
 
 type CartItemProps = {
 	producto: ProductType;
@@ -10,16 +12,19 @@ type CartItemProps = {
 	cantidad: number;
 	precio: number;
 	productImageUrl: string;
+	productId: string;
 };
-
-const RemoveFromCartButton: React.FC<{product: ProductType}> = ({product}) => {
+const RemoveFromCartButton: React.FC<{product: string; onRemove: () => void}> = ({product, onRemove}) => {
 	const handleClick = async () => {
 		try {
-			const removedProduct: ProductType = await removeFromCart(product._id);
+			const removedProduct: ProductType = await removeFromCart(product);
 			console.log('Producto eliminado del carrito:', removedProduct);
 			toast.success('Eliminado del carrito correctamente');
+			window.location.reload();
+			// Llama a la función `onRemove` para activar el useEffect en el componente `Cart`.
+			onRemove();
 		} catch (error) {
-			console.error('Error al eliminar el producto del carrito 1', error);
+			console.error('Error al eliminar el producto del carrito', error);
 			toast.error('Hubo un problema al eliminar el producto del carrito');
 		}
 	};
@@ -31,9 +36,20 @@ const RemoveFromCartButton: React.FC<{product: ProductType}> = ({product}) => {
 	);
 };
 
-const CartItem: React.FC<CartItemProps> = ({producto, productName, cantidad, precio, productImageUrl}) => {
-	const [nuevaCantidad, setNuevaCantidad] = useState(cantidad);
+const CartItem: React.FC<CartItemProps> = ({producto, productName, cantidad, precio, productImageUrl, productId}) => {
+	const [profile, setProfile] = useState<UserType>();
 
+	const fetchUserProfile = async () => {
+		try {
+			const userProfile = (await getUser())!;
+			setProfile(userProfile);
+			console.log(userProfile);
+		} catch (error) {
+			console.error('Error fetching user profile:', error);
+		}
+	};
+
+	const [nuevaCantidad, setNuevaCantidad] = useState(cantidad);
 	const handleCantidadChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const nuevaCantidad = parseInt(event.target.value, 10);
 		setNuevaCantidad(Math.max(0, nuevaCantidad));
@@ -57,7 +73,7 @@ const CartItem: React.FC<CartItemProps> = ({producto, productName, cantidad, pre
 					<p>Precio: ${precio.toFixed(2)}</p>
 				</div>
 			</div>
-			<RemoveFromCartButton product={producto} />
+			<RemoveFromCartButton product={productId} onRemove={fetchUserProfile} />
 		</div>
 	);
 };

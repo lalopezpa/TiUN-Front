@@ -60,9 +60,10 @@ const Cart = (): JSX.Element => {
 												key={product._id}
 												productImageUrl={product.productImageUrl}
 												producto={product}
-												productName={product.productName} // Cambiar a product.productName
+												productName={product.productName}
 												cantidad={product.quantity}
 												precio={product.subtotal}
+												productId={product.productId}
 											/>
 										))}
 									</div>
@@ -72,7 +73,6 @@ const Cart = (): JSX.Element => {
 					</div>
 				</div>
 			</main>
-
 			<footer>
 				<Footer />
 			</footer>
