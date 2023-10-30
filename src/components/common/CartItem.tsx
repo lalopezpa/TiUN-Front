@@ -17,20 +17,23 @@ const CartItem: React.FC<CartItemProps> = ({producto, productName, cantidad, pre
 
 	const handleCantidadChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const nuevaCantidad = parseInt(event.target.value, 10);
-		setNuevaCantidad(nuevaCantidad);
+		setNuevaCantidad(Math.max(0, nuevaCantidad));
 	};
 
 	return (
-		<div className='flex items-center justify-between border-b p-4'>
-			{/* Usamos el producto._id como clave única */}
+		<div className='items-center justify-between grid grid-cols-1 md:grid-cols-2 pb-10 gap-6 container mx-auto p-3 bg-gray-100 max-w-md rounded-lg shadow-md mt-4 '>
 			<div key={producto._id} className='flex items-center space-x-4'>
 				<img src={productImageUrl} alt={productName} className='w-12 h-12 object-cover' />
 				<div>
 					<p className='font-bold'>{productName}</p>
 					<div>
 						<p>Cantidad:</p>
-						{/* Aquí puedes agregar la lógica para cambiar la cantidad */}
-						<input type='number' className='m-5' value={nuevaCantidad} onChange={handleCantidadChange} />
+						<input
+							type='number'
+							className='m-5 p-1 border border-gray-300 rounded'
+							value={nuevaCantidad}
+							onChange={handleCantidadChange}
+						/>
 					</div>
 					<p>Precio: ${precio.toFixed(2)}</p>
 				</div>
@@ -39,8 +42,9 @@ const CartItem: React.FC<CartItemProps> = ({producto, productName, cantidad, pre
 				onClick={() => {
 					eliminarDelCarrito(producto._id);
 				}}
-				className='ml-12 text-red-500'>
-		Eliminar
+				className='ml-12 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none focus:ring focus:border-blue-300'
+			>
+			Eliminar
 			</button>
 		</div>
 	);

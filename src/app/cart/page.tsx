@@ -50,7 +50,7 @@ const Cart = (): JSX.Element => {
 			<main className='relative flex-1'>
 				<Header />
 				<div className='flex items-center justify-center h-full pb-10'>
-					<div className='grid grid-cols-1 md:grid-cols-2 pb-10 gap-6 container mx-auto p-5 bg-gray-100 max-w-md rounded-lg shadow-md mt-32'>
+					<div className='mt-14'>
 						<div>
 							<div className='m-3 p-2 flex-shrink-0'>
 								{profile.cart.map((cartItem, cartIndex) => (
