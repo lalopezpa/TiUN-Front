@@ -17,6 +17,8 @@ import {type ProductType} from '../../types/CRUD/ProductSchema';
 import {type UserType} from '../../types/UserSchema';
 import {type ProductFormDataType} from '../../types/CRUD/ProductFormSchema';
 
+import {getImageDescription} from '../../services/imageDescriptionService';
+
 import {storage} from '../../firebase/config';
 
 const myProducts = (): JSX.Element => {
@@ -97,8 +99,11 @@ const myProducts = (): JSX.Element => {
 
 				imageUrl = await getDownloadURL(storageRef);
 
-				data.imageUrl = imageUrl;
+				const description = await getDescriptionForImage(imageUrl);
 
+				data.imageUrl = imageUrl;
+				data.description = description ?? 'Producto sin descripción';
+				console.log('descripcion' + description);
 				const createdProduct: ProductType = await CRUD.createProduct(data);
 				setProducts([...products, createdProduct]);
 				if (isEditing) {
@@ -168,6 +173,18 @@ const myProducts = (): JSX.Element => {
 		}
 	};
 
+	const getDescriptionForImage = async (imageUrl: string): Promise<string | undefined> => {
+		try {
+			const descriptionData: {description: {captions: Array<{text: string}>}} = await getImageDescription(imageUrl);
+			const descriptionText = descriptionData.description.captions[0]?.text;
+			console.log(descriptionData);
+			return descriptionText ?? 'No se encontró descripción';
+		} catch (error) {
+			console.error('Error al obtener la descripción de la imagen:', error);
+			return undefined;
+		}
+	};
+
 	const displayedProducts = products.slice(currentPage * 10, (currentPage + 1) * 10);
 
 	return (
@@ -215,7 +232,7 @@ const myProducts = (): JSX.Element => {
 									/>
 									{errors.name && <span className='text-red-600 font-poppins'>Este campo es requerido</span>}
 								</div>
-								<div>
+								{/* <div>
 									<label className='flex flex-col dark:text-white font-poppins'>Descripc	ión del producto</label>
 									<input
 										{...register('description', {required: true})}
@@ -223,7 +240,7 @@ const myProducts = (): JSX.Element => {
 										defaultValue=''
 										className='w-full font-poppins m-1 p-4 bg-white bg-opacity-20 rounded-lg placeholder-black  text-black  placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro border-solid hover:bg-opacity-30 dark:focus:ring-verdeClaro'
 									/>
-								</div>
+								</div> */}
 								<div>
 									<label className='flex flex-col dark:text-white font-poppins'>Precio</label>
 									<input
