@@ -26,7 +26,7 @@ const Card: React.FC<CardProps> = ({Foto, Nombre, Precio, Rating, id}) => (
 		</div>
 		<div className=''>
 			<Link href={`/product/${id}`} className='flex items-center '>
-				<Image src={Foto} alt='foto product'className='mx-auto rounded-lg' style={{width: '300px', height: '200px'}}/>
+				<Image src={Foto} width={300} height={300} alt='foto product'className='mx-auto rounded-lg' style={{width: '300px', height: '200px'}}/>
 			</Link>
 			<p className='m-3 font-normal text-gray-700 dark:text-white'>
 				{Nombre}

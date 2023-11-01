@@ -96,7 +96,7 @@ const products = ({params}: PageProps): JSX.Element => {
 
 								{/* Sección Derecha */}
 								<div className='flex justify-center items-start mx-10 my-3 flex-col'>
-									<h2 className='font-poppins text-xl font-bold'>{params.id}</h2>
+									<h2 className='font-poppins text-xl font-bold'>{product?.name}</h2>
 									<div className='horizontal flex items-center flex-row'>
 										<Box className='flex items-center'>
 											<Rating
