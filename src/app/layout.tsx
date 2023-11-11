@@ -13,6 +13,13 @@ import {ProductProvider} from '../context/productContext';
 export const metadata: Metadata = {
 	title: 'TiUN',
 	description: 'Tienda universitaria unal',
+	icons: {
+		icon: {
+			url: '/public/icon.ico',
+			type: 'image/ico',
+		},
+		shortcut: {url: '/icon.ico', type: 'image/ico'},
+	},
 };
 
 export default function RootLayout({children}: {
