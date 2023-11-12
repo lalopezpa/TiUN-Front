@@ -102,7 +102,7 @@ const Header = () => {
 					</div>
 				</div>
 				<nav className='flex items-center space-x-5 text-verdeOscuro'>
-					<Link href='/Favorites'>
+					<Link href='/favorites'>
 						<FavoritesIcon />
 					</Link>
 					<Link href='/profile'>

@@ -12,6 +12,12 @@ import {getOneProduct} from '../../api/productCard';
 import {getAllProducts} from '../../api/crud';
 import FavoriteCard from '../../components/common/FavoriteCard';
 import Grid from '@mui/material/Grid';
+import {getUser} from '../../api/auth';
+import type {UserType} from '../../types/UserSchema';
+import {useAuth} from '../../context/authContext';
+import {useRouter} from 'next/navigation';
+import Image from 'next/image';
+import {CRUD} from '../../api/crud';
 
 
 
@@ -21,22 +27,85 @@ type PageProps = {
 
 
 
+
+
 const favorites = ({params}: PageProps): JSX.Element => {
+	const [profile, setProfile] = useState<UserType>();
+	const [product, setProduct] = useState<ProductType | undefined>(undefined);
+	const {logout} = useAuth();
+	const router = useRouter();
 	const [products, setProducts] = useState<ProductType[]>([]);
-	const loadProducts = async () => {
-		try {
-			const products = await getAllProducts();
-			setProducts(products);
-		} catch (error) {
-			console.error(error);
-		}
+	const [loadedProducts, setLoadedProducts] = useState<ProductType[]>([]);
+
+
+	const handleLogout = () => {
+		console.log('Antes de logout');
+		logout();
+		console.log('Después de logout');
+		router.push('/');
 	};
 
 	useEffect(() => {
+		const fetchUserProfile = async () => {
+			try {
+				const profile = (await getUser())!;
+				setProfile(profile);
+				console.log(profile);
+			} catch (error) {
+				console.error('Error fetching user profile:', error);
+			}
+		};
+
 		(async () => {
-			await loadProducts();
+			await fetchUserProfile();
 		})();
 	}, []);
+
+	if (!profile) {
+		return <div> </div>;
+	}
+
+	function data(value: Record<string, unknown>, index: number, array: Array<Record<string, unknown>>): void {
+		throw new Error('Function not implemented.');
+	}
+	// Aca se acaba perfil
+
+
+
+	const favoriteProductsIDs = profile.favouriteProducts;
+
+	const productosPa = [];
+
+	const fetchFavoriteProducts = async () => {
+		try {
+		// Usar Promise.all para esperar a que todas las solicitudes se completen
+			const products = await Promise.all(
+				favoriteProductsIDs.map(async id => {
+					try {
+						const product = await getOneProduct(id);
+						return product;
+					} catch (error) {
+						// Manejar errores si la solicitud de un producto falla
+						console.error(`Error al obtener producto con ID ${id}:`, error);
+						return null; // O un valor predeterminado si prefieres
+					}
+				}),
+			);
+
+			// Filtrar productos nulos (si hay errores) y agregar los productos válidos a productosPa
+			productosPa.push(...products.filter(product => product !== null));
+
+		// Si prefieres usar setProductosPa en lugar de manipular directamente el array
+		// setProductosPa(products.filter(product => product !== null));
+		} catch (error) {
+		// Manejar errores si falla la obtención de productos favoritos
+			console.error('Error al obtener productos favoritos:', error);
+		}
+	};
+
+	fetchFavoriteProducts();
+
+	console.log(productosPa);
 
 
 
@@ -56,18 +125,10 @@ const favorites = ({params}: PageProps): JSX.Element => {
 								MIS FAVORITOS
 							</h2>
 							<div className=' w-11/12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 '>
-								{products.map(product => (
-									<div key={product._id}>
-										<FavoriteCard
-											key ={product._id}
-											id ={product._id}
-											Foto= {product.imageUrl}
-											Nombre={product.name}
-											Precio={`${product.price}`}
-											Rating={product.ratings}
-										/>
-									</div>
-								))}
+								{
+
+
+								}
 							</div>
 						</div>
 					</div>
