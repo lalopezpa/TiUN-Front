@@ -77,7 +77,6 @@ const Home: React.FC = () => {
 							Foto= {product.imageUrl}
 							Nombre={product.name}
 							Precio={`$${product.price}`}
-							Rating={product.ratings}
 						/>
 					))}
 				</div>

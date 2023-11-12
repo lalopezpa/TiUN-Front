@@ -8,11 +8,10 @@ type CardProps = {
 	Foto: string;
 	Nombre: string;
 	Precio: string;
-	Rating: number;
 	id: string;
 };
 
-const Card: React.FC<CardProps> = ({Foto, Nombre, Precio, Rating, id}) => (
+const Card: React.FC<CardProps> = ({Foto, Nombre, Precio, id}) => (
 	<div className='max-w-sm m-4 p-3 z-10 bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-verdeClaro dark:border-green-900 '>
 		<div className='flex items-center justify-between p-2'>
 			<Link
@@ -35,7 +34,6 @@ const Card: React.FC<CardProps> = ({Foto, Nombre, Precio, Rating, id}) => (
 				{Precio}
 			</p>
 			<div className='m-3 font-normal flex justify-end'>
-				<StarRating rating={Rating} />
 			</div>
 		</div>
 	</div>
