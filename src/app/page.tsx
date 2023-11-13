@@ -9,37 +9,49 @@ import Carrusel from '../components/common/Carrusel';
 import Header from '../components/common/Header';
 import Footer from '../components/common/Footer';
 import Card from '../components/common/Card';
-import {getAllProducts} from '../api/crud';
+import {getRecommendedProducts} from '../api/recomendation';
 import type {ProductType} from '../types/CRUD/ProductSchema';
 import {Toaster} from 'sonner';
-
-// Const Container: StyledComponent<'div', any, Record<string, unknown>, never> = styled.div`
-//   padding-top: 65px;
-//   display:flex;
-//   flex-wrap: wrap;
-//   justify-content: center;
-//   gap: 1rem;
-// `;
-
-// Const BackgroundImage = styled.img`
-//   position: fixed;
-//   top: 0;
-//   left: 0;
-//   width: 100%;
-//   height: 100%;
-//   object-fit: fill;
-//   z-index: 0;
-//   opacity: 0.05;
-// `;
+import {getUser} from '../api/auth';
+import type {UserType} from '../types/UserSchema';
+import {getAllProducts} from '../api/crud';
 
 const Home: React.FC = () => {
 	const [products, setProducts] = useState<ProductType[]>([]);
+	const [profile, setProfile] = useState<UserType>();
+	useEffect(() => {
+		const fetchUserProfile = async () => {
+			try {
+				const profile = (await getUser())!;
+				setProfile(profile);
+				console.log(profile);
+			} catch (error) {
+				console.error('Error fetching user profile:', error);
+			}
+		};
+
+		(async () => {
+			await fetchUserProfile();
+		})();
+	}, []);
+
 	const loadProducts = async () => {
-		try {
-			const products = await getAllProducts();
-			setProducts(products);
-		} catch (error) {
-			console.error(error);
+		if (!profile) {
+			try {
+				const products = await getAllProducts();
+				setProducts(products);
+			} catch (error) {
+				console.error(error);
+			}
+		}
+
+		if (profile) {
+			try {
+				const products = await getRecommendedProducts();
+				setProducts(products);
+			} catch (error) {
+				console.error(error);
+			}
 		}
 	};
 
