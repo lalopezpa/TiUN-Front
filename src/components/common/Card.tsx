@@ -3,6 +3,7 @@ import {FavoritesIconN} from '../icons/icons';
 import StarRating from './StarRating';
 import Link from 'next/link';
 import Image from 'next/image';
+import AddToFavoritesButton from '../common/AddToFavoritesButton';
 // TODO: pasar type
 type CardProps = {
 	Foto: string;
@@ -10,6 +11,8 @@ type CardProps = {
 	Precio: string;
 	id: string;
 };
+
+
 
 const Card: React.FC<CardProps> = ({Foto, Nombre, Precio, id}) => (
 	<div className='max-w-sm m-4 p-3 z-10 bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-verdeClaro dark:border-green-900 '>
@@ -19,13 +22,13 @@ const Card: React.FC<CardProps> = ({Foto, Nombre, Precio, id}) => (
 			>
 				Añadir al carrito
 			</Link>
-			<a className='text-verdeClaro dark:text-grisOscuro' href=''>
-				<FavoritesIconN />
+			<a>
+				<AddToFavoritesButton products={id} />
 			</a>
 		</div>
 		<div className=''>
 			<Link href={`/product/${id}`} className='flex items-center '>
-				<Image src={Foto} width={300} height={300} alt='foto product'className='mx-auto rounded-lg' style={{width: '300px', height: '200px'}}/>
+				<Image src={Foto} alt='foto product'className='mx-auto rounded-lg ' width={300} height={200} style={{width: '300px', height: '200px'}}/>
 			</Link>
 			<p className='m-3 font-normal text-gray-700 dark:text-white'>
 				{Nombre}

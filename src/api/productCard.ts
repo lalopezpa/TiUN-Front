@@ -11,7 +11,6 @@ export async function getOneProduct(id: string): Promise<ProductType> {
 		};
 
 		const response = await fetch(`https://backend-6fx2.vercel.app/product/${id}`, requestOptions);
-		console.log(response);
 		if (!response.ok) {
 			throw new Error('Error al obtener productos');
 		}
