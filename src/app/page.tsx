@@ -19,8 +19,9 @@ import {getAllProducts} from '../api/crud';
 const Home: React.FC = () => {
 	const [products, setProducts] = useState<ProductType[]>([]);
 	const [profile, setProfile] = useState<UserType>();
-	useEffect(() => {
-		const fetchUserProfile = async () => {
+
+	const loadProducts = async () => {
+		if (!profile) {
 			try {
 				const profile = (await getUser())!;
 				setProfile(profile);
@@ -28,15 +29,7 @@ const Home: React.FC = () => {
 			} catch (error) {
 				console.error('Error fetching user profile:', error);
 			}
-		};
 
-		(async () => {
-			await fetchUserProfile();
-		})();
-	}, []);
-
-	const loadProducts = async () => {
-		if (!profile) {
 			try {
 				console.log('no hay perfil');
 				const products = await getAllProducts();
