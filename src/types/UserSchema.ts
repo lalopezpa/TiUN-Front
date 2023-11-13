@@ -4,7 +4,7 @@ export const userSchema = z.object({
 	cart: z.array(z.object({})),
 	email: z.string(),
 	emailVerified: z.boolean(),
-	favouriteProducts: z.array(z.string()),
+	favoriteProducts: z.array(z.string()),
 	// eslint-disable-next-line @typescript-eslint/naming-convention
 	id_cedula: z.string(),
 	isAdmin: z.boolean(),

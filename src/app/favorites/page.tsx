@@ -36,7 +36,7 @@ const Favorites = ({params}: PageProps): JSX.Element => {
 
 				// Obtener productos favoritos
 				const favoriteProducts = await Promise.all(
-					userProfile?.favouriteProducts?.map(async id => {
+					userProfile?.favoriteProducts?.map(async id => {
 						try {
 							const product = await getOneProduct(id);
 							return product;
