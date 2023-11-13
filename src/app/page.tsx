@@ -38,7 +38,9 @@ const Home: React.FC = () => {
 	const loadProducts = async () => {
 		if (!profile) {
 			try {
+				console.log('no hay perfil');
 				const products = await getAllProducts();
+				console.log('todos los productos: ', products);
 				setProducts(products);
 			} catch (error) {
 				console.error(error);
@@ -46,8 +48,10 @@ const Home: React.FC = () => {
 		}
 
 		if (profile) {
+			console.log('si hay perfil');
 			try {
 				const products = await getRecommendedProducts();
+				console.log('productos recomendados: ', products);
 				setProducts(products);
 			} catch (error) {
 				console.error(error);
