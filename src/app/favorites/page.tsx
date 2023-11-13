@@ -83,10 +83,13 @@ const Favorites = ({params}: PageProps): JSX.Element => {
 
 				<main className='flex justify-center items-center bg-gris bg-opacity-75 flex-1 pt-20 space-x-2 dark:bg-grisOscuro dark:bg-opacity-80'>
 					<section>
-						<div className='flex flex-col justify-center items-center bg-opacity-75 flex-1 my-10 space-x-2 rounded-lg'>
-							<h2 className='flex justify-center items-center text-5xl mb-4 font-poppins text-white my-10'>
+						<div className='flex flex-col justify-center items-center bg-opacity-75 flex-1 mt-1 space-x-2 rounded-lg'>
+							<div className='flex flex-col px-60 pt-5 mb-4 justify-center items-center bg-green-100 dark:bg-teal-950 rounded-lg'>
+								<h2 className='flex justify-center items-center text-3xl mb-6 font-poppins text-grisOscuro  dark:text-white'>
         MIS FAVORITOS
-							</h2>
+								</h2>
+							</div>
+
 							{loading ? (
 								<p>Cargando productos...</p>
 							) : (

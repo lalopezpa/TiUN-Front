@@ -81,7 +81,7 @@ const Header = () => {
 							<select
 								name='category'
 								onChange={handleFilterChange}
-								className='w-full max-w-4xl  border rounded-full focus:border-blue-500'
+								className='w-full max-w-4xl rounded-full bg-white ml-3'
 							>
 								<option value=''>Categorías</option>
 								{categories.map(category => (
@@ -97,7 +97,7 @@ const Header = () => {
 								placeholder='Estoy buscando... '
 								onChange={handleInputChange}
 							/>
-							<button type='submit' className='px-2 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600'>Buscar</button>
+							<button type='submit' className='px-3 py-2 bg-blue-500 text-white rounded-lg '>Buscar</button>
 						</form>
 					</div>
 				</div>
@@ -114,16 +114,16 @@ const Header = () => {
 					<DarkModeToggle modoOscuro={modoOscuro} toggleModoOscuro={toggleModoOscuro} />
 				</nav>
 			</div>
-			<div className='flex md:hidden flex-grow-0 bg-white rounded-lg p-0 shadow-md max-w-md h-full text-verdeOscuro lg:flex-grow-0-hidden '>
+			<div className='flex md:hidden flex-grow-0  rounded-lg p-0 shadow-md max-w-md h-full text-verdeOscuro lg:flex-grow-0-hidden '>
 				<form className='flex items-center space-x-5 ' onSubmit={handleSearchSubmit}>
 					<select
 						onChange={handleFilterChange}
 						name='category'
-						className='w-full max-w-4xl  border rounded-full focus:border-blue-500'
+						className='w-full max-w-4xl  border rounded-full'
 					>
-						<option value=''>Categorías</option>
+						<option className='bg-white '>Categorías</option>
 						{categories.map(category => (
-							<option key={category._id} value={category._id}>
+							<option className='bg-white' key={category._id} value={category._id}>
 								{category.name}
 							</option>
 						))}
@@ -139,7 +139,7 @@ const Header = () => {
 						// value={searchQuery}
 						// onChange={handleSearchInputChange}
 					/>
-					<button type='submit' className='px-2 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600'>Buscar</button>
+					<button type='submit' className='px-2 py-2  bg-blue-500 text-white rounded-lg hover:bg-blue-600'>Buscar</button>
 				</form>
 			</div>
 			{/* Barra de búsqueda y filtros */}

@@ -1,6 +1,6 @@
 import type React from 'react';
 import Link from 'next/link';
-import {removeFavorites} from '../../api/FavoriteProduct'; // Asegúrate de importar tu función removeFromFavorites desde el archivo correcto
+import {removeFavorites} from '../../api/FavoriteProduct'; 
 
 type CardProps = {
 	Foto: string;
@@ -32,22 +32,22 @@ const FavoriteCard: React.FC<CardProps> = ({Foto, Nombre, Precio, id, onRemove})
 
 	return (
 		<>
-			<div className='my-4 p-3 bg-green-100 border border-green-900 rounded-lg shadow-lg dark:bg-teal-950 dark:border-green-900'>
+			<div className='my-2 mx-2 p-4 bg-green-100 rounded-lg shadow-lg dark:bg-teal-950'>
 				<Link href={`/product/${id}`}>
 					<div className='flex items-center justify-center mb-3'>
-						<img src={Foto} alt={Nombre} className='w-20 h-20 object-cover flex-shrink-0 rounded-full' />
+						<img src={Foto} alt={Nombre} className='w-60 h-40 object-cover flex-shrink-0 rounded-lg' />
 					</div>
 				</Link>
-				<p className='mb-3 text-xl font-bold text-green-900 dark:text-white'>
+				<p className='text-xl font-bold text-grisOscuro dark:text-white'>
 					{Nombre}
 				</p>
-				<p className='mb-3 italic text-green-900 dark:text-white overflow-hidden'>
+				<p className='italic text-green-900 dark:text-white overflow-hidden'>
 					{precioFormateado}
 				</p>
-				<div className='flex justify-between items-center h-12'>
+				<div className='flex justify-center items-center h-12'>
 					<button
 						onClick={handleRemoveFromFavorites}
-						className='px-4 py-2 text-white bg-red-500 rounded-full transition duration-300 transform hover:scale-105 hover:bg-red-700'
+						className='px-5 py-2 text-white bg-red-500 rounded-lg transition duration-300 transform hover:scale-105 hover:bg-red-700'
 					>
             Eliminar
 					</button>

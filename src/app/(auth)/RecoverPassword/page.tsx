@@ -17,9 +17,6 @@ const forgotPassword = (): JSX.Element => {
 		const requestData: RecoverPasswordRequestData = {
 			email: data.email,
 		};
-		console.log(requestData);
-		console.log(requestData.email);
-
 		try {
 			await resetPasswordRequest(requestData);
 			router.push('/reset_password');

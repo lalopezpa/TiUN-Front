@@ -44,7 +44,6 @@ const Register = (): JSX.Element => {
 				const snapshot = await uploadBytes(storageRef, imageFile);
 
 				imageUrl = await getDownloadURL(storageRef);
-				console.log(imageUrl);
 				data.imageUrl = imageUrl;
 			}
 
@@ -69,7 +68,6 @@ const Register = (): JSX.Element => {
 			} else {
 				// Otros errores no reconocidos, muestra un toast genérico
 				toast.error('Error en el registro');
-				// Console.log(type_error);
 			}
 		} catch (error) {
 			if (imageFile && storageRef) {

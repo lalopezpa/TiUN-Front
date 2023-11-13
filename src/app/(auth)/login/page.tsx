@@ -70,7 +70,7 @@ const Login = (): JSX.Element => {
 					</figure>
 				</section>
 				{/* División derecha */}
-				<section className='bg-verdeSeccionLogin bg-opacity-90 w-full md:w-1/2 p-10 pb-0 flex flex-col justify-between items-center md:pt-40 dark:bg-verdeOscuro'>
+				<section className='bg-verdeClaro  bg-opacity-90 w-full md:w-1/2 p-10 pb-0 flex flex-col justify-between items-center md:pt-40 dark:bg-verdeOscuro'>
 					<figure className='flex md:hidden'>
 						<img src={modoOscuro ? logooscuro.src : logo.src} alt='logo' loading='lazy' className='w-48 h-48 pb-5' />
 					</figure>
