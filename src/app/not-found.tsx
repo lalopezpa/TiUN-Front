@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import Footer from '../components/common/Footer'
+import Footer from '../components/common/Footer';
 import Header from '../components/common/Header';
 
 const NotFound = () => (

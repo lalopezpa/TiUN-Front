@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import {type ProductType} from '../types/CRUD/ProductSchema';
 import {type ProductFormDataType} from '../types/CRUD/ProductFormSchema';
 
