@@ -22,9 +22,6 @@ const Card: React.FC<CardProps> = ({Foto, Nombre, Precio, Rating, id}) => (
 			>
 				Añadir al carrito
 			</Link>
-			<a className='text-verdeClaro dark:text-grisOscuro' href=''>
-				<FavoritesIconN />
-			</a>
 			<a>
 				<AddToFavoritesButton products={id} />
 			</a>

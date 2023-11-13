@@ -1,21 +1,16 @@
 import type React from 'react';
-import {FavoritesIconN} from '../icons/icons';
-import StarRating from './StarRating';
 import Link from 'next/link';
-import Image from 'next/image';
+import {removeFavorites} from '../../api/FavoriteProduct'; // Asegúrate de importar tu función removeFromFavorites desde el archivo correcto
 
-// TODO: pasar type
 type CardProps = {
 	Foto: string;
 	Nombre: string;
-	Precio: string;
-	Rating: number;
+	Precio: number;
 	id: string;
+	onRemove: (productId: string) => void;
 };
 
-
-
-const FavoriteCard: React.FC<CardProps> = ({Foto, Nombre, Precio, Rating, id}) => {
+const FavoriteCard: React.FC<CardProps> = ({Foto, Nombre, Precio, id, onRemove}) => {
 	const opcionesDeFormato = {
 		style: 'currency',
 		currency: 'COP',
@@ -23,36 +18,43 @@ const FavoriteCard: React.FC<CardProps> = ({Foto, Nombre, Precio, Rating, id}) =
 		maximumFractionDigits: 0,
 	};
 
+
 	const formatoMoneda = new Intl.NumberFormat('es-CO', opcionesDeFormato);
-	const precioFormateado = formatoMoneda.format(parseFloat(Precio)); // Convierte el string a número y luego lo formatea
+	const precioFormateado = formatoMoneda.format(parseFloat(Precio.toString()));
+	const handleRemoveFromFavorites = async () => {
+		try {
+			// Llama a la función proporcionada desde las props para eliminar el producto
+			onRemove(id);
+		} catch (error) {
+			console.error('Error removing product from favorites:', error);
+		}
+	};
+
 	return (
-		<div className='max-w-xs m-4 p-3 z-10 bg-verdeClaro  border-green-900 rounded-lg shadow-lg dark:bg-teal-950 dark:border-green-900 '>
-			<div className=''>
-				<Link href={`/product/${id}`} className='flex items-center '>
-					<Image src={Foto} alt='foto product' className='mx-auto rounded-lg' width={300} height={200} style={{width: '300px', height: '200px'}} />
+		<>
+			<div className='my-4 p-3 bg-green-100 border border-green-900 rounded-lg shadow-lg dark:bg-teal-950 dark:border-green-900'>
+				<Link href={`/product/${id}`}>
+					<div className='flex items-center justify-center mb-3'>
+						<img src={Foto} alt={Nombre} className='w-20 h-20 object-cover flex-shrink-0 rounded-full' />
+					</div>
 				</Link>
-				<p className='m-3 font-poppins font-bold text-white dark:text-white'>
+				<p className='mb-3 text-xl font-bold text-green-900 dark:text-white'>
 					{Nombre}
 				</p>
-				<p className='m-3 font-poppins italic text-white dark:text-white overflow-hidden'>
+				<p className='mb-3 italic text-green-900 dark:text-white overflow-hidden'>
 					{precioFormateado}
 				</p>
-				<div className='m-3 font-normal flex justify-between'>
-
-					<StarRating rating={Rating} />
-					<button className='underline font-poppins text-white p-3 rounded-full transition duration-300 transform hover:scale-105 hover:text-red-500'>
-                        Eliminar
+				<div className='flex justify-between items-center h-12'>
+					<button
+						onClick={handleRemoveFromFavorites}
+						className='px-4 py-2 text-white bg-red-500 rounded-full transition duration-300 transform hover:scale-105 hover:bg-red-700'
+					>
+            Eliminar
 					</button>
-
-
-
 				</div>
-
 			</div>
-		</div>
+		</>
 	);
 };
-
-
 
 export default FavoriteCard;

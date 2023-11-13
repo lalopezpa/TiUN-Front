@@ -15,7 +15,7 @@ export async function addToFavorites(products: string[]): Promise<ProductType[]>
 			body: JSON.stringify({products}),
 		};
 		console.log(requestOptions);
-		const response = await fetch('http://localhost:3000/user/favprod/add', requestOptions);
+		const response = await fetch('https://backend-6fx2.vercel.app/user/favprod/add', requestOptions);
 		console.log('Después de la solicitud');
 
 		if (!response.ok) {
@@ -32,7 +32,7 @@ export async function addToFavorites(products: string[]): Promise<ProductType[]>
 }
 
 
-export async function removeFromCart(products: string): Promise<ProductType> {
+export async function removeFavorites(products: string[]): Promise<ProductType> {
 	try {
 		const requestOptions: RequestInit = {
 			method: 'PUT', // O el método que uses en tu backend
@@ -43,7 +43,7 @@ export async function removeFromCart(products: string): Promise<ProductType> {
 			body: JSON.stringify({products}),
 		};
 
-		const response = await fetch('http://localhost:3000/user/favprod/remove', requestOptions);
+		const response = await fetch('https://backend-6fx2.vercel.app/user/favprod/remove', requestOptions);
 		console.log(response);
 		if (!response.ok) {
 			throw new Error('Error al eliminar el producto de favoritos');

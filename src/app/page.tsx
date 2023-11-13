@@ -11,6 +11,7 @@ import Footer from '../components/common/Footer';
 import Card from '../components/common/Card';
 import {getAllProducts} from '../api/crud';
 import type {ProductType} from '../types/CRUD/ProductSchema';
+import {Toaster} from 'sonner';
 
 // Const Container: StyledComponent<'div', any, Record<string, unknown>, never> = styled.div`
 //   padding-top: 65px;
@@ -82,6 +83,7 @@ const Home: React.FC = () => {
 					))}
 				</div>
 				<Footer/>
+				<Toaster/>
 			</div>
 		</>
 	);
