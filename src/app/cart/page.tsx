@@ -1,48 +1,33 @@
 'use client';
 import React, {useEffect, useState} from 'react';
 import Header from '../../components/common/Header';
-import {MoneyIcon, CheckIcon, ListForSendIcon, ListSendedIcon} from '../../components/icons/icons';
 import Footer from '../../components/common/Footer';
 import {getUser} from '../../api/auth';
-import type {UserType} from '../../types/UserSchema';
-import {useAuth} from '../../context/authContext';
-import {useRouter} from 'next/navigation';
-import Image from 'next/image';
+import {type UserType} from '../../types/UserSchema';
 import CartItem from '../../components/common/CartItem';
 
 const Cart = (): JSX.Element => {
 	const [profile, setProfile] = useState<UserType>();
-	const {logout} = useAuth();
-	const router = useRouter();
-	const handleLogout = () => {
-		console.log('Antes de logout');
-		logout();
-		console.log('Después de logout');
-		router.push('/');
+
+	const fetchUserProfile = async () => {
+		try {
+			const userProfile = await getUser();
+			setProfile(userProfile);
+		} catch (error) {
+			console.error('Error fetching user profile:', error);
+		}
 	};
 
 	useEffect(() => {
-		const fetchUserProfile = async () => {
-			try {
-				const profile = (await getUser())!;
-				setProfile(profile);
-				console.log(profile);
-			} catch (error) {
-				console.error('Error fetching user profile:', error);
-			}
-		};
-
-		(async () => {
-			await fetchUserProfile();
-		})();
+		fetchUserProfile();
 	}, []);
 
-	if (!profile) {
-		return <div> </div>;
-	}
+	const handleUpdateCart = () => {
+		fetchUserProfile(); // Actualizar el carrito al eliminar un elemento
+	};
 
-	function data(value: Record<string, unknown>, index: number, array: Array<Record<string, unknown>>): void {
-		throw new Error('Function not implemented.');
+	if (!profile) {
+		return <div></div>;
 	}
 
 	return (
@@ -51,24 +36,22 @@ const Cart = (): JSX.Element => {
 				<Header />
 				<div className='flex items-center justify-center h-full pb-10'>
 					<div className='mt-14'>
-						<div>
-							<div className='m-3 p-2 flex-shrink-0'>
-								{profile.cart.map((cartItem, cartIndex) => (
-									<div key={cartItem._id}>
-										{cartItem.products.map((product, productIndex) => (
-											<CartItem
-												key={product._id}
-												productImageUrl={product.productImageUrl}
-												producto={product}
-												productName={product.productName}
-												cantidad={product.quantity}
-												precio={product.subtotal}
-												productId={product.productId}
-											/>
-										))}
-									</div>
-								))}
-							</div>
+						<div className='m-3 p-2 flex-shrink-0'>
+							{profile.cart.map((cartItem, cartIndex) => (
+								<div key={cartItem._id}>
+									{cartItem.products.map((product, productIndex) => (
+										<CartItem
+											key={product._id}
+											productImageUrl={product.productImageUrl}
+											productName={product.productName}
+											cantidad={product.quantity}
+											precio={product.subtotal}
+											productId={product.productId}
+											onUpdateCart={handleUpdateCart} // Pasar función para actualizar el carrito
+										/>
+									))}
+								</div>
+							))}
 						</div>
 					</div>
 				</div>
