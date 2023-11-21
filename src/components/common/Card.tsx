@@ -4,6 +4,7 @@ import StarRating from './StarRating';
 import Link from 'next/link';
 import Image from 'next/image';
 import AddToFavoritesButton from '../common/AddToFavoritesButton';
+import AddToCartButton from './AddToCartButton';
 // TODO: pasar type
 type CardProps = {
 	Foto: string;
@@ -17,11 +18,7 @@ type CardProps = {
 const Card: React.FC<CardProps> = ({Foto, Nombre, Precio, id}) => (
 	<div className='max-w-sm m-4 p-3 z-10 bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-verdeClaro dark:border-green-900 '>
 		<div className='flex items-center justify-between p-2'>
-			<Link
-				className='items-center px-3 py-2 text-sm font-medium text-center text-white bg-verdeClaro rounded-lg focus:ring-4 focus:outline-none dark:bg-verdeOscuro dark:hover:bg-verdeOscuro ' href='/'
-			>
-				Añadir al carrito
-			</Link>
+			<AddToCartButton product={id} quantity={1} />
 			<a>
 				<AddToFavoritesButton products={id} />
 			</a>

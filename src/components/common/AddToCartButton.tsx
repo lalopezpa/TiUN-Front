@@ -30,7 +30,6 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({product, quantity}) =>
 		>
       Añadir al carrito
 		</button>
-		
 	);
 };
 
