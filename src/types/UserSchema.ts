@@ -1,7 +1,7 @@
 import {z} from 'zod';
-
+import {productSchema} from './CRUD/ProductSchema';
 export const userSchema = z.object({
-	cart: z.array(z.object({})),
+	cart: z.array(productSchema),
 	email: z.string(),
 	emailVerified: z.boolean(),
 	favoriteProducts: z.array(z.string()),

@@ -68,6 +68,7 @@ module.exports = {
 		'@typescript-eslint/consistent-type-definitions': 'warn',
 		'no-warning-comments': 'off',
 		'no-multiple-empty-lines': 'off',
+		'no-alert': 'off',
 
 	},
 };

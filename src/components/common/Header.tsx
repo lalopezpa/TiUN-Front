@@ -108,7 +108,7 @@ const Header = () => {
 					<Link href='/profile'>
 						<UserIcon />
 					</Link>
-					<Link href='/Cart'>
+					<Link href='/cart'>
 						<ShoppingCartIcon />
 					</Link>
 					<DarkModeToggle modoOscuro={modoOscuro} toggleModoOscuro={toggleModoOscuro} />
