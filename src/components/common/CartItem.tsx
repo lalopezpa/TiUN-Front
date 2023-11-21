@@ -7,6 +7,7 @@ import {getUser} from '../../api/auth';
 import type {ProductType} from '../../types/CRUD/ProductSchema';
 
 type CartItemProps = {
+	_id: string;
 	producto: ProductType;
 	productName: string;
 	cantidad: number;
@@ -17,6 +18,7 @@ type CartItemProps = {
 };
 
 const CartItem: React.FC<CartItemProps> = ({
+	_id,
 	productName,
 	cantidad,
 	precio,
