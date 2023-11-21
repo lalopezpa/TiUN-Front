@@ -4,6 +4,7 @@ import StarRating from './StarRating';
 import Link from 'next/link';
 import Image from 'next/image';
 import AddToFavoritesButton from '../common/AddToFavoritesButton';
+import AddToCartButton from './AddToCartButton';
 // TODO: pasar type
 type CardProps = {
 	Foto: string;

@@ -2,7 +2,6 @@
 'use client';
 import type React from 'react';
 import {useEffect} from 'react';
-// Import styled from 'styled-components';
 import {API} 	from '../api/api';
 import {useState} from 'react';
 import Carrusel from '../components/common/Carrusel';
@@ -79,9 +78,11 @@ const Home: React.FC = () => {
 						<Card
 							key ={product._id}
 							id ={product._id}
+							Id = {product._id}
 							Foto= {product.imageUrl}
 							Nombre={product.name}
 							Precio={`$${product.price}`}
+							Rating={product.ratings}
 						/>
 					))}
 				</div>

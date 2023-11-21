@@ -43,7 +43,7 @@ const Profile = (): JSX.Element => {
 			<main className='relative flex-1'>
 				<Header />
 				<div className='flex items-center justify-center h-full pb-10'>
- 
+
 					<div className='grid grid-cols-1 md:grid-cols-2 pb-10 gap-6 container mx-auto p-5  bg-green-100 dark:bg-verdeClaro max-w-md rounded-lg shadow-md mt-32'>
 						{/* Columna izquierda - Información del usuario */}
 						<div>
@@ -52,6 +52,10 @@ const Profile = (): JSX.Element => {
 								<p className='text-gray-600 dark:text-white'>{profile.email} </p>
 								<p className='text-gray-600 dark:text-white'>{profile.phoneNumber} </p>
 							</div>
+							{/* Botón para editar perfil */}
+							{/* <button className='bg-blue-500 text-white m-1 px-4 py-2 rounded-full ml-4'>
+								Editar perfil
+							</button> */}
 							<button className='bg-red-500 text-white m-1 px-4 py-2 rounded-full ml-4' onClick={handleLogout} >
 								Cerrar sesión
 							</button>
@@ -62,24 +66,46 @@ const Profile = (): JSX.Element => {
 
 						{/* Nueva fila para "My Orders" */}
 						<div className='md:col-span-2 ml-4 mx-2'>
-							<div className='text-lg font-bold m-1 dark:text-white'>Mis pedidos</div>
-							<div className='flex-1 items-center justify-center text-center ml-2'>
-								<a className='flex items-center'>
-									<MoneyIcon />
-									<span className='ml-1 dark:text-white'>Por pagar</span>
-								</a>
+							<div className='text-lg font-bold m-1'>Mis pedidos</div>
+							<div className='flex mt-2'>
+								<div className='flex-1 items-center justify-center text-center ml-2'>
+									<a className='flex items-center'>
+										<MoneyIcon />
+										<span className='ml-1'>Por pagar</span>
+									</a>
+								</div>
+								<div className='flex-1 items-center justify-center text-center ml-2'>
+									<a className='flex items-center'>
+										<CheckIcon />
+										<span className='ml-1'>Por calificar</span>
+									</a>
+								</div>
+								<div className='flex-1 items-center justify-center text-center ml-2'>
+									<a className='flex items-center'>
+										<CheckIcon />
+										<span className='ml-1'>Por recoger</span>
+									</a>
+								</div>
 							</div>
 
 						</div>
 
 						{/* Nueva fila para "My sales" */}
 						<div className='md:col-span-2 ml-4 mx-2'>
-							<div className='text-lg font-bold dark:text-white'>Mis ventas</div>
-							<div className='flex-1 items-center justify-center text-center ml-2'>
-								<Link href={'./my-products'} className='flex items-center'>
-									<ListSendedIcon />
-									<span className='ml-1 dark:text-white'>Administrar productos</span>
-								</Link>
+							<div className='text-lg font-bold m-2 '>Mis ventas</div>
+							<div className='flex mt-2 '>
+								<div className='flex-1 items-center justify-center text-center ml-2'>
+									<a className='flex items-center'>
+										<ListSendedIcon />
+										<span className='ml-1'>Vendidos</span>
+									</a>
+								</div>
+								<div className='flex-1 items-center justify-center text-center ml-2'>
+									<Link href={'./my-products'} className='flex items-center'>
+										<ListSendedIcon />
+										<span className='ml-1'>Administrar productos</span>
+									</Link>
+								</div>
 							</div>
 						</div>
 					</div>
