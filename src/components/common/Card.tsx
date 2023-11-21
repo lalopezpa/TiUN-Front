@@ -18,11 +18,7 @@ type CardProps = {
 const Card: React.FC<CardProps> = ({Foto, Nombre, Precio, id}) => (
 	<div className='max-w-sm m-4 px-4 py-3 z-10 bg-green-100  border border-gray-200 rounded-lg shadow-lg dark:bg-verdeClaro dark:border-green-900 '>
 		<div className='flex items-center justify-between p-1'>
-			<Link
-				className='items-center px-3 py-2 mb-2 text-sm font-medium text-center text-white bg-verdeClaro rounded-lg focus:ring-4 focus:outline-none dark:bg-verdeOscuro dark:hover:bg-verdeOscuro ' href='/'
-			>
-				Añadir al carrito
-			</Link>
+			<AddToCartButton product={id} quantity={1} />
 			<a>
 				<AddToFavoritesButton products={id} />
 			</a>
