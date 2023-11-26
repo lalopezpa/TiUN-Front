@@ -314,7 +314,7 @@ const myProducts = (): JSX.Element => {
 									/>
 								</div>
 								<div>
-									<label className='w-full m-1 p-4 bg-white bg-opacity-20 rounded-lg placeholder-black  text-black  placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro border-solid hover:bg-opacity-30  dark:focus:ring-verdeClaro font-poppins  '>Descripción del producto</label>
+									<label className='flex flex-col dark:text-white font-poppin '>Descripción del producto</label>
 									<input
 										{...register('description')}
 										defaultValue={editedProduct ? editedProduct.description : ''}
