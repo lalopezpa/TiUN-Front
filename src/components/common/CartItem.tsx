@@ -2,13 +2,9 @@ import type React from 'react';
 import {useState} from 'react';
 import {removeFromCart} from '../../api/cart';
 import {toast} from 'sonner';
-import {UserType} from '../../types/UserSchema';
-import {getUser} from '../../api/auth';
-import type {ProductType} from '../../types/CRUD/ProductSchema';
-
+import {type ProductCardType} from '../../types/productCartSchema';
 type CartItemProps = {
-	_id: string;
-	producto: ProductType;
+	producto: ProductCardType;
 	productName: string;
 	cantidad: number;
 	precio: number;
@@ -17,15 +13,7 @@ type CartItemProps = {
 	onUpdateCart: () => void;
 };
 
-const CartItem: React.FC<CartItemProps> = ({
-	_id,
-	productName,
-	cantidad,
-	precio,
-	productImageUrl,
-	productId,
-	onUpdateCart,
-}) => {
+const CartItem: React.FC<CartItemProps> = ({productName, cantidad, precio, productImageUrl, productId, onUpdateCart}) => {
 	const [nuevaCantidad, setNuevaCantidad] = useState(cantidad);
 
 	const handleCantidadChange = (event: React.ChangeEvent<HTMLInputElement>) => {
