@@ -1,4 +1,5 @@
-export const createPreference = async (orderId: any): Promise<any | undefined> => {
+
+export const createPreference = async (orderId: string): Promise<string | undefined> => {
 	try {
 		const requestOptions: RequestInit = {
 			method: 'POST',
@@ -9,11 +10,9 @@ export const createPreference = async (orderId: any): Promise<any | undefined> =
 			body: JSON.stringify({orderId}),
 		};
 		const response = await fetch('http://localhost:3000/create_preference', requestOptions);
-		// console.log('Después de la solicitud');
-		// console.log(requestOptions);
 
 		if (response.ok) {
-			const data = await response.json();
+			const data: string = await response.json() as string;
 			return data;
 		}
 
@@ -26,7 +25,7 @@ export const createPreference = async (orderId: any): Promise<any | undefined> =
 };
 
 
-export const getlink = async (): Promise<string> => {
+export const getlink = async (): Promise<string | void> => {
 	try {
 		const response = await fetch('http://localhost:3000/getlink', {
 			method: 'GET',
@@ -34,7 +33,7 @@ export const getlink = async (): Promise<string> => {
 		});
 
 		if (response.ok) {
-			const data = await response.json() as any;
+			const data: string = await response.json() as string;
 			return data;
 		}
 
@@ -42,6 +41,5 @@ export const getlink = async (): Promise<string> => {
 		throw new Error('Error en la solicitud.');
 	} catch (error: any) {
 		console.error('Error en la solicitud:', error.message);
-		return error; // Devolver undefined en caso de error
 	}
 };
