@@ -59,35 +59,38 @@ const BuyerOrdersPage = () => {
 	};
 
 	return (
-		<div className='bg-gray-100 min-h-screen'>
+		<div className=' min-h-screen rounded-lg items-center bg-gris bg-opacity-75 flex-1 pt-20 space-x-2  '>
 			<Header />
-			<div className='container mx-auto py-8 my-16'>
-				<h1 className='text-3xl font-bold mb-6'>Órdenes del comprador</h1>
+			<div className='container mx-auto py-8 '>
+				<h1 className='text-3xl font-bold mb-6 text-center'>Órdenes del comprador</h1>
 
 				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
 					{buyerOrders.map((order: OrderType, index) => (
-						<div key={order._id} className='border rounded p-4 bg-white'>
-							<p className='font-semibold'>Order ID: {order._id}</p>
+						<div key={order._id} className='border rounded-lg text-center p-4 ml-8  bg-green-100 dark:text-white shadow-lg dark:bg-teal-950'>
+							<p className='font-semibold text-center '>Order ID: {order._id}</p>
 							<p>Status: {order.status}</p>
-							<p>Date: {order.date}</p>
 							<ul>
 								{order.products.map((product, idx) => (
 									<li key={product._id} className='mt-2'>
-										<img src={product.productImageUrl} alt='Imagen' className='w-100 h-100' />
-										<p> {product.productName}</p>
+										<p className='font-semibold italic text-green-900 dark:text-white m-2'> {product.productName} </p>
+										<div className='flex justify-center dark:text-white '>
+											<img src={product.productImageUrl} alt='Imagen' className='w-40 h-40 rounded-lg m-2' />
+										</div>
 										<p>Cantidad: {product.quantity}</p>
 										<p>Subtotal: {product.subtotal}</p>
 									</li>
 								))}
 
-								<button
-									onClick={async () => {
+								<div className='flex justify-center '>
+									<button
+										onClick={async () => {
 										// Al presionar el botón de Comprar, actualiza el estado con el ID de la orden seleccionada
-										await handlePayment(order._id);
-										setSelectedOrderId(order._id);
-									}}
-									className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
-								> botón de compra </button>
+											await handlePayment(order._id);
+											setSelectedOrderId(order._id);
+										}}
+										className='bg-blue-500 hover:bg-blue-700 mt-3 text-white font-bold py-2 px-4 rounded-lg'
+									> Ir a comprar </button>
+								</div>
 								{selectedOrderId === order._id && preferenceId !== undefined && renderCheckoutButton(preferenceId)}
 							</ul>
 						</div>
