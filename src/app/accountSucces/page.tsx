@@ -42,6 +42,7 @@ const forgotPassword = (): JSX.Element => {
 
 			const postResponse = await fetch('https://backend-6fx2.vercel.app/linkseller', {
 				method: 'POST',
+				credentials: 'include',
 				headers: {
 					'Content-Type': 'application/json',
 				},
