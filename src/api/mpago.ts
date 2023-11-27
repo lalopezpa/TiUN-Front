@@ -9,7 +9,7 @@ export const createPreference = async (orderId: string): Promise<string | undefi
 			},
 			body: JSON.stringify({orderId}),
 		};
-		const response = await fetch('http://localhost:3000/create_preference', requestOptions);
+		const response = await fetch('https://backend-6fx2.vercel.app/create_preference', requestOptions);
 
 		if (response.ok) {
 			const data: string = await response.json() as string;
@@ -27,7 +27,7 @@ export const createPreference = async (orderId: string): Promise<string | undefi
 
 export const getlink = async (): Promise<string | void> => {
 	try {
-		const response = await fetch('http://localhost:3000/getlink', {
+		const response = await fetch('https://backend-6fx2.vercel.app/getlink', {
 			method: 'GET',
 			credentials: 'include',
 		});

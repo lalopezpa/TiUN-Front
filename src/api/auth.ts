@@ -8,7 +8,7 @@ import {type LoginResponse} from '../types/LoginResponseSchema';
 import {type SignupResponse} from '../types/SignupResponseSchema';
 export const registerRequest = async (user: UserRegisterData): Promise<SignupResponse | undefined> => {
 	try {
-		const response = await fetch('http://localhost:3000/signup', {
+		const response = await fetch('https://backend-6fx2.vercel.app/signup', {
 			method: 'POST',
 			credentials: 'include',
 			headers: {
@@ -36,7 +36,7 @@ export const registerRequest = async (user: UserRegisterData): Promise<SignupRes
 
 export const loginRequest = async (user: LoginDataType): Promise<LoginResponse | undefined> => {
 	try {
-		const response = await fetch('http://localhost:3000/signin', {
+		const response = await fetch('https://backend-6fx2.vercel.app/signin', {
 			method: 'POST',
 			credentials: 'include',
 			headers: {
@@ -64,7 +64,7 @@ export const loginRequest = async (user: LoginDataType): Promise<LoginResponse |
 
 export const getUser = async (options = {}): Promise<UserType | undefined> => {
 	try {
-		const response = await fetch('http://localhost:3000/profile', {
+		const response = await fetch('https://backend-6fx2.vercel.app/profile', {
 			method: 'GET',
 			credentials: 'include',
 			...options,

@@ -14,7 +14,7 @@ export async function addToCart(product: string, quantity: number): Promise<Prod
 			body: JSON.stringify({product, quantity}),
 		};
 		console.log(requestOptions);
-		const response = await fetch('http://localhost:3000/user/cart/add', requestOptions);
+		const response = await fetch('https://backend-6fx2.vercel.app/user/cart/add', requestOptions);
 		console.log('Después de la solicitud');
 
 		if (!response.ok) {
@@ -44,7 +44,7 @@ export async function removeFromCart(product: string): Promise<ProductType> {
 			body: JSON.stringify({product}),
 		};
 
-		const response = await fetch('http://localhost:3000/user/cart/remove', requestOptions);
+		const response = await fetch('https://backend-6fx2.vercel.app/user/cart/remove', requestOptions);
 		console.log(response);
 		if (!response.ok) {
 			throw new Error('Error al eliminar el producto del carrito');

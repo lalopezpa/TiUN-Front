@@ -28,7 +28,7 @@ const forgotPassword = (): JSX.Element => {
 				merchantOrderId,
 			};
 
-			const postResponse = await fetch('http://localhost:3000/getpref', {
+			const postResponse = await fetch('https://backend-6fx2.vercel.app/getpref', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',

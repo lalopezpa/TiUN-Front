@@ -11,7 +11,7 @@ export async function createOrder(): Promise<any[]> {
 			// No se envía ningún dato en el cuerpo de la solicitud
 		};
 
-		const response = await fetch('http://localhost:3000/orders/createorder', requestOptions);
+		const response = await fetch('https://backend-6fx2.vercel.app/orders/createorder', requestOptions);
 
 		if (!response.ok) {
 			throw new Error(`Error al crear la orden. Código de estado: ${response.status}`);
@@ -36,7 +36,7 @@ export async function getOrders(userType: string): Promise<OrderType[]> {
 			},
 		};
 
-		let endpoint = 'http://localhost:3000/orders/?userType=';
+		let endpoint = 'https://backend-6fx2.vercel.app/orders/?userType=';
 
 		if (userType === 'buyer') {
 			endpoint += 'buyer'; // Endpoint para obtener órdenes del comprador
