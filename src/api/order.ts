@@ -1,3 +1,5 @@
+import {type OrderType} from '../types/ordertype';
+
 export async function createOrder(): Promise<any[]> {
 	try {
 		const requestOptions: RequestInit = {
@@ -15,7 +17,7 @@ export async function createOrder(): Promise<any[]> {
 			throw new Error(`Error al crear la orden. Código de estado: ${response.status}`);
 		}
 
-		const createdOrders = await response.json();
+		const createdOrders = await response.json() as OrderType[];
 
 		return createdOrders;
 	} catch (error) {
@@ -24,7 +26,7 @@ export async function createOrder(): Promise<any[]> {
 	}
 }
 
-export async function getOrders(userType: string): Promise<any[]> {
+export async function getOrders(userType: string): Promise<OrderType[]> {
 	try {
 		const requestOptions: RequestInit = {
 			method: 'GET',
@@ -50,7 +52,7 @@ export async function getOrders(userType: string): Promise<any[]> {
 			throw new Error(`Error al obtener las órdenes. Código de estado: ${response.status}`);
 		}
 
-		const orders = await response.json();
+		const orders = await response.json() as OrderType[];
 
 		return orders;
 	} catch (error) {

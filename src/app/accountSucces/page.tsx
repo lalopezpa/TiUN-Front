@@ -36,11 +36,12 @@ const forgotPassword = (): JSX.Element => {
 			}
 		} catch (error: any) {
 			console.error('Error en la solicitud:', error.message);
-			return error; // Devolver undefined en caso de error
 		}
 	};
 
-	getpref();
+	getpref().catch(error => {
+		console.error('Error al cargar productos:', error);
+	});
 
 	return (
 		<> <div className='flex flex-col w-screen min-h-screen bg-repeat' style={{backgroundImage: 'url(https://img.freepik.com/vector-premium/fondo-vector-bolsas-compras_615502-2466.jpg)', zIndex: -1}}>

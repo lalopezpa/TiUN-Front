@@ -7,6 +7,7 @@ import {type UserType} from '../../types/UserSchema';
 import CartItem from '../../components/common/CartItem';
 import {createOrder} from '../../api/order';
 import NoLogeado from '../../components/common/NoLogin';
+import {type ProductType} from '../../types/CRUD/ProductSchema';
 
 const Cart = (): JSX.Element => {
 	const [profile, setProfile] = useState<UserType>();
@@ -23,16 +24,20 @@ const Cart = (): JSX.Element => {
 	};
 
 	useEffect(() => {
-		fetchUserProfile();
+		fetchUserProfile().catch(error => {
+			console.error('Error al cargar productos:', error);
+		});
 	}, []);
 
 	const handleUpdateCart = () => {
-		fetchUserProfile();
+		fetchUserProfile().catch(error => {
+			console.error('Error al cargar productos:', error);
+		});
 	};
 
 	const handleCreateOrder = async () => {
 		try {
-			const createdOrders = await createOrder(cartItems);
+			const createdOrders = await createOrder();
 			console.log('Órdenes creadas:', createdOrders);
 		} catch (error) {
 			console.error('Error al crear la orden:', error);

@@ -3,25 +3,27 @@ import React, {useEffect, useState} from 'react';
 import {getOrders} from '../../api/order';
 import Header from '../../components/common/Header'; // Importa el componente Header
 import Footer from '../../components/common/Footer'; // Importa el componente Footer
-
+import {type OrderType} from '../../types/ordertype';
 const SellerPendingOrdersPage = () => {
-	const [sellerPendingOrders, setSellerPendingOrders] = useState([]);
+	const [sellerPendingOrders, setSellerPendingOrders] = useState<OrderType[]>([]);
 
 	useEffect(() => {
 		async function fetchSellerPendingOrders() {
 			try {
 				const response = await getOrders('seller');
-				const orders = response || []; // Asigna la respuesta directamente a orders si es un arreglo
+				const orders: OrderType[] = response || []; // Asigna la respuesta directamente a orders si es un arreglo
 				console.log('Seller pending orders:', orders);
 				// Filtra las órdenes pendientes
-				const pendingOrders = orders.filter(order => order.status === 'En proceso');
+				const pendingOrders: OrderType[] = orders.filter((order: OrderType) => order.status === 'En proceso');
 				setSellerPendingOrders(pendingOrders);
 			} catch (error) {
 				console.error('Error fetching seller pending orders:', error);
 			}
 		}
 
-		fetchSellerPendingOrders();
+		fetchSellerPendingOrders().catch(error => {
+			console.error('Error al cargar productos:', error);
+		});
 	}, []);
 
 	return (
