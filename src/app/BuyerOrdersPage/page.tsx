@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-floating-promises */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 'use client';
 import React, {useEffect, useState} from 'react';
 import {getOrders} from './../../api/order'; // Importa la función getOrders que hicimos antes
@@ -25,13 +22,14 @@ const BuyerOrdersPage = () => {
 			}
 		}
 
-
-		fetchBuyerOrders();
+		(async () => {
+			await fetchBuyerOrders();
+		})();
 	}, []);
 
-	const handlePayment = async orderid => {
+	const handlePayment = async (orderid: string) => {
 		console.log('orderid', orderid);
-		const preferenceid = await createPreference(orderid);
+		const preferenceid: string = await createPreference(orderid);
 		console.log('preferenceid1 ANTES DE SETPREFERENCE ', preferenceid);
 		setPreferenceId(preferenceid);
 		console.log('preferenceId DESPUES DE SETPREFERENCE', preferenceid);
