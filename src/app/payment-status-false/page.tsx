@@ -33,6 +33,7 @@ const forgotPassword = (): JSX.Element => {
 				headers: {
 					'Content-Type': 'application/json',
 				},
+				credentials: 'include',
 				body: JSON.stringify(postData),
 			});
 
