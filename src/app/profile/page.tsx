@@ -1,7 +1,7 @@
 'use client';
 import React, {useEffect, useState} from 'react';
 import Header from '../../components/common/Header';
-import {MoneyIcon, ListSendedIcon} from '../../components/icons/icons';
+import {MoneyIcon, ListSendedIcon, CheckIcon} from '../../components/icons/icons';
 import Footer from '../../components/common/Footer';
 import {getUser} from '../../api/auth';
 import type {UserType} from '../../types/UserSchema';
