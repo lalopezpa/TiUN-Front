@@ -1,16 +1,35 @@
 'use client';
 // ForgotPassword.tsx
 import React from 'react';
+import {getUser} from '../../api/auth';
+import {useEffect, useState} from 'react';
 import logomini	from '../../../assets/logo_mini.png';
 import {useForm, type SubmitHandler} from 'react-hook-form';
 import Link from 'next/link';
 import Footer from '../../components/common/Footer';
 import Header from '../../components/common/Header';
 import {useRouter, useSearchParams} from 'next/navigation';
+import {type UserType} from '../../types/UserSchema';
 
 const forgotPassword = (): JSX.Element => {
+	const [profile, setProfile] = useState<UserType>();
 	const router = useRouter();
 	const searchParams = useSearchParams();
+	useEffect(() => {
+		const fetchUserProfile = async () => {
+			try {
+				const profile = (await getUser())!;
+				setProfile(profile);
+				console.log(profile);
+			} catch (error) {
+				console.error('Error fetching user profile:', error);
+			}
+		};
+
+		(async () => {
+			await fetchUserProfile();
+		})();
+	}, []);
 	const getpref = async (): Promise<void> => {
 		try {
 			const searchParams = useSearchParams();
@@ -32,7 +51,7 @@ const forgotPassword = (): JSX.Element => {
 			if (postResponse.ok) {
 				// Manejar la respuesta en caso de éxito si es necesario
 			} else {
-				console.error('Error al enviar datos al endpoint /getpref:', postResponse.status, postResponse.statusText);
+				console.error('Error al enviar datos al endpoint /linkseller:', postResponse.status, postResponse.statusText);
 			}
 		} catch (error: any) {
 			console.error('Error en la solicitud:', error.message);
@@ -59,7 +78,7 @@ const forgotPassword = (): JSX.Element => {
 							{/* División derecha */}
 							<section className='flex-col bg-opacity-90 w-full   p-8'>
 								<div className='text-3xl font-poppins text-green-800 my-2 md:my-4'>
-                    TU CUENTA A SIDO CONECTADA
+                    TU CUENTA HA SIDO CONECTADA
 									<div className='text-xl font-poppins text-black my-2 md:my-4'>
                         ¡Felicidades! Te has vinculado con MercadoPago
 									</div>
