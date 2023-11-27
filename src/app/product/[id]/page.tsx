@@ -7,6 +7,7 @@ import Link from 'next/link';
 import {useState} from 'react';
 import {type ProductType} from '../../../types/CRUD/ProductSchema';
 import {getOneProduct} from '../../../api/productCard';
+import AddToCartButton from '../../../components/common/AddToCartButton';
 
 type PageProps = {
 	params: {id: string};
@@ -99,18 +100,11 @@ const products = ({params}: PageProps): JSX.Element => {
 									<p className='text-gray-700  font-poppins'>Stock: {product?.stock}</p>
 									<div className='flex space-x-4 mt-4 font-poppins'>
 										<div className='flex items-center justify-between p-1'>
-											<Link
-												className='items-center px-5 py-2 mb-2 text-sm font-medium text-center text-white bg-verdeClaro rounded-lg focus:ring-4 focus:outline-none dark:bg-verdeOscuro dark:hover:bg-verdeOscuro ' href='/'
-											>
-				Añadir al carrito
-											</Link>
+											{product && (
+												<AddToCartButton product={product._id.toString()} quantity={1} />
+											)}
 										</div>
-										<div className='flex items-center justify-between p-1'>
-											<Link
-												className='items-center px-5 py-2 mb-2 text-sm font-medium text-center text-white bg-blue-500 rounded-lg focus:ring-4 focus:outline-none dark:bg-verdeOscuro dark:hover:bg-verdeOscuro ' href='/'
-											>
-				Comprar											</Link>
-										</div>
+
 									</div>
 								</div>
 							</div>
