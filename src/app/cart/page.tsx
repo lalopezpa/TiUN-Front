@@ -9,10 +9,11 @@ import {createOrder} from '../../api/order';
 import NoLogeado from '../../components/common/NoLogin';
 import {type ProductType} from '../../types/CRUD/ProductSchema';
 import {type CartType} from '../../types/CartSchema';
+import {useRouter} from 'next/navigation';
 const Cart = (): JSX.Element => {
 	const [profile, setProfile] = useState<UserType>();
 	const [cartItems, setCartItems] = useState<CartType[]>([]);
-
+	const router = useRouter();
 	const fetchUserProfile = async () => {
 		try {
 			const userProfile: UserType | undefined = await getUser();
@@ -48,10 +49,16 @@ const Cart = (): JSX.Element => {
 		try {
 			const createdOrders = await createOrder();
 			console.log('Órdenes creadas:', createdOrders);
+
+			// Redirigir a BuyerOrdersPage después de 5 segundos
+			setTimeout(() => {
+				router.push('/BuyerOrdersPage');
+			}, 5000); // 5000 milisegundos = 5 segundos
 		} catch (error) {
 			console.error('Error al crear la orden:', error);
 		}
 	};
+
 
 	if (!profile) {
 		return <NoLogeado />;
