@@ -17,6 +17,7 @@ const Cart = (): JSX.Element => {
 		try {
 			const userProfile: UserType | undefined = await getUser();
 			setProfile(userProfile);
+			console.log('prueba');
 			if (userProfile?.cart) {
 				setCartItems(
 					userProfile.cart?.reduce(
