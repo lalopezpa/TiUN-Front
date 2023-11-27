@@ -69,10 +69,12 @@ module.exports = {
 		'no-warning-comments': 'off',
 		'no-multiple-empty-lines': 'off',
 		'no-alert': 'off',
+		complexity: 'off',
+
 
 	},
 };
-/* eslint-disable @typescript-eslint/no-floating-promises */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable consistent-return */
+
+
+
+

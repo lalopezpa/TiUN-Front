@@ -1,4 +1,3 @@
-/* eslint-disable complexity */
 'use client';
 import React, {useState, useEffect, type ChangeEvent} from 'react';
 import Image from 'next/image';
@@ -206,9 +205,9 @@ const myProducts = (): JSX.Element => {
 		return 	<NoLogeado></NoLogeado>;
 	}
 
-	// if (!profile.accessTokenMp) {
-	// 	return 	<NoMpago></NoMpago>;
-	// }
+	if (!profile.accessTokenMp) {
+		return 	<NoMpago></NoMpago>;
+	}
 
 	if (!profile.emailVerified) {
 		return 	<NoEmail></NoEmail>;
