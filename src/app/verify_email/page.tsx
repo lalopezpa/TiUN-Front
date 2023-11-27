@@ -53,7 +53,7 @@ const forgotPassword = (): JSX.Element => {
 							{/* División derecha */}
 							<section className='flex-col bg-opacity-90 w-full   p-8'>
 								<div className='text-3xl font-poppins text-green-800 my-2 md:my-4'>
-                    TU PAGO HA SIDO APROBADO
+                    TE HAS VERIFICADO CON EXITO
 									<div className='text-xl font-poppins text-black my-2 md:my-4'>
                         ¡Felicidades! Tu cuenta ha sido verificada con éxito.
 									</div>
