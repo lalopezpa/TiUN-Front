@@ -133,7 +133,6 @@ const myProducts = (): JSX.Element => {
 
 			if (imageFile && storageRef) {
 				try {
-					// Intenta eliminar la imagen en caso de error
 					await deleteObject(storageRef);
 					console.log('Imagen eliminada de Firebase Storage debido a un error en la petición.');
 				} catch (deleteError) {
