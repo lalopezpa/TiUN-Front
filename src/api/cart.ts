@@ -18,6 +18,7 @@ export async function addToCart(product: string, quantity: number): Promise<Prod
 		console.log('Después de la solicitud');
 
 		if (!response.ok) {
+			console.log(response);
 			throw new Error(`Error al agregar el producto al carrito. Código de estado: ${response.status}`);
 		}
 

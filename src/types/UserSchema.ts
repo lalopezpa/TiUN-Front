@@ -2,6 +2,7 @@ import {z} from 'zod';
 import {productSchema} from './CRUD/ProductSchema';
 export const userSchema = z.object({
 	cart: z.array(productSchema),
+	accessTokenMp: z.string()||z.null(),
 	email: z.string(),
 	emailVerified: z.boolean(),
 	favoriteProducts: z.array(z.string()),

@@ -14,7 +14,7 @@ export async function getAllProducts(): Promise<ProductType[]> {
 			},
 		};
 
-		const response = await fetch('https://backend-6fx2.vercel.app/product', requestOptions);
+		const response = await fetch('http://localhost:3000/product', requestOptions);
 		console.log(response);
 		if (!response.ok) {
 			throw new Error('Error al obtener productos');
@@ -39,7 +39,7 @@ export const CRUD: CrudMethods = {
 				},
 			};
 
-			const response = await fetch('https://backend-6fx2.vercel.app/productseller', requestOptions);
+			const response = await fetch('http://localhost:3000/productseller', requestOptions);
 			console.log(response);
 			if (!response.ok) {
 				throw new Error('Error al obtener productos');
@@ -63,7 +63,7 @@ export const CRUD: CrudMethods = {
 				credentials: 'include',
 				body: JSON.stringify(productData),
 			};
-			const response = await fetch('https://backend-6fx2.vercel.app/product', requestOptions);
+			const response = await fetch('http://localhost:3000/product', requestOptions);
 
 			if (!response.ok) {
 				console.error(response);
@@ -88,7 +88,7 @@ export const CRUD: CrudMethods = {
 				credentials: 'include',
 				body: JSON.stringify(productData),
 			};
-			const response = await fetch(`https://backend-6fx2.vercel.app/product/${productId}`, requestOptions);
+			const response = await fetch(`http://localhost:3000/product/${productId}`, requestOptions);
 
 			if (!response.ok) {
 				throw new Error('Error al actualizar el producto');
@@ -111,7 +111,7 @@ export const CRUD: CrudMethods = {
 				},
 				credentials: 'include',
 			};
-			const response = await fetch(`https://backend-6fx2.vercel.app/product/${productId}`, requestOptions);
+			const response = await fetch(`http://localhost:3000/product/${productId}`, requestOptions);
 
 			if (!response.ok) {
 				console.error(response);

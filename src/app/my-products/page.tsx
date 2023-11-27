@@ -18,7 +18,8 @@ import {type UserType} from '../../types/UserSchema';
 import {type ProductFormDataType} from '../../types/CRUD/ProductFormSchema';
 
 import {getImageDescription} from '../../services/imageDescriptionService';
-
+import NoLogeado from '../../components/common/NoLogin';
+import NoMpago from '../../components/common/NoMpago';
 import {storage} from '../../firebase/config';
 
 const myProducts = (): JSX.Element => {
@@ -30,6 +31,32 @@ const myProducts = (): JSX.Element => {
 	const [imagePreview, setImagePreview] = useState<string | ArrayBuffer | undefined>(undefined);
 	const [categories, setCategories] = useState<CategoryType[]>([]);
 	const {handleSubmit, register, reset, formState: {errors}} = useForm();
+	const [profile, setProfile] = useState<UserType>();
+
+	useEffect(() => {
+		const fetchUserProfile = async () => {
+			try {
+				const profile = (await getUser())!;
+				setProfile(profile);
+				console.log(profile);
+			} catch (error) {
+				console.error('Error fetching user profile:', error);
+			}
+		};
+
+		(async () => {
+			await fetchUserProfile();
+		})();
+	}, []);
+
+	if (!profile) {
+		return 	<NoLogeado></NoLogeado>;
+	}
+	if (!profile.accessTokenMp) {
+		return <>
+			<NoMpago></NoMpago>;
+		</>
+	}
 
 	const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0];
