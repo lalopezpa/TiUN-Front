@@ -10,36 +10,37 @@ import {useRouter, useSearchParams} from 'next/navigation';
 
 const forgotPassword = (): JSX.Element => {
 	const router = useRouter();
-  const searchParams = useSearchParams()
+	const searchParams = useSearchParams();
 	const getpref = async (): Promise<void> => {
 		try {
-				const searchParams = useSearchParams()
-				const code = searchParams.get('code');
+			const searchParams = useSearchParams();
+			const code = searchParams.get('code');
 
-				// Enviar los datos POST al endpoint /getpref
-				const postData = {
-					code: code,
-				};
+			// Enviar los datos POST al endpoint /getpref
+			const postData = {
+				code,
+			};
 
-				const postResponse = await fetch('http://localhost:3000/linkseller', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json'
-					},
-					body: JSON.stringify(postData)
-				});
+			const postResponse = await fetch('http://localhost:3000/linkseller', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(postData),
+			});
 
-				if (postResponse.ok) {
-					// Manejar la respuesta en caso de éxito si es necesario
-				} else {
-					console.error('Error al enviar datos al endpoint /getpref:', postResponse.status, postResponse.statusText);
-				}
-
+			if (postResponse.ok) {
+				// Manejar la respuesta en caso de éxito si es necesario
+			} else {
+				console.error('Error al enviar datos al endpoint /getpref:', postResponse.status, postResponse.statusText);
+			}
 		} catch (error: any) {
 			console.error('Error en la solicitud:', error.message);
 			return error; // Devolver undefined en caso de error
 		}
-	};getpref();
+	};
+
+	getpref();
 
 	return (
 		<> <div className='flex flex-col w-screen min-h-screen bg-repeat' style={{backgroundImage: 'url(https://img.freepik.com/vector-premium/fondo-vector-bolsas-compras_615502-2466.jpg)', zIndex: -1}}>
@@ -82,4 +83,4 @@ const forgotPassword = (): JSX.Element => {
 	);
 };
 
-export default forgotPassword
+export default forgotPassword;
