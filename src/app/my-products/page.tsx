@@ -52,10 +52,11 @@ const myProducts = (): JSX.Element => {
 	if (!profile) {
 		return 	<NoLogeado></NoLogeado>;
 	}
+
 	if (!profile.accessTokenMp) {
 		return <>
 			<NoMpago></NoMpago>;
-		</>
+		</>;
 	}
 
 	const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {

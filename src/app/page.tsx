@@ -83,11 +83,9 @@ const Home: React.FC = () => {
 						<Card
 							key ={product._id}
 							id ={product._id}
-							Id = {product._id}
 							Foto= {product.imageUrl}
 							Nombre={product.name}
 							Precio={`$${product.price}`}
-							Rating={product.ratings}
 						/>
 					))}
 				</div>

@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 'use client';
 import React, {useEffect, useState} from 'react';
 import {getOrders} from './../../api/order'; // Importa la función getOrders que hicimos antes

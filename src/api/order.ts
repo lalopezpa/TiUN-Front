@@ -24,17 +24,6 @@ export async function createOrder(): Promise<any[]> {
 	}
 }
 
-// Luego puedes llamar a esta función para crear la orden desde el carrito
-async function generarOrdenDesdeCarrito() {
-	try {
-		const orders = await createOrderFromCart();
-		// Manejar la respuesta de la creación de la orden, si es necesario
-	} catch (error) {
-		// Manejar errores
-	}
-}
-
-
 export async function getOrders(userType: string): Promise<any[]> {
 	try {
 		const requestOptions: RequestInit = {
