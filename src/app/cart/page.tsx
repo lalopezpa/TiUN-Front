@@ -20,9 +20,8 @@ const Cart = (): JSX.Element => {
 			console.log('prueba');
 			if (userProfile?.cart) {
 				setCartItems(
-					userProfile.cart?.reduce(
-						(acc, curr) => [...acc, ...curr.products],
-						[],
+					userProfile.cart?.map(
+						cart => ({...cart, products: [...cart.products]}),
 					) || [],
 				);
 			} else {
