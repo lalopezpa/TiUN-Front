@@ -67,12 +67,12 @@ const Profile = (): JSX.Element => {
 
 						{/* Nueva fila para "My Orders" */}
 						<div className='md:col-span-2 ml-4 mx-2'>
-							<div className='text-lg font-bold m-1'>Mis pedidos</div>
+							<div className='text-lg font-bold m-1'> <Link href={'./BuyerOrdersPage'}>Mis pedidos</Link></div>
 							<div className='flex mt-2'>
 								<div className='flex-1 items-center justify-center text-center ml-2'>
 									<a className='flex items-center'>
 										<MoneyIcon />
-										<span className='ml-1'>Por pagar</span>
+										<span className='ml-1'> <Link href={'./SellerPendingOrdersPage'}>Mis compras</Link></span>
 									</a>
 								</div>
 								<div className='flex-1 items-center justify-center text-center ml-2'>
