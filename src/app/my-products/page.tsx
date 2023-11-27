@@ -1,10 +1,11 @@
+/* eslint-disable complexity */
 'use client';
 import React, {useState, useEffect, type ChangeEvent} from 'react';
 import Image from 'next/image';
 import ReactPaginate from 'react-paginate';
 import {useForm, type SubmitHandler} from 'react-hook-form';
 import {ref, uploadBytes, getDownloadURL, deleteObject} from 'firebase/storage';
-
+import NoEmail from '../../components/common/Verificarmail';
 import Header from '../../components/common/Header';
 import Footer from '../../components/common/Footer';
 
@@ -205,6 +206,13 @@ const myProducts = (): JSX.Element => {
 		return 	<NoLogeado></NoLogeado>;
 	}
 
+	// if (!profile.accessTokenMp) {
+	// 	return 	<NoMpago></NoMpago>;
+	// }
+
+	if (!profile.emailVerified) {
+		return 	<NoEmail></NoEmail>;
+	}
 
 	return (
 		<>
