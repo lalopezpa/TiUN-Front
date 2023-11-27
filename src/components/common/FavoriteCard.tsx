@@ -1,6 +1,6 @@
 import type React from 'react';
 import Link from 'next/link';
-import {removeFavorites} from '../../api/FavoriteProduct'; 
+import {removeFavorites} from '../../api/FavoriteProduct';
 
 type CardProps = {
 	Foto: string;
