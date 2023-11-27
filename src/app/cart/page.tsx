@@ -8,16 +8,25 @@ import CartItem from '../../components/common/CartItem';
 import {createOrder} from '../../api/order';
 import NoLogeado from '../../components/common/NoLogin';
 import {type ProductType} from '../../types/CRUD/ProductSchema';
-
+import {type CartType} from '../../types/CartSchema';
 const Cart = (): JSX.Element => {
 	const [profile, setProfile] = useState<UserType>();
-	const [cartItems, setCartItems] = useState<ProductType[]>([]);
+	const [cartItems, setCartItems] = useState<CartType[]>([]);
 
 	const fetchUserProfile = async () => {
 		try {
-			const userProfile = await getUser();
+			const userProfile: UserType | undefined = await getUser();
 			setProfile(userProfile);
-			setCartItems(userProfile.cart?.reduce((acc, curr) => [...acc, ...curr.products], []) || []);
+			if (userProfile?.cart) {
+				setCartItems(
+					userProfile.cart?.reduce(
+						(acc, curr) => [...acc, ...curr.products],
+						[],
+					) || [],
+				);
+			} else {
+				setCartItems([]); // Si userProfile o userProfile.cart son undefined, establecer cartItems como un array vacío
+			}
 		} catch (error) {
 			console.error('Error fetching user profile:', error);
 		}
@@ -61,6 +70,7 @@ const Cart = (): JSX.Element => {
 								<div key={cartItem._id}>
 									{cartItem.products.map(product => (
 										<CartItem
+											producto={product}
 											key={product._id}
 											productImageUrl={product.productImageUrl}
 											productName={product.productName}
