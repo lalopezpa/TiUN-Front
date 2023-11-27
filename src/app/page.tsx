@@ -24,15 +24,12 @@ const Home: React.FC = () => {
 			try {
 				const profile = (await getUser())!;
 				setProfile(profile);
-				console.log(profile);
 			} catch (error) {
 				console.error('Error fetching user profile:', error);
 			}
 
 			try {
-				console.log('no hay perfil');
 				const products = await getAllProducts();
-				console.log('todos los productos: ', products);
 				setProducts(products);
 			} catch (error) {
 				console.error(error);
@@ -40,10 +37,8 @@ const Home: React.FC = () => {
 		}
 
 		if (profile) {
-			console.log('si hay perfil');
 			try {
 				const products = await getRecommendedProducts();
-				console.log('productos recomendados: ', products);
 				setProducts(products);
 			} catch (error) {
 				console.error(error);
@@ -75,7 +70,7 @@ const Home: React.FC = () => {
 
 	return (
 		<>
-			<div className='bg-gris dark:bg-grisOscuro'>
+			<div className='bg-gris dark:bg-teal-950'>
 				<Header/>
 				<div className='pt-16 flex flex-wrap min-h-screen justify-center gap-4'>
 					<Carrusel />

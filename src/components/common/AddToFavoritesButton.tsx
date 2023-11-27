@@ -10,10 +10,8 @@ type AddToFavoritesButtonProps = {
 
 const AddToFavoritesButton: React.FC<AddToFavoritesButtonProps> = ({products}) => {
 	const handleClick = async () => {
-		console.log('productId:', products);
 		try {
 			const updatedFavorites: ProductType[] = await addToFavorites([products]);
-			console.log('Producto agregado a favoritos:', updatedFavorites);
 			toast.success('Añadido a favoritos correctamente');
 		} catch (error) {
 			console.error('Error al agregar el producto a favoritos', error);
@@ -23,7 +21,7 @@ const AddToFavoritesButton: React.FC<AddToFavoritesButtonProps> = ({products}) =
 
 	return (
 		<button
-			className='items-center px-3 py-2 text-sm font-medium text-center text-white bg-verdeClaro rounded-lg focus:ring-4 focus:outline-none dark:bg-verdeOscuro dark:hover:bg-verdeOscuro'
+			className='items-center px-3 py-2 mb-2 text-sm font-medium text-center text-verdeOscuro dark:text-white rounded-lg focus:ring-4 focus:outline-none'
 			onClick={handleClick}
 		>
 			<FavoritesIconN />

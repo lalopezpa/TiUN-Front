@@ -3,9 +3,7 @@ import {useEffect} from 'react';
 import {useForm} from 'react-hook-form';
 import Footer from '../../../components/common/Footer';
 import Header from '../../../components/common/Header';
-import Box from '@mui/material/Box';
-import Rating from '@mui/material/Rating';
-import StarIcon from '@mui/icons-material/Star';
+import Link from 'next/link';
 import {useState} from 'react';
 import {type ProductType} from '../../../types/CRUD/ProductSchema';
 import {getOneProduct} from '../../../api/productCard';
@@ -84,40 +82,35 @@ const products = ({params}: PageProps): JSX.Element => {
 				<Header/>
 			</header>
 
-			<main className='flex justify-center items-center bg-gris bg-opacity-75 flex-1 pt-20 space-x-2  ' >
+			<main className='flex justify-center rounded-lg items-center bg-gris bg-opacity-75 flex-1 pt-20 space-x-2  ' >
 				<section>
-					<div className='flex justify-center  my-10 items-center z-30 space-x-2'>
+					<div className='flex justify-center rounded-lg my-10 items-center z-30 space-x-2'>
 						<div className='flex-col'>
-							<div className=' w-11/12 rounded shadow-lg flex bg-gray-100 '>
+							<div className=' w-11/12 rounded-lg shadow-lg flex bg-gray-100 '>
 								{/* Sección Izquierda */}
 								<div className='max-w-xl '>
-									<img className='rounded max-w-full overflow-hidden ' src={product?.imageUrl} alt='Imagen de la tarjeta' />
+									<img className='rounded-l-lg max-w-full m-3 overflow-hidden h-80 w-80 ' src={product?.imageUrl} alt='Imagen de la tarjeta' />
 								</div>
 
 								{/* Sección Derecha */}
 								<div className='flex justify-center items-start mx-10 my-3 flex-col'>
 									<h2 className='font-poppins text-xl font-bold'>{product?.name}</h2>
-									<div className='horizontal flex items-center flex-row'>
-										<Box className='flex items-center'>
-											<Rating
-												name='text-feedback'
-												value={product?.ratings}
-												readOnly
-												precision={0.5}
-												emptyIcon={<StarIcon style={{opacity: 1}} fontSize='inherit' />}
-												size='large'
-											/>
-										</Box>
-									</div>
 									<p className='text-gray-700  text-left font-poppins '>Precio: {product?.price}</p>
 									<p className='text-gray-700  font-poppins'>Stock: {product?.stock}</p>
 									<div className='flex space-x-4 mt-4 font-poppins'>
-										<button className='className=" bg-green-500 hover:bg-green-700 text-white font-poppins font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out"'>
-										Agregar al Carrito
-										</button>
-										<button className='bg-blue-500 hover:bg-blue-700 text-white font-poppins font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out'>
-											Comprar Ahora
-										</button>
+										<div className='flex items-center justify-between p-1'>
+											<Link
+												className='items-center px-5 py-2 mb-2 text-sm font-medium text-center text-white bg-verdeClaro rounded-lg focus:ring-4 focus:outline-none dark:bg-verdeOscuro dark:hover:bg-verdeOscuro ' href='/'
+											>
+				Añadir al carrito
+											</Link>
+										</div>
+										<div className='flex items-center justify-between p-1'>
+											<Link
+												className='items-center px-5 py-2 mb-2 text-sm font-medium text-center text-white bg-blue-500 rounded-lg focus:ring-4 focus:outline-none dark:bg-verdeOscuro dark:hover:bg-verdeOscuro ' href='/'
+											>
+				Comprar											</Link>
+										</div>
 									</div>
 								</div>
 							</div>

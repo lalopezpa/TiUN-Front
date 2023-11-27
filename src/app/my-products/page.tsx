@@ -220,17 +220,17 @@ const myProducts = (): JSX.Element => {
 			<div className='bg-gris dark:bg-grisOscuro'>
 				<Header/>
 				<div className='flex flex-col justify-between pt-16 min-h-screen max-h-max pb-10 px-0 '>
-					<div className='container mx-auto px-4 pt-9'>
+					<div className='container mx-auto px-4 pt-9 mt-2'>
 						{isAdding
-							? (<h1 className='text-3xl font-poppins text-gray-800 mb-6 dark:text-slate-100'>Añadir un producto</h1>)
-							: (<h1 className='text-3xl font-poppins text-gray-800 mb-6 dark:text-slate-100'>Administrar mis productos</h1>)
+							? (<h1 className='text-center text-3xl font-poppins text-gray-800 mb-6 dark:text-slate-100'>Añadir un producto</h1>)
+							: (<h1 className='text-center text-3xl font-poppins text-gray-800 mb-6 dark:text-slate-100'>Administrar mis productos</h1>)
 						}
 						<div className='mb-6'>
 							<button
 								onClick={() => {
 									setIsAdding(false);
 								}}
-								className={`mr-2 py-2 px-4 rounded font-poppins ${
+								className={`mr-2 py-2 px-4 rounded-lg font-poppins ${
 									isAdding ? 'bg-verdeClaro text-white' : 'bg-gray-200 text-gray-600 cursor-not-allowed'
 								}`}
 							>
@@ -240,7 +240,7 @@ const myProducts = (): JSX.Element => {
 								onClick={() => {
 									setIsAdding(true);
 								}}
-								className={`py-2 px-4 rounded font-poppins ${
+								className={`py-2 px-4 rounded-lg font-poppins ${
 									isAdding ? 'bg-gray-200 text-gray-600 cursor-not-allowed' : 'bg-verdeClaro text-white'
 								}`}
 							>
@@ -251,7 +251,11 @@ const myProducts = (): JSX.Element => {
 						{isAdding ? (
 							<form onSubmit={handleSubmit(handleAddProduct)} className='mb-6'>
 								<div>
-									<label className='flex flex-col dark:text-white font-poppins'>Nombre del producto</label>
+									Estamos probando la funcionalidad de descripción con inteligencia artificial, por favor sube una imagen de un producto para que podamos probarla.
+								</div>
+
+								<div>
+									<label className='flex flex-col dark:text-white font-poppins mt-3'>Nombre del producto</label>
 									<input
 										{...register('name', {required: true})}
 										type='text'
@@ -260,15 +264,6 @@ const myProducts = (): JSX.Element => {
 									/>
 									{errors.name && <span className='text-red-600 font-poppins'>Este campo es requerido</span>}
 								</div>
-								{/* <div>
-									<label className='flex flex-col dark:text-white font-poppins'>Descripc	ión del producto</label>
-									<input
-										{...register('description', {required: true})}
-										type='text'
-										defaultValue=''
-										className='w-full font-poppins m-1 p-4 bg-white bg-opacity-20 rounded-lg placeholder-black  text-black  placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro border-solid hover:bg-opacity-30 dark:focus:ring-verdeClaro'
-									/>
-								</div> */}
 								<div>
 									<label className='flex flex-col dark:text-white font-poppins'>Precio</label>
 									<input
@@ -327,7 +322,7 @@ const myProducts = (): JSX.Element => {
 									</select>
 									{errors.category && <span className='text-red-600 font-poppins '>Este campo es requerido</span>}
 								</div>
-								<button type='submit' className='m-2 font-poppins  bg-blue-600 text-white text-bold px-4 py-2 rounded border-solid hover:brightness-125 border-gris'>
+								<button type='submit' className='m-2 font-poppins bg-blue-600 text-white text-bold px-4 py-2 rounded-lg border-solid hover:brightness-125 border-gris'>
                 Agregar
 								</button>
 							</form>
@@ -376,23 +371,23 @@ const myProducts = (): JSX.Element => {
 										className='w-full m-1 p-4 bg-white bg-opacity-20 rounded-lg placeholder-black  text-black  placeholder-opacity-70 placeholder-center text-center focus:outline-none focus:ring-2 focus:ring-verdeOscuro border-solid hover:bg-opacity-30  dark:focus:ring-verdeClaro font-poppins appearance-none'
 									/>
 								</div>
-								<button type='submit' className='bg-red-500 text-white py-2 px-4 rounded cursor-pointer'>
+								<button type='submit' className='bg-verdeOscuro text-white py-2 px-4 rounded-lg cursor-pointer'>
                 Guardar
 								</button>
 								<button
 									type='button'
 									onClick={handleCancelEdit}
-									className='bg-red-500 text-white py-2 px-4 rounded cursor-pointer ml-2'
+									className='bg-red-500 text-white py-2 px-4 rounded-lg cursor-pointer ml-2'
 								>
                 Cancelar
 								</button>
 							</form>
 						) : (
-							<table className='w-full mt-6'>
+							<table className='w-full mt-6 rounded-lg' >
 								<thead>
-									<tr className='bg-verdeClaro border dark:border-green-900'>
-										<th className='font-poppins py-2 px-2 md:px-4'>Foto</th>
-										<th className='font-poppins py-2 px-2 md:px-4'>Nombre</th>
+									<tr className='bg-verdeClaro text-white rounded-lg dark:bg-verdeOscuro' >
+										<th className='font-poppins py-2 px-2 md:px-4 rounded-lg'>Foto</th>
+										<th className='font-poppins rounded-lg py-2 px-2 md:px-4 '>Nombre</th>
 										<th className='font-poppins py-2 px-2 md:px-4'>Descripción</th>
 										<th className='font-poppins py-2 px-2 md:px-4'>Precio</th>
 										<th className='font-poppins py-2 px-2 md:px-4'>Stock</th>
@@ -402,32 +397,33 @@ const myProducts = (): JSX.Element => {
 								</thead>
 								<tbody className='text-center'>
 									{displayedProducts.map(product => (
-										<tr key={product._id} className='dark:bg-verdeClaro border dark:border-green-900'>
+										<tr key={product._id} className='bg-green-100 dark:bg-verdeClaro border border-gris'>
 											<td className='p-2'>
-												<Image src={product.imageUrl} width={100} height={100} alt='imagen' />
+												<Image src={product.imageUrl} width={100} height={100} alt='imagen' className='ml-4 w-40 h-20' />
 											</td>
-											<td className='dark:text-white border border-green-200 dark:bg-verdeClaro  dark:border-green-900 text-black'><p className=''>{product.name}</p></td>
-											<td className='dark:text-white border border-green-200 dark:bg-verdeClaro  dark:border-green-900 text-black'>{product.description}</td>
-											<td className='dark:text-white border border-green-200 dark:bg-verdeClaro  dark:border-green-900 text-black'>{product.price}</td>
-											<td className='dark:text-white border border-green-200 dark:bg-verdeClaro  dark:border-green-900 text-black'>{product.stock}</td>
-											<td className='dark:text-white border border-green-200 dark:bg-verdeClaro  dark:border-green-900 text-black'>{product.discount}</td>
+											<td className='bg-green-100 dark:text-white   dark:bg-verdeClaro  dark:border-green-900 text-black'><p className=''>{product.name}</p></td>
+											<td className='bg-green-100 dark:text-white   dark:bg-verdeClaro  dark:border-green-900 text-black'>{product.description}</td>
+											<td className='bg-green-100 dark:text-white   dark:bg-verdeClaro  dark:border-green-900 text-black'>{product.price}</td>
+											<td className='bg-green-100 dark:text-white  dark:bg-verdeClaro  dark:border-green-900 text-black'>{product.stock}</td>
+											<td className='bg-green-100 dark:text-white  dark:bg-verdeClaro  dark:border-green-900 text-black'>{product.discount}</td>
 											<td className='p-2'>
-												<button
-													onClick={() => {
-														handleDeleteProduct(product._id);
-													}}
-													className='m-2 bg-vinotinto text-white text-bold px-4 py-2 rounded border-solid hover:brightness-125 border-gris'
-												>
-            Eliminar
-												</button>
 												<button
 													onClick={() => {
 														handleEditProduct(product);
 													}}
-													className='m-2 bg-verdeClaro text-white text-bold px-4 py-2 rounded border-solid hover:brightness-125 border-gris'
+													className='m-2 bg-verdeClaro text-white text-bold px-4 py-2 rounded-lg border-solid hover:brightness-125 border-gris dark:bg-green-900 dark:border-green-900 dark:text-white'
 												>
             Editar
 												</button>
+												<button
+													onClick={() => {
+														handleDeleteProduct(product._id);
+													}}
+													className='m-2 bg-vinotinto text-white text-bold px-4 py-2 rounded-lg border-solid hover:brightness-125 border-gris'
+												>
+            Eliminar
+												</button>
+
 											</td>
 										</tr>
 									))}

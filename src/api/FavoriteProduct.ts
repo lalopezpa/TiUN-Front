@@ -5,7 +5,6 @@ import {getOneProduct} from '../api/productCard';
 
 export async function addToFavorites(products: string[]): Promise<ProductType[]> {
 	try {
-		console.log('Antes de la solicitud');
 		const requestOptions: RequestInit = {
 			method: 'PUT',
 			credentials: 'include',

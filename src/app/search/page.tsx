@@ -54,8 +54,6 @@ const ProductList = (): JSX.Element => {
 			console.log('query', queryParameters);
 			// Cambiar
 			const response = await fetch(`https://backend-6fx2.vercel.app/productsby?${queryParameters}`);
-			console.log(queryParameters);
-			console.log(response);
 
 			if (response.ok) {
 				const data = await response.json() as ProductType[];
@@ -73,7 +71,6 @@ const ProductList = (): JSX.Element => {
 			const urlActual = window.location.href;
 			const partes = urlActual.split('?');
 			const parametrosString = partes[1];
-			console.log('parametros', parametrosString);
 			try {
 				await fetchProducts();
 			} catch (error) {
