@@ -91,7 +91,7 @@ const BuyerOrdersPage = () => {
 										className='bg-blue-500 hover:bg-blue-700 mt-3 text-white font-bold py-2 px-4 rounded-lg'
 									> Ir a comprar </button>
 								</div>
-								{selectedOrderId === order._id && preferenceId !== undefined && renderCheckoutButton(preferenceId)}
+								{selectedOrderId  === order._id && preferenceId !== undefined && renderCheckoutButton(preferenceId)}
 							</ul>
 						</div>
 					))}
