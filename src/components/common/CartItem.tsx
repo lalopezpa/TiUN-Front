@@ -39,14 +39,14 @@ const CartItem: React.FC<CartItemProps> = ({productName, cantidad, precio, produ
 	return (
 		<div className='items-center justify-between grid grid-cols-1 md:grid-cols-2 pb-10 gap-6 container mx-auto p-3 bg-gray-100 max-w-md rounded-lg shadow-md mt-4'>
 			<div className='flex items-center space-x-4'>
-				<img src={productImageUrl} alt={productName} className='w-12 h-12 object-cover' />
+				<img src={productImageUrl} alt={productName} className='w-24 h-20  object-cover rounded-lg' />
 				<div>
 					<p className='font-bold'>{productName}</p>
 					<div>
 						<p>Cantidad:</p>
 						<input
 							type='number'
-							className='mr-24 p-1 border border-gray-300 rounded'
+							className='p-1 w-40 border border-gray-300 rounded text-sm'
 							value={nuevaCantidad}
 							onChange={handleCantidadChange}
 						/>
@@ -54,7 +54,7 @@ const CartItem: React.FC<CartItemProps> = ({productName, cantidad, precio, produ
 					<p>Precio: ${precio.toFixed(2)}</p>
 				</div>
 			</div>
-			<button onClick={handleRemoveFromCart} className='px-2 ml-12 py-1 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none focus:ring focus:border-blue-300'>
+			<button onClick={handleRemoveFromCart} className='px-2 mt-6 ml-12 py-1 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none focus:ring focus:border-blue-300'>
         Eliminar
 			</button>
 		</div>
